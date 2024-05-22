@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 public class general extends JFrame{
     BorderLayout bl = new BorderLayout();
-    panelAutos pnlAuto = new panelAutos();
     JPanel panelAct, barraArriba, general, opciones;
     JButton btnInicio, btnClientes, btnAutos, btnEmpleados, btnFacturas, btnVentas;
 
@@ -37,8 +36,10 @@ public class general extends JFrame{
         btnInicio = new JButton("Inicio");
         opciones.add(btnInicio);
         btnAutos = new JButton("Autos");
+        panelAutos pnlAuto = new panelAutos();
         opciones.add(btnAutos);
         btnClientes = new JButton("Clientes");
+        panelClientes pnlClientes = new panelClientes();
         opciones.add(btnClientes);
         btnEmpleados = new JButton("Empleados");
         opciones.add(btnEmpleados);
