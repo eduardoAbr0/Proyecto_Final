@@ -27,12 +27,14 @@ public class general extends JFrame {
         general = new JPanel(cl);
         opciones = new JPanel();
         //CREACION DE SUBPANELES PARA LA PARTE CENTRAL DEL PANEL GENERAL
+        panelInicio pnlInicio = new panelInicio();
         panelAutos pnlAuto = new panelAutos();
         panelClientes pnlClientes = new panelClientes();
         panelEmpleados pnlEmpleados = new panelEmpleados();
         panelFacturas pnlFacturas = new panelFacturas();
         panelVentas pnlVentas = new panelVentas();
 
+        general.add(pnlInicio, "INICIO");
         general.add(pnlAuto,"AUTOS");
         general.add(pnlClientes,"CLIENTES");
         general.add(pnlEmpleados,"EMPLEADOS");
@@ -52,6 +54,12 @@ public class general extends JFrame {
         //CREACION Y CONFIGURACION DE BOTONES DE LA PARTE IZQUIERDA, QUE SERAN
         //DE USO PARA ACCEDER A LOS DIFERENTES SUBPANELES
         btnInicio = new JButton("Inicio");
+        btnInicio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "INICIO");
+            }
+        });
         opciones.add(btnInicio);
         btnAutos = new JButton("Autos");
         btnAutos.addActionListener(new ActionListener() {
