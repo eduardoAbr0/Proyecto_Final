@@ -1,4 +1,5 @@
 package com.autosamistosos.interfaces;
+
 import com.autosamistosos.interfaces.subpaneles.*;
 
 import javax.swing.*;
@@ -6,65 +7,94 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class general extends JFrame{
+public class general extends JFrame {
     BorderLayout bl = new BorderLayout();
-    JPanel panelAct, barraArriba, general, opciones;
+    CardLayout cl = new CardLayout();
+    JPanel barraArriba, general, opciones;
     JButton btnInicio, btnClientes, btnAutos, btnEmpleados, btnFacturas, btnVentas;
 
-    public general(){
+    public general() {
+        //CONFIGURACIONES INICIALES DEL JFRAME
         getContentPane().setLayout(bl);
         setTitle("AutosAmistosos");
         setMinimumSize(new Dimension(1000, 700));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //PANELES GENERALES PARA LA PARTE SUPERIOR, CENTRO E IZQUIERDA
+        //CREACION PANELES GENERALES PARA LA PARTE SUPERIOR, CENTRO E IZQUIERDA
         barraArriba = new JPanel();
-        general = new JPanel();
+        //USO DE CARD LAYOUT PARA ACCEDER LOS DIFERENTES SUBPANELES EN EL MISMO AREA(CENTER)
+        general = new JPanel(cl);
         opciones = new JPanel();
+        //CREACION DE SUBPANELES PARA LA PARTE CENTRAL DEL PANEL GENERAL
+        panelAutos pnlAuto = new panelAutos();
+        panelClientes pnlClientes = new panelClientes();
+        panelEmpleados pnlEmpleados = new panelEmpleados();
+        panelFacturas pnlFacturas = new panelFacturas();
+        panelVentas pnlVentas = new panelVentas();
 
+        general.add(pnlAuto,"AUTOS");
+        general.add(pnlClientes,"CLIENTES");
+        general.add(pnlEmpleados,"EMPLEADOS");
+        general.add(pnlVentas,"VENTAS");
+        general.add(pnlFacturas,"FACTURAS");
+
+        //PERSONALIZACION BASICA DE COLORES PARA IDENTIFICAR
         barraArriba.setBackground(Color.CYAN);
         general.setBackground(Color.BLACK);
         opciones.setBackground(Color.GREEN);
 
         //CONFIGURACION TAMANOS Y ESPECIFICACIONES PARA LAYOUT EN EL PANEL
-        barraArriba.setPreferredSize(new Dimension(0,200));
-        opciones.setPreferredSize(new Dimension(200,0));
-        opciones.setLayout(new GridLayout(6,0));
+        barraArriba.setPreferredSize(new Dimension(0, 200));
+        opciones.setPreferredSize(new Dimension(200, 0));
+        opciones.setLayout(new GridLayout(6, 0));
 
-        panelAct = general;
+        //CREACION Y CONFIGURACION DE BOTONES DE LA PARTE IZQUIERDA, QUE SERAN
+        //DE USO PARA ACCEDER A LOS DIFERENTES SUBPANELES
         btnInicio = new JButton("Inicio");
         opciones.add(btnInicio);
         btnAutos = new JButton("Autos");
-        panelAutos pnlAuto = new panelAutos();
+        btnAutos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "AUTOS");
+            }
+        });
         opciones.add(btnAutos);
         btnClientes = new JButton("Clientes");
-        panelClientes pnlClientes = new panelClientes();
+        btnClientes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "CLIENTES");
+            }
+        });
         opciones.add(btnClientes);
         btnEmpleados = new JButton("Empleados");
-        panelEmpleados pnlEmpleados = new panelEmpleados();
+        btnEmpleados.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "EMPLEADOS");
+            }
+        });
         opciones.add(btnEmpleados);
         btnFacturas = new JButton("Facturas");
-        panelFacturas pnlFacturas = new panelFacturas();
         btnFacturas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                desactivarActPanel(panelAct,pnlFacturas);
-
+                cl.show(general, "FACTURAS");
             }
         });
         opciones.add(btnFacturas);
         btnVentas = new JButton("Ventas");
-        panelVentas pnlVentas = new panelVentas();
         btnVentas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                desactivarActPanel(panelAct,pnlVentas);
-
+                cl.show(general, "VENTAS");
             }
         });
         opciones.add(btnVentas);
 
+        //SE AGREGAN LOS PANELES PARA LA PARTE SUPERIOR , CENTRAL E IZQUIERDA DEL BORDER LAYOUT
         add(barraArriba, BorderLayout.NORTH);
         add(general, BorderLayout.CENTER);
         add(opciones, BorderLayout.WEST);
@@ -73,11 +103,6 @@ public class general extends JFrame{
         setVisible(true);
     }
 
-
-    public void desactivarActPanel(JComponent desc, JComponent act){
-        desc.setVisible(false);
-        add(act, BorderLayout.CENTER);
-    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
