@@ -3,16 +3,16 @@ package com.autosamistosos.interfaces.subpaneles;
 import javax.swing.*;
 import java.awt.*;
 
-public class panelAutos extends JPanel {
+public class panelFacturas extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JButton btnAgregar, btnEliminar, btnBorrar, btnRestablecer, btnBuscar, btnModificar;
     JTextField txFBuscar, txFModificar;
     JTable tbAutos;
-    public panelAutos() {
+    public panelFacturas() {
         setLayout(gbl);
 
-        JLabel txtBuscar = new JLabel("Buscar un auto: ");
+        JLabel txtBuscar = new JLabel("Buscar una factura: ");
         agregar(txtBuscar, 0 ,0,1,1,1,1);
         txFBuscar = new JTextField(5);
         agregar(txFBuscar, 1 ,0,1,1,1,1);
@@ -31,10 +31,10 @@ public class panelAutos extends JPanel {
         btnRestablecer = new JButton("Restablecer");
         agregar(btnRestablecer, 3,1,1,1,1,1);
 
-        btnModificar = new JButton("Modificar auto:");
-        agregar(btnModificar, 4,2,1,1,1,1);
+        btnModificar = new JButton("Modificar factura:");
+        agregar(btnModificar, 4,0,1,1,1,1);
         txFModificar = new JTextField(5);
-        agregar(txFModificar, 4 ,3,1,1,1,1);
+        agregar(txFModificar, 4 ,1,1,1,1,1);
 
         String test [] = {"HOLA","AUTO"};
         String testt [][]= {{"HOLA", "MUNDO"},{"HOLA", "MUNDO"}};
