@@ -42,6 +42,7 @@ public class general extends JFrame{
         panelClientes pnlClientes = new panelClientes();
         opciones.add(btnClientes);
         btnEmpleados = new JButton("Empleados");
+        panelEmpleados pnlEmpleados = new panelEmpleados();
         opciones.add(btnEmpleados);
         btnFacturas = new JButton("Facturas");
         opciones.add(btnFacturas);

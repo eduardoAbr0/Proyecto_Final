@@ -12,7 +12,7 @@ public class panelAutos extends JPanel {
     public panelAutos() {
         setLayout(gbl);
 
-        JLabel txtBuscar = new JLabel("Buscar un Auto: ");
+        JLabel txtBuscar = new JLabel("Buscar un auto: ");
         agregar(txtBuscar, 0 ,0,1,1,1,1);
         txFBuscar = new JTextField(5);
         agregar(txFBuscar, 1 ,0,1,1,1,1);

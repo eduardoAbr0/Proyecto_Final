@@ -3,16 +3,16 @@ package com.autosamistosos.interfaces.subpaneles;
 import javax.swing.*;
 import java.awt.*;
 
-public class panelClientes extends JPanel {
+public class panelEmpleados extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JButton btnAgregar, btnEliminar, btnBorrar, btnRestablecer, btnBuscar, btnEncuesta, btnModificar;
+    JButton btnAgregar, btnEliminar, btnBorrar, btnRestablecer, btnBuscar, btnReporte, btnModificar;
     JTextField txFBuscar, txFEncuesta, txFModificar;
-    JTable tbClientes, tbEncuestas;
-    public panelClientes() {
+    JTable tbEmpleados, tbReportes;
+    public panelEmpleados() {
         setLayout(gbl);
 
-        JLabel txtBuscar = new JLabel("Buscar un cliente: ");
+        JLabel txtBuscar = new JLabel("Buscar un empleado: ");
         agregar(txtBuscar, 0 ,0,1,1,1,1);
         txFBuscar = new JTextField(5);
         agregar(txFBuscar, 1 ,0,1,1,1,1);
@@ -31,12 +31,12 @@ public class panelClientes extends JPanel {
         btnRestablecer = new JButton("Restablecer");
         agregar(btnRestablecer, 3,1,1,1,1,1);
 
-        btnEncuesta = new JButton("Mandar encuesta:");
-        agregar(btnEncuesta, 4,1,1,1,1,1);
+        btnReporte = new JButton("Generar reporte de venta:");
+        agregar(btnReporte, 4,1,1,1,1,1);
         txFEncuesta = new JTextField(5);
         agregar(txFEncuesta, 4 ,2,1,1,1,1);
 
-        btnModificar = new JButton("Modificar cliente:");
+        btnModificar = new JButton("Modificar empleado:");
         agregar(btnModificar, 4,3,1,1,1,1);
         txFModificar = new JTextField(5);
         agregar(txFModificar, 4 ,4,1,1,1,1);
@@ -44,11 +44,11 @@ public class panelClientes extends JPanel {
         String test [] = {"HOLA","AUTO"};
         String testt [][]= {{"HOLA", "MUNDO"},{"HOLA", "MUNDO"}};
 
-        tbClientes = new JTable(testt, test);
-        JScrollPane jsCl = new JScrollPane(tbClientes);
+        tbEmpleados = new JTable(testt, test);
+        JScrollPane jsCl = new JScrollPane(tbEmpleados);
 
-        tbEncuestas = new JTable(testt,test);
-        JScrollPane jsEnc = new JScrollPane(tbEncuestas);
+        tbReportes = new JTable(testt,test);
+        JScrollPane jsEnc = new JScrollPane(tbReportes);
 
 
         gbc.fill = GridBagConstraints.BOTH;
