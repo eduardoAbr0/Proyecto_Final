@@ -3,16 +3,16 @@ package com.autosamistosos.interfaces.subpaneles;
 import javax.swing.*;
 import java.awt.*;
 
-public class panelEmpleados extends JPanel {
+public class panelVentas extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JButton btnAgregar, btnEliminar, btnBorrar, btnRestablecer, btnBuscar, btnReporte, btnModificar;
     JTextField txFBuscar, txFEncuesta, txFModificar;
-    JTable tbEmpleados, tbReportes;
-    public panelEmpleados() {
+    JTable tbVentas, tbReportes;
+    public panelVentas() {
         setLayout(gbl);
 
-        JLabel txtBuscar = new JLabel("Buscar un empleado: ");
+        JLabel txtBuscar = new JLabel("Buscar una venta: ");
         agregar(txtBuscar, 0 ,0,1,1,1,1);
         txFBuscar = new JTextField(5);
         agregar(txFBuscar, 1 ,0,1,1,1,1);
@@ -31,31 +31,26 @@ public class panelEmpleados extends JPanel {
         btnRestablecer = new JButton("Restablecer");
         agregar(btnRestablecer, 3,1,1,1,1,1);
 
-        btnReporte = new JButton("Ver reportes de venta:");
+        btnReporte = new JButton("Generar reporte de venta:");
         agregar(btnReporte, 4,1,1,1,1,1);
         txFEncuesta = new JTextField(5);
         agregar(txFEncuesta, 4 ,2,1,1,1,1);
 
-        btnModificar = new JButton("Modificar empleado:");
-        agregar(btnModificar, 4,1,1,1,1,1);
+        btnModificar = new JButton("Modificar venta:");
+        agregar(btnModificar, 4,3,1,1,1,1);
         txFModificar = new JTextField(5);
-        agregar(txFModificar, 4 ,2,1,1,1,1);
+        agregar(txFModificar, 4 ,4,1,1,1,1);
 
         String test [] = {"HOLA","AUTO"};
         String testt [][]= {{"HOLA", "MUNDO"},{"HOLA", "MUNDO"}};
 
-        tbEmpleados = new JTable(testt, test);
-        JScrollPane jsCl = new JScrollPane(tbEmpleados);
-
-        tbReportes = new JTable(testt,test);
-        JScrollPane jsEnc = new JScrollPane(tbReportes);
+        tbVentas = new JTable(testt, test);
+        JScrollPane jsCl = new JScrollPane(tbVentas);
 
 
         gbc.fill = GridBagConstraints.BOTH;
-        agregar(jsCl,0,2,3,2,1,1);
+        agregar(jsCl,0,2,3,4,1,1);
 
-        gbc.fill = GridBagConstraints.BOTH;
-        agregar(jsEnc,2,2,3,2,1,1);
 
     }
     public void agregar(JComponent c, int x, int y, int altura, int anchura, int wx, int wy) {

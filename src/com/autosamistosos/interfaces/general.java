@@ -47,6 +47,14 @@ public class general extends JFrame{
         btnFacturas = new JButton("Facturas");
         opciones.add(btnFacturas);
         btnVentas = new JButton("Ventas");
+        panelVentas pnlVentas = new panelVentas();
+        btnVentas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                desactivarActPanel(panelAct,pnlVentas);
+
+            }
+        });
         opciones.add(btnVentas);
 
         add(barraArriba, BorderLayout.NORTH);
