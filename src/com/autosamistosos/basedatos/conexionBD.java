@@ -49,7 +49,7 @@ public class conexionBD {
             statement = conexion.createStatement();
             resultSet = statement.executeQuery(instruccionSQL);
         } catch (SQLException e) {
-            e.printStackTrace();
+
             System.out.println("Error en instrucion SQL");
         }
         return resultSet;
