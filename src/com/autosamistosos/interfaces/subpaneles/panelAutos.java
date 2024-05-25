@@ -2,6 +2,9 @@ package com.autosamistosos.interfaces.subpaneles;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import com.autosamistosos.interfaces.subpaneles.autosABCC.*;
 
 public class panelAutos extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
@@ -20,6 +23,12 @@ public class panelAutos extends JPanel {
         agregar(btnBuscar, 2 ,0,1,1,1,1);
 
         btnAgregar = new JButton("Agregar");
+        btnAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new altasAutos();
+            }
+        });
         agregar(btnAgregar, 0,1,1,1,1,1);
 
         btnEliminar = new JButton("Eliminar");
@@ -32,9 +41,9 @@ public class panelAutos extends JPanel {
         agregar(btnRestablecer, 3,1,1,1,1,1);
 
         btnModificar = new JButton("Modificar auto:");
-        agregar(btnModificar, 4,2,1,1,1,1);
+        agregar(btnModificar, 4,0,1,1,1,1);
         txFModificar = new JTextField(5);
-        agregar(txFModificar, 4 ,3,1,1,1,1);
+        agregar(txFModificar, 4 ,1,1,1,1,1);
 
         String test [] = {"HOLA","AUTO"};
         String testt [][]= {{"HOLA", "MUNDO"},{"HOLA", "MUNDO"}};

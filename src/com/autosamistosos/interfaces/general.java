@@ -107,6 +107,7 @@ public class general extends JFrame {
         add(general, BorderLayout.CENTER);
         add(opciones, BorderLayout.WEST);
 
+        //DEMAS CONFIGURACIONES DEL JFRAMEw
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
     }
