@@ -1,7 +1,12 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
+import com.autosamistosos.basedatos.modelo.Empleado;
+import com.autosamistosos.basedatos.controlador.empleadoDAO;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class altasEmpleados extends JFrame {
     GridBagLayout gbl = new GridBagLayout();
@@ -9,6 +14,7 @@ public class altasEmpleados extends JFrame {
     JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtTelefono;
     JButton btnAgregar, btnLimpiar;
     JComboBox cbTipoE;
+    Empleado emp;
 
     public altasEmpleados(){
         getContentPane().setLayout(gbl);
@@ -92,6 +98,28 @@ public class altasEmpleados extends JFrame {
         add(cbTipoE, gbc);
 
         btnAgregar = new JButton("Agregar");
+        btnAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                emp = new Empleado(Integer.parseInt(txtID.getText()),
+                        txtNombre.getText(),
+                        txtPrimerA.getText(),
+                        txtSegundoA.getText(),
+                        Integer.parseInt(txtNumeroCasa.getText()),
+                        txtCalle.getText(),
+                        txtColonia.getText(),
+                        Integer.parseInt(txtCP.getText()),
+                        Integer.parseInt(txtTelefono.getText()),
+                        cbTipoE.getSelectedItem().toString());
+
+                if(empleadoDAO.agregarEmpleado(emp))
+                    JOptionPane.showMessageDialog(null,
+                            "Registro AGREGADO con EXITO!!!!");
+                else
+                    JOptionPane.showMessageDialog(null,
+                            "ERROR en la insercion!!!!");
+            }
+        });
         agregarComp(btnAgregar,0,10,1,1,1,1);
         add(btnAgregar, gbc);
 

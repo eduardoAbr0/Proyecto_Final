@@ -1,6 +1,6 @@
 package com.autosamistosos.basedatos.modelo;
 
-public class empleado {
+public class Empleado {
     private int id;
     private String nombre;
     private String Papellido;
@@ -8,11 +8,11 @@ public class empleado {
     private int numeroCasa;
     private String calle;
     private String colonia;
-    private String cp;
-    private String telefono;
+    private int cp;
+    private int telefono;
     private String tipoEmpleado;
 
-    public empleado(int id, String nombre, String papellido, String sapellido, int numeroCasa, String calle, String colonia, String cp, String telefono, String tipoEmpleado) {
+    public Empleado(int id, String nombre, String papellido, String sapellido, int numeroCasa, String calle, String colonia, int cp, int telefono, String tipoEmpleado) {
         this.id = id;
         this.nombre = nombre;
         Papellido = papellido;
@@ -24,7 +24,7 @@ public class empleado {
         this.telefono = telefono;
         this.tipoEmpleado = tipoEmpleado;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -81,19 +81,19 @@ public class empleado {
         this.colonia = colonia;
     }
 
-    public String getCp() {
+    public int getCp() {
         return cp;
     }
 
-    public void setCp(String cp) {
+    public void setCp(int cp) {
         this.cp = cp;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
