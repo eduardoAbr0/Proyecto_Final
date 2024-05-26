@@ -1,13 +1,19 @@
 package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
+import com.autosamistosos.basedatos.controlador.clienteDAO;
+import com.autosamistosos.basedatos.modelo.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class altasClientes extends JFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtEmpleado;
     JButton btnAgregar, btnLimpiar;
+    Cliente cliente;
 
     public altasClientes(){
         getContentPane().setLayout(gbl);
@@ -82,6 +88,22 @@ public class altasClientes extends JFrame {
 
 
         btnAgregar = new JButton("Agregar");
+        btnAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                /*
+                cliente = new Cliente(Integer.parseInt(txtID.getText()),
+                        txtNombre.getText(),
+                        txtPrimerA.getText(),
+                        txtSegundoA.getText(),
+                        Integer.parseInt(txtNumeroCasa.getText()),
+                        txtCalle.getText(),
+                        txtColonia.getText(),
+                        Integer.parseInt(txtCP.getText()),NULL,"NULL");
+*/
+
+            }
+        });
         agregarComp(btnAgregar,0,9,1,1,1,1);
         add(btnAgregar, gbc);
 

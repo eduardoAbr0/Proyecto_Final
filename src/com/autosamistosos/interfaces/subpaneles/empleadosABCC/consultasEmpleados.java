@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.basedatos.controlador.empleadoDAO;
 
@@ -16,6 +17,7 @@ public class consultasEmpleados extends JFrame {
     JButton btnConsultar, btnLimpiar;
     JTable tbEmpleado;
     DefaultTableModel tableModel = new DefaultTableModel();
+    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
     public consultasEmpleados(){
         getContentPane().setLayout(gbl);
@@ -37,7 +39,8 @@ public class consultasEmpleados extends JFrame {
         btnConsultar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Empleado emp = empleadoDAO.consultaEmpleadoId(Integer.parseInt(txtID.getText()));
+
+                Empleado emp = daoEmpleado.buscar(Integer.valueOf(txtID.getText()));
 
                 if (emp == null){
                     JOptionPane.showMessageDialog(null, "Error al consultar empleado");

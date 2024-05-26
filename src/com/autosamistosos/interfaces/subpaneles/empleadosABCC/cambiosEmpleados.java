@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.basedatos.controlador.empleadoDAO;
 
@@ -15,6 +16,7 @@ public class cambiosEmpleados extends JFrame {
     JButton btnCambiar, btnLimpiar;
     JComboBox cbTipoE;
     Empleado emp;
+    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
     public cambiosEmpleados(){
         getContentPane().setLayout(gbl);
@@ -112,12 +114,8 @@ public class cambiosEmpleados extends JFrame {
                         Integer.parseInt(txtTelefono.getText()),
                         cbTipoE.getSelectedItem().toString());
 
-                if(empleadoDAO.actualizarEmpleado(emp))
-                    JOptionPane.showMessageDialog(null,
-                            "CAMBIO HECHO con EXITO!!!!");
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "ERROR en la CAMBIO!!!!");
+                daoEmpleado.actualizar(emp);
+
             }
         });
         agregarComp(btnCambiar,0,10,1,1,1,1);

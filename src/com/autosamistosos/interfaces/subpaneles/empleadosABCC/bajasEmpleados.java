@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.basedatos.controlador.empleadoDAO;
 
@@ -13,6 +14,7 @@ public class bajasEmpleados extends JFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
     JButton btnEliminar;
+    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
 
     public bajasEmpleados(){
         getContentPane().setLayout(gbl);
@@ -33,13 +35,7 @@ public class bajasEmpleados extends JFrame {
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                if(empleadoDAO.eliminarEmpleado(Integer.parseInt(txtID.getText())))
-                    JOptionPane.showMessageDialog(null,
-                            "SE ELIMINO con EXITO!!!!");
-                else
-                    JOptionPane.showMessageDialog(null,
-                            "ERROR en la insercion!!!!");
+                daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
             }
         });
         agregarComp(btnEliminar,0,1,1,2,1,1);

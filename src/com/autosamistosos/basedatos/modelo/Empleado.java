@@ -15,8 +15,8 @@ public class Empleado {
     public Empleado(int id, String nombre, String papellido, String sapellido, int numeroCasa, String calle, String colonia, int cp, int telefono, String tipoEmpleado) {
         this.id = id;
         this.nombre = nombre;
-        Papellido = papellido;
-        Sapellido = sapellido;
+        this.Papellido = papellido;
+        this.Sapellido = sapellido;
         this.numeroCasa = numeroCasa;
         this.calle = calle;
         this.colonia = colonia;
