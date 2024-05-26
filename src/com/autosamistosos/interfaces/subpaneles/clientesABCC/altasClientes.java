@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class altasClientes extends JFrame {
+public class altasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtEmpleado;
@@ -18,11 +18,11 @@ public class altasClientes extends JFrame {
     DAOClienteImpl daoCliente = new DAOClienteImpl();
 
     public altasClientes(){
+        super("Altas clientes", true, true, true, true);
+
         getContentPane().setLayout(gbl);
-        setTitle("Altas empleados");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        setLocationRelativeTo(null);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Cliente: ");
