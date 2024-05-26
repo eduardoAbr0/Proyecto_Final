@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class consultasEmpleados extends JFrame {
+public class consultasEmpleados extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
@@ -20,11 +20,11 @@ public class consultasEmpleados extends JFrame {
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
     public consultasEmpleados(){
+        super("Consultas empleados", true, true, true, true);
+
         getContentPane().setLayout(gbl);
-        setTitle("Consultas empleados");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 1000, 400);
-        setLocationRelativeTo(null);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Empleado: ");

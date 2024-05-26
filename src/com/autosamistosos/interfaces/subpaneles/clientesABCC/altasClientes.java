@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.controlador.clienteDAO;
 import com.autosamistosos.basedatos.modelo.Cliente;
 
@@ -14,6 +15,7 @@ public class altasClientes extends JFrame {
     JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtEmpleado;
     JButton btnAgregar, btnLimpiar;
     Cliente cliente;
+    DAOClienteImpl daoCliente = new DAOClienteImpl();
 
     public altasClientes(){
         getContentPane().setLayout(gbl);
@@ -91,7 +93,7 @@ public class altasClientes extends JFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
+
                 cliente = new Cliente(Integer.parseInt(txtID.getText()),
                         txtNombre.getText(),
                         txtPrimerA.getText(),
@@ -99,8 +101,10 @@ public class altasClientes extends JFrame {
                         Integer.parseInt(txtNumeroCasa.getText()),
                         txtCalle.getText(),
                         txtColonia.getText(),
-                        Integer.parseInt(txtCP.getText()),NULL,"NULL");
-*/
+                        Integer.parseInt(txtCP.getText()),null,null);
+                        cliente.setIdEmpleado(Integer.parseInt(txtEmpleado.getText()));
+
+                        daoCliente.insertar(cliente);
 
             }
         });

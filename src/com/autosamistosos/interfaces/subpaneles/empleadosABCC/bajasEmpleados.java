@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class bajasEmpleados extends JFrame {
+public class bajasEmpleados extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
@@ -17,11 +17,11 @@ public class bajasEmpleados extends JFrame {
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
 
     public bajasEmpleados(){
+        super("Bajas empleados", true, true, true, true);
+
         getContentPane().setLayout(gbl);
-        setTitle("Bajas empleados");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        setLocationRelativeTo(null);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Empleado: ");

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class cambiosEmpleados extends JFrame {
+public class cambiosEmpleados extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtTelefono;
@@ -19,11 +19,11 @@ public class cambiosEmpleados extends JFrame {
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
     public cambiosEmpleados(){
+        super("Cambios empleados", true, true, true, true);
+
         getContentPane().setLayout(gbl);
-        setTitle("Cambios empleados");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        setLocationRelativeTo(null);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Empleado: ");

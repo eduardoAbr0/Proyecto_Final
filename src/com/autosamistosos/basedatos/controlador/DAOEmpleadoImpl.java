@@ -159,7 +159,7 @@ public class DAOEmpleadoImpl extends conexionBD implements empleadoDAO{
     }
 
     @Override
-    public List<Empleado> buscarTodos() throws SQLException {
+    public ArrayList<Empleado> buscarTodos() {
         String sql = "SELECT * FROM empleados";
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;

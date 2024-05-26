@@ -9,10 +9,12 @@ public class Cliente {
     private String calle;
     private String colonia;
     private int cp;
-    private int telefono;
+    private String telefono;
     private String RFC;
+    protected int idEmpleado;
 
-    public Cliente(int idCliente, String nombre, String pApellido, String sApellido, int numeroCasa, String calle, String colonia, int cp, int telefono, String RFC) {
+
+    public Cliente(int idCliente, String nombre, String pApellido, String sApellido, int numeroCasa, String calle, String colonia, int cp, String telefono, String RFC) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.pApellido = pApellido;
@@ -25,7 +27,13 @@ public class Cliente {
         this.RFC = RFC;
     }
 
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
 
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
     public int getIdCliente() {
         return idCliente;
     }
@@ -90,11 +98,11 @@ public class Cliente {
         this.cp = cp;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
