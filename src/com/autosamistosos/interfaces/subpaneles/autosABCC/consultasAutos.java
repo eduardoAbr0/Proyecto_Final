@@ -1,8 +1,4 @@
-package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
-
-import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
-import com.autosamistosos.basedatos.modelo.Empleado;
-import com.autosamistosos.basedatos.controlador.empleadoDAO;
+package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,24 +6,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class consultasEmpleados extends JInternalFrame {
+public class consultasAutos extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
     JButton btnConsultar, btnLimpiar;
-    JTable tbEmpleado;
+    JTable tbAuto;
     DefaultTableModel tableModel = new DefaultTableModel();
-    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
+    //DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
-    public consultasEmpleados(){
-        super("Consultas empleados", true, true, true, true);
+    public consultasAutos(){
+        super("Consultas autos", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 600, 300);
         setResizable(false);
 
-        JLabel txID = new JLabel("ID Empleado: ");
+        JLabel txID = new JLabel("ID Auto: ");
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
         txtID = new JTextField(15);
@@ -35,11 +31,11 @@ public class consultasEmpleados extends JInternalFrame {
         agregarComp(txtID,1,0,1,2,1,1);
         add(txtID, gbc);
 
-        btnConsultar = new JButton("Consultar empleado");
+        btnConsultar = new JButton("Consultar automovil");
         btnConsultar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                /*
                 Empleado emp = daoEmpleado.buscar(Integer.valueOf(txtID.getText()));
 
                 if (emp == null){
@@ -49,9 +45,11 @@ public class consultasEmpleados extends JInternalFrame {
                     tableModel.addRow(empleadoE);
                     tbEmpleado = new JTable(tableModel);
                 }
+                */
             }
         });
         agregarComp(btnConsultar,0,1,1,1,1,1);
+        gbc.fill = GridBagConstraints.NONE;
         getContentPane().add(btnConsultar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
@@ -59,18 +57,20 @@ public class consultasEmpleados extends JInternalFrame {
         getContentPane().add(btnLimpiar, gbc);
 
         tableModel.addColumn("ID");
-        tableModel.addColumn("Nombre");
-        tableModel.addColumn("Primer apellido");
-        tableModel.addColumn("Segundo apellido");
-        tableModel.addColumn("Numero casa");
-        tableModel.addColumn("Calle");
-        tableModel.addColumn("Colonia");
-        tableModel.addColumn("CP");
-        tableModel.addColumn("Telefono");
-        tableModel.addColumn("Tipo empleado");
+        tableModel.addColumn("Modelo");
+        tableModel.addColumn("Precio");
+        tableModel.addColumn("Fecha fab");
+        tableModel.addColumn("Peso");
+        tableModel.addColumn("Cilindros");
+        tableModel.addColumn("Color");
+        tableModel.addColumn("Capacidad");
+        tableModel.addColumn("Estado");
+        tableModel.addColumn("Seguro");
+        tableModel.addColumn("Kilometros");
+        tableModel.addColumn("Garantia");
 
-        tbEmpleado = new JTable(tableModel);
-        JScrollPane jsCl = new JScrollPane(tbEmpleado);
+        tbAuto = new JTable(tableModel);
+        JScrollPane jsCl = new JScrollPane(tbAuto);
         agregarComp(jsCl,0,2,2,2,1,4);
         gbc.fill = GridBagConstraints.BOTH;
         add(jsCl, gbc);
@@ -87,9 +87,5 @@ public class consultasEmpleados extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
-    }
-
-    public static void main(String[] args) {
-        new consultasEmpleados();
     }
 }

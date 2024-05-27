@@ -91,8 +91,4 @@ public class consultasClientes extends JInternalFrame {
 
         gbl.setConstraints(c,gbc);
     }
-
-    public static void main(String[] args) {
-        new com.autosamistosos.interfaces.subpaneles.empleadosABCC.consultasEmpleados();
-    }
 }

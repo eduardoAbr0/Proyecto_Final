@@ -1,4 +1,4 @@
-package com.autosamistosos.interfaces.subpaneles.clientesABCC;
+package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 
@@ -7,22 +7,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class bajasClientes extends JInternalFrame {
+public class bajasAutos extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
     JButton btnEliminar;
-    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
+    //DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
 
-    public bajasClientes(){
-        super("Bajas clientes", true, true, true, true);
+    public bajasAutos(){
+        super("Bajas autos", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         setResizable(false);
 
-        JLabel txID = new JLabel("ID Cliente: ");
+        JLabel txID = new JLabel("ID Automovil: ");
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
         txtID = new JTextField(10);
@@ -53,5 +53,4 @@ public class bajasClientes extends JInternalFrame {
 
         gbl.setConstraints(c,gbc);
     }
-
 }

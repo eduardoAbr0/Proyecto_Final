@@ -1,24 +1,20 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
-import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
-import com.autosamistosos.basedatos.modelo.Automovil;
-import com.autosamistosos.basedatos.modelo.Cliente;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class altasAutos extends JInternalFrame {
+public class cambiosAutos extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado;
-    JButton btnAgregar, btnLimpiar;
-    Automovil automovil;
-    DAOClienteImpl daoCliente = new DAOClienteImpl();
+    JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado, txtSeguro, txtKilometros, txtGarantia;
+    JButton btnCambiar, btnLimpiar;
+    //Cliente cl;
+    //DAOClienteImpl daoCliente = new DAOClienteImpl();
 
-    public altasAutos(){
-        super("Altas autos", true, true, true, true);
+    public cambiosAutos(){
+        super("Cambios autos", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -88,31 +84,52 @@ public class altasAutos extends JInternalFrame {
         agregarComp(txtEstado,1,8,1,1,1,1);
         add(txtEstado, gbc);
 
+        JLabel txSeguro = new JLabel("Seguro: ");
+        agregarComp(txSeguro,0,9,1,1,1,1);
+        add(txSeguro, gbc);
+        txtSeguro = new JTextField(10);
+        agregarComp(txtSeguro,1,9,1,1,1,1);
+        add(txtSeguro, gbc);
 
-        btnAgregar = new JButton("Agregar");
-        btnAgregar.addActionListener(new ActionListener() {
+        JLabel txKilometros = new JLabel("Kilometros: ");
+        agregarComp(txKilometros,0,10,1,1,1,1);
+        add(txKilometros, gbc);
+        txtKilometros = new JTextField(10);
+        agregarComp(txtKilometros,1,10,1,1,1,1);
+        add(txtKilometros, gbc);
+
+        JLabel txGarantia = new JLabel("Garantia: ");
+        agregarComp(txGarantia,0,11,1,1,1,1);
+        add(txGarantia, gbc);
+        txtGarantia = new JTextField(10);
+        agregarComp(txtGarantia,1,11,1,1,1,1);
+        add(txtGarantia, gbc);
+
+
+        btnCambiar = new JButton("Cambiar");
+        btnCambiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /*
+                 cl = new Cliente(Integer.parseInt(txtID.getText()),
+                        txtNombre.getText(),
+                        txtPrimerA.getText(),
+                        txtSegundoA.getText(),
+                        Integer.parseInt(txtNumeroCasa.getText()),
+                        txtCalle.getText(),
+                        txtColonia.getText(),
+                        Integer.parseInt(txtCP.getText()),
+                        Integer.parseInt(txtTelefono.getText(), );
 
-                automovil = new Automovil(
-                        Integer.parseInt(txtID.getText()),
-                        txtModelo.getText(),
-                        txtColor.getText(),
-                        Double.parseDouble(txtPrecio.getText()),
-                        txtFechaf.getText(),
-                        Integer.parseInt(txtPeso.getText()),
-                        Byte.parseByte(txtCilindros.getText()),
-                        txtEstado.getText(),
-                        null,
-                        null,
-                        null);
+                daoCliente.actualizar(cl);
+*/
             }
         });
-        agregarComp(btnAgregar,0,9,1,1,1,1);
-        add(btnAgregar, gbc);
+        agregarComp(btnCambiar,0,12,1,1,1,1);
+        add(btnCambiar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
-        agregarComp(btnLimpiar,1,9,1,1,1,1);
+        agregarComp(btnLimpiar,1,12,1,1,1,1);
         add(btnLimpiar, gbc);
 
         setVisible(true);
@@ -127,5 +144,9 @@ public class altasAutos extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public static void main(String[] args) {
+        new com.autosamistosos.interfaces.subpaneles.empleadosABCC.cambiosEmpleados();
     }
 }

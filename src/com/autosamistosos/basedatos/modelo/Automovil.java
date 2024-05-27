@@ -3,20 +3,20 @@ package com.autosamistosos.basedatos.modelo;
 public class Automovil {
     private int idAutomovil;
     private String modeloA;
-    private String precio;
+    private String color;
     private double precioAutomovil;
     private String fechaFab;
     private int pesoAutomovil;
     private byte cilindroAutomovil;
     private String estado;
     private String seguro;
-    private int kmAutomovil;
+    private String kmAutomovil;
     private String garantiaAutomovil;
 
-    public Automovil(int idAutomovil, String modeloA, String precio, double precioAutomovil, String fechaFab, int pesoAutomovil, byte cilindroAutomovil, String estado, String seguro, int kmAutomovil, String garantiaAutomovil) {
+    public Automovil(int idAutomovil, String modeloA, String color, double precioAutomovil, String fechaFab, int pesoAutomovil, byte cilindroAutomovil, String estado, String seguro, String kmAutomovil, String garantiaAutomovil) {
         this.idAutomovil = idAutomovil;
         this.modeloA = modeloA;
-        this.precio = precio;
+        this.color = color;
         this.precioAutomovil = precioAutomovil;
         this.fechaFab = fechaFab;
         this.pesoAutomovil = pesoAutomovil;
@@ -44,11 +44,11 @@ public class Automovil {
     }
 
     public String getPrecio() {
-        return precio;
+        return color;
     }
 
     public void setPrecio(String precio) {
-        this.precio = precio;
+        this.color = precio;
     }
 
     public double getPrecioAutomovil() {
@@ -99,11 +99,11 @@ public class Automovil {
         this.seguro = seguro;
     }
 
-    public int getKmAutomovil() {
+    public String getKmAutomovil() {
         return kmAutomovil;
     }
 
-    public void setKmAutomovil(int kmAutomovil) {
+    public void setKmAutomovil(String kmAutomovil) {
         this.kmAutomovil = kmAutomovil;
     }
 
@@ -120,7 +120,7 @@ public class Automovil {
         return "Automovil{" +
                 "idAutomovil=" + idAutomovil +
                 ", modeloA='" + modeloA + '\'' +
-                ", precio='" + precio + '\'' +
+                ", precio='" + color + '\'' +
                 ", precioAutomovil=" + precioAutomovil +
                 ", fechaFab='" + fechaFab + '\'' +
                 ", pesoAutomovil=" + pesoAutomovil +
