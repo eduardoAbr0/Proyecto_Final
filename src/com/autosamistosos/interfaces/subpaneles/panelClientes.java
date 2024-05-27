@@ -4,6 +4,9 @@ import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.interfaces.subpaneles.clientesABCC.altasClientes;
+import com.autosamistosos.interfaces.subpaneles.clientesABCC.bajasClientes;
+import com.autosamistosos.interfaces.subpaneles.clientesABCC.cambiosClientes;
+import com.autosamistosos.interfaces.subpaneles.clientesABCC.consultasClientes;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +44,7 @@ public class panelClientes extends JPanel {
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ABCC.add(new bajasEmpleados());
+                ABCC.add(new bajasClientes());
                 ABCC.setVisible(true);
             }
         });
@@ -49,7 +52,7 @@ public class panelClientes extends JPanel {
         btnModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ABCC.add(new cambiosEmpleados());
+                ABCC.add(new cambiosClientes());
                 ABCC.setVisible(true);
             }
         });
@@ -57,7 +60,7 @@ public class panelClientes extends JPanel {
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ABCC.add(new consultasEmpleados());
+                ABCC.add(new consultasClientes());
                 ABCC.setVisible(true);
             }
         });
@@ -86,7 +89,7 @@ public class panelClientes extends JPanel {
             }
         });
         //TABLA PARA MOSTRAR DATOS CLIENTES
-        String clientes[] = {"Cliente","Nombre","Primer apell","Segundo apell","Num. Casa","Calle","Colonia","CP","RFC","Telefono"};
+        String clientes[] = {"Cliente","Nombre","Primer apell","Segundo apell","Num. Casa","Calle","Colonia","CP","RFC","Telefono","Vendedor"};
         for (String col: clientes){
             modelClientes.addColumn(col);
         }
@@ -109,7 +112,7 @@ public class panelClientes extends JPanel {
             }
         });
         //TABLA PARA MOSTRAR ENCUESTAS
-        String reportes[] = {"Encuesta","Opinion auto","Opinion vendedor","Opinion dist","auto","vendedor"};
+        String reportes[] = {"Encuesta","Opinion auto","Opinion vendedor","Opinion dist","Auto","Vendedor"};
         for (String col: reportes){
             modelEncuestas.addColumn(col);
         }
