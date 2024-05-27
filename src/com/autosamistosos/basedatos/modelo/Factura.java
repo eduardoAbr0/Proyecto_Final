@@ -5,6 +5,44 @@ public class Factura {
     private double precioF;
     private String financiamiento;
     private String fechaEm;
+    private int idCliente;
+    private int idVenta;
+    private int idAuto;
+
+    public Factura(int idFactura, double precioF, String financiamiento, String fechaEm, int idCliente, int idVenta, int idAuto) {
+        this.idFactura = idFactura;
+        this.precioF = precioF;
+        this.financiamiento = financiamiento;
+        this.fechaEm = fechaEm;
+        this.idCliente = idCliente;
+        this.idVenta = idVenta;
+        this.idAuto = idAuto;
+    }
+
+
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public int getIdVenta() {
+        return idVenta;
+    }
+
+    public void setIdVenta(int idVenta) {
+        this.idVenta = idVenta;
+    }
+
+    public int getIdAuto() {
+        return idAuto;
+    }
+
+    public void setIdAuto(int idAuto) {
+        this.idAuto = idAuto;
+    }
 
     public Factura(int idFactura, double precioF, String financiamiento, String fechaEm) {
         this.idFactura = idFactura;
