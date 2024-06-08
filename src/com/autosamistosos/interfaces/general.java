@@ -11,7 +11,7 @@ public class general extends JFrame {
     BorderLayout bl = new BorderLayout();
     CardLayout cl = new CardLayout();
     JPanel barraArriba, general, opciones;
-    JButton btnInicio, btnClientes, btnAutos, btnEmpleados, btnFacturas, btnVentas;
+    JButton btnInicio, btnClientes, btnAutos, btnEmpleados, btnFacturas, btnVentas, btnReportes, btnEncuestas, btnLicencias;
 
     public general() {
         //CONFIGURACIONES INICIALES DEL JFRAME
@@ -34,6 +34,7 @@ public class general extends JFrame {
         panelEmpleados pnlEmpleados = new panelEmpleados();
         panelFacturas pnlFacturas = new panelFacturas();
         panelVentas pnlVentas = new panelVentas();
+        panelReportes pnlReportes = new panelReportes();
 
         general.add(pnlInicio, "INICIO");
         general.add(pnlAuto,"AUTOS");
@@ -41,6 +42,8 @@ public class general extends JFrame {
         general.add(pnlEmpleados,"EMPLEADOS");
         general.add(pnlVentas,"VENTAS");
         general.add(pnlFacturas,"FACTURAS");
+        general.add(pnlReportes,"REPORTES");
+
 
         //PERSONALIZACION BASICA DE COLORES PARA IDENTIFICAR
         barraArriba.setBackground(Color.CYAN);
@@ -50,7 +53,7 @@ public class general extends JFrame {
         //CONFIGURACION TAMANOS Y ESPECIFICACIONES PARA LAYOUT EN EL PANEL
         barraArriba.setPreferredSize(new Dimension(0, 200));
         opciones.setPreferredSize(new Dimension(200, 0));
-        opciones.setLayout(new GridLayout(6, 0));
+        opciones.setLayout(new GridLayout(9, 0));
 
         //CREACION Y CONFIGURACION DE BOTONES DE LA PARTE IZQUIERDA, QUE SERAN
         //DE USO PARA ACCEDER A LOS DIFERENTES SUBPANELES
@@ -102,6 +105,30 @@ public class general extends JFrame {
             }
         });
         opciones.add(btnVentas);
+        btnReportes = new JButton("Reportes");
+        btnReportes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "REPORTES");
+            }
+        });
+        opciones.add(btnReportes);
+        btnEncuestas = new JButton("Encuestas");
+        btnEncuestas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "REPORTES");
+            }
+        });
+        opciones.add(btnEncuestas);
+        btnLicencias = new JButton("Licencias");
+        btnLicencias.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(general, "REPORTES");
+            }
+        });
+        opciones.add(btnLicencias);
 
         //SE AGREGAN LOS PANELES PARA LA PARTE SUPERIOR , CENTRAL E IZQUIERDA DEL BORDER LAYOUT
         add(barraArriba, BorderLayout.NORTH);

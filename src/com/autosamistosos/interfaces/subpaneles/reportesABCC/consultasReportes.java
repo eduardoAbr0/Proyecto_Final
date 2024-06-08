@@ -1,16 +1,12 @@
-package com.autosamistosos.interfaces.subpaneles.ventasABCC;
-
-import com.toedter.calendar.JDateChooser;
+package com.autosamistosos.interfaces.subpaneles.reportesABCC;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class consultasVentas extends JInternalFrame {
+public class consultasReportes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
@@ -19,12 +15,12 @@ public class consultasVentas extends JInternalFrame {
     ButtonGroup radioGroup;
     JTable tbAuto;
     DefaultTableModel tableModel = new DefaultTableModel();
-    public consultasVentas(){
-        super("Consultas ventas", true, true, true, true);
+    public consultasReportes(){
+        super("Consultas reportes", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 1000, 300);
+        setBounds(100, 100, 700, 200);
         setResizable(false);
 
         //RADIO GROUP DONDE SE AGREGARAN LAS DIFERENTES OPCIONES DE BUSQUEDA
@@ -42,7 +38,7 @@ public class consultasVentas extends JInternalFrame {
         // ID
         radioID = new JRadioButton();
         radioGroup.add(radioID);
-        JLabel txID = new JLabel("ID: ");
+        JLabel txID = new JLabel("ID");
         JComboBox cmbID = new JComboBox();
         agregarComp(radioID, 0, 1, 1, 1, 0, 0);
         add(radioID, gbc);
@@ -56,35 +52,22 @@ public class consultasVentas extends JInternalFrame {
         // TXT1
         radio1 = new JRadioButton();
         radioGroup.add(radio1);
-        JLabel txTXT1 = new JLabel("Fecha_venta: ");
-        JDateChooser fechaFab = new JDateChooser();
-        fechaFab.setDateFormatString("yyyy/MM/dd");
+        JLabel txTXT1 = new JLabel("TXT1");
+        JTextField txtTXT1 = new JTextField(15);
         agregarComp(radio1, 0, 2, 1, 1, 0, 0);
         add(radio1, gbc);
         agregarComp(txTXT1, 1, 2, 1, 1, 0, 0);
         add(txTXT1, gbc);
-        agregarComp(fechaFab, 2, 2, 1, 1, 1, 1);
+        agregarComp(txtTXT1, 2, 2, 1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(fechaFab, gbc);
+        add(txtTXT1, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
         // TXT2
         radio2 = new JRadioButton();
         radioGroup.add(radio2);
-        JLabel txTXT2 = new JLabel("Impuesto: ");
+        JLabel txTXT2 = new JLabel("TXT2");
         JTextField txtTXT2 = new JTextField(15);
-        txtTXT2.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (!(Character.isDigit(e.getKeyChar()) || (e.getKeyChar() == '.'))) {
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
         agregarComp(radio2, 0, 3, 1, 1, 0, 0);
         add(radio2, gbc);
         agregarComp(txTXT2, 1, 3, 1, 1, 0, 0);
@@ -94,23 +77,12 @@ public class consultasVentas extends JInternalFrame {
         add(txtTXT2, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
+        /*
         // TXT3
         radio3 = new JRadioButton();
         radioGroup.add(radio3);
-        JLabel txTXT3 = new JLabel("Costo licencia: ");
+        JLabel txTXT3 = new JLabel("TXT3");
         JTextField txtTXT3 = new JTextField(15);
-        txtTXT3.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (!(Character.isDigit(e.getKeyChar()) || (e.getKeyChar() == '.'))) {
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
         agregarComp(radio3, 0, 4, 1, 1, 0, 0);
         add(radio3, gbc);
         agregarComp(txTXT3, 1, 4, 1, 1, 0, 0);
@@ -123,12 +95,8 @@ public class consultasVentas extends JInternalFrame {
         // TXT4
         radio4 = new JRadioButton();
         radioGroup.add(radio4);
-        JLabel txTXT4 = new JLabel("Adicion: ");
-        JComboBox txtTXT4 = new JComboBox();
-        txtTXT4.addItem("Ninguno");
-        txtTXT4.addItem("Adornos");
-        txtTXT4.addItem("Sistema alarma");
-        txtTXT4.addItem("Sistema audio");
+        JLabel txTXT4 = new JLabel("TXT4");
+        JTextField txtTXT4 = new JTextField(15);
         agregarComp(radio4, 0, 5, 1, 1, 0, 0);
         add(radio4, gbc);
         agregarComp(txTXT4, 1, 5, 1, 1, 0, 0);
@@ -141,10 +109,8 @@ public class consultasVentas extends JInternalFrame {
         // TXT5
         radio5 = new JRadioButton();
         radioGroup.add(radio5);
-        JLabel txTXT5 = new JLabel("Tipo pago: ");
-        JComboBox txtTXT5 = new JComboBox();
-        txtTXT5.addItem("Completo");
-        txtTXT5.addItem("Parcial");
+        JLabel txTXT5 = new JLabel("TXT5");
+        JTextField txtTXT5 = new JTextField(15);
         agregarComp(radio5, 0, 6, 1, 1, 0, 0);
         add(radio5, gbc);
         agregarComp(txTXT5, 1, 6, 1, 1, 0, 0);
@@ -157,20 +123,8 @@ public class consultasVentas extends JInternalFrame {
         // TXT6
         radio6 = new JRadioButton();
         radioGroup.add(radio6);
-        JLabel txTXT6 = new JLabel("Comision: ");
+        JLabel txTXT6 = new JLabel("TXT6");
         JTextField txtTXT6 = new JTextField(15);
-        txtTXT6.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (!(Character.isDigit(e.getKeyChar()) || (e.getKeyChar() == '.'))) {
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
         agregarComp(radio6, 0, 7, 1, 1, 0, 0);
         add(radio6, gbc);
         agregarComp(txTXT6, 1, 7, 1, 1, 0, 0);
@@ -183,8 +137,8 @@ public class consultasVentas extends JInternalFrame {
         // TXT7
         radio6 = new JRadioButton();
         radioGroup.add(radio6);
-        JLabel txTXT7 = new JLabel("Cliente: ");
-        JComboBox txtTXT7 = new JComboBox();
+        JLabel txTXT7 = new JLabel("TXT7");
+        JTextField txtTXT7 = new JTextField(15);
         agregarComp(radio6, 0, 8, 1, 1, 0, 0);
         add(radio6, gbc);
         agregarComp(txTXT7, 1, 8, 1, 1, 0, 0);
@@ -197,8 +151,8 @@ public class consultasVentas extends JInternalFrame {
         // TXT8
         radio6 = new JRadioButton();
         radioGroup.add(radio6);
-        JLabel txTXT8 = new JLabel("Empleado: ");
-        JComboBox txtTXT8 = new JComboBox();
+        JLabel txTXT8 = new JLabel("TXT8");
+        JTextField txtTXT8 = new JTextField(15);
         agregarComp(radio6, 0, 9, 1, 1, 0, 0);
         add(radio6, gbc);
         agregarComp(txTXT8, 1, 9, 1, 1, 0, 0);
@@ -211,8 +165,8 @@ public class consultasVentas extends JInternalFrame {
         // TXT9
         radio6 = new JRadioButton();
         radioGroup.add(radio6);
-        JLabel txTXT9 = new JLabel("Vehiculo: ");
-        JComboBox txtTXT9 = new JComboBox();
+        JLabel txTXT9 = new JLabel("TXT9");
+        JTextField txtTXT9 = new JTextField(15);
         agregarComp(radio6, 0, 10, 1, 1, 0, 0);
         add(radio6, gbc);
         agregarComp(txTXT9, 1, 10, 1, 1, 0, 0);
@@ -221,6 +175,8 @@ public class consultasVentas extends JInternalFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtTXT9, gbc);
         gbc.fill = GridBagConstraints.NONE;
+
+         */
 
 
         btnConsultar = new JButton("Consultar venta");
@@ -238,21 +194,16 @@ public class consultasVentas extends JInternalFrame {
                         textField.setText("");
                     }
                 }
+
+
             }
         });
         agregarComp(btnLimpiar,1,11,1,1,0,0);
         getContentPane().add(btnLimpiar, gbc);
 
         tableModel.addColumn("ID");
-        tableModel.addColumn("Fecha_venta");
-        tableModel.addColumn("Impuesto");
-        tableModel.addColumn("Costo_licencia");
-        tableModel.addColumn("Adicion");
-        tableModel.addColumn("Tipo_pago");
-        tableModel.addColumn("Comision");
-        tableModel.addColumn("Cliente");
-        tableModel.addColumn("Empleado");
-        tableModel.addColumn("Automovil");
+        tableModel.addColumn("Mes");
+        tableModel.addColumn("Venta");
 
         tbAuto = new JTable(tableModel);
         JScrollPane jsCl = new JScrollPane(tbAuto);
