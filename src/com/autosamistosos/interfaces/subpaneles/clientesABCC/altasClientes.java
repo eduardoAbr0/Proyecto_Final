@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 public class altasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtEmpleado;
+    JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtEmpleado, txtCorreo;
     JButton btnAgregar, btnLimpiar;
     Cliente cliente;
     DAOClienteImpl daoCliente = new DAOClienteImpl();
@@ -31,6 +31,13 @@ public class altasClientes extends JInternalFrame {
         txtID = new JTextField(10);
         agregarComp(txtID,1,0,1,1,1,1);
         add(txtID, gbc);
+
+        JLabel txCorreo = new JLabel("Correo: ");
+        agregarComp(txCorreo,0,1,1,1,1,1);
+        add(txCorreo, gbc);
+        txtCorreo = new JTextField(10);
+        agregarComp(txtCorreo,1,1,1,1,1,1);
+        add(txtCorreo, gbc);
 
         JLabel txNombre = new JLabel("Nombre: ");
         agregarComp(txNombre,0,1,1,1,1,1);
@@ -93,7 +100,7 @@ public class altasClientes extends JInternalFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                /*
                 cliente = new Cliente(Integer.parseInt(txtID.getText()),
                         txtNombre.getText(),
                         txtPrimerA.getText(),
@@ -105,7 +112,7 @@ public class altasClientes extends JInternalFrame {
                         cliente.setIdEmpleado(Integer.parseInt(txtEmpleado.getText()));
 
                         daoCliente.insertar(cliente);
-
+*/
             }
         });
         agregarComp(btnAgregar,0,9,1,1,1,1);
@@ -113,6 +120,17 @@ public class altasClientes extends JInternalFrame {
 
         btnLimpiar = new JButton("Limpiar");
         agregarComp(btnLimpiar,1,9,1,1,1,1);
+        btnLimpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Component component: getContentPane().getComponents()){
+                    if (component instanceof JTextField) {
+                        JTextField textField = (JTextField) component;
+                        textField.setText("");
+                    }
+                }
+            }
+        });
         add(btnLimpiar, gbc);
 
         setVisible(true);

@@ -2,17 +2,20 @@ package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.modelo.Automovil;
-import com.autosamistosos.basedatos.modelo.Cliente;
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class altasAutos extends JInternalFrame {
+
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado;
+    JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado, txtPaisFab, txtEstadoFab;
     JButton btnAgregar, btnLimpiar;
     Automovil automovil;
     DAOClienteImpl daoCliente = new DAOClienteImpl();
@@ -25,75 +28,158 @@ public class altasAutos extends JInternalFrame {
         setBounds(100, 100, 450, 300);
         setResizable(false);
 
+        // Label e input de ID Auto
         JLabel txID = new JLabel("ID Auto: ");
-        agregarComp(txID,0,0,1,1,1,1);
+        agregarComp(txID, 0, 0, 1, 1, 1, 1);
         add(txID, gbc);
-        txtID = new JTextField(10);
-        agregarComp(txtID,1,0,1,1,1,1);
-        add(txtID, gbc);
+        SpinnerNumberModel spM = new SpinnerNumberModel(1, 1, null, 1);
+        JSpinner spId = new JSpinner(spM);
+        JFormattedTextField tf = ((JSpinner.DefaultEditor) spId.getEditor()).getTextField();
+        tf.setEditable(false);
+        agregarComp(spId, 1, 0, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(spId, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
+        // Label e input de Modelo
         JLabel txModelo = new JLabel("Modelo: ");
-        agregarComp(txModelo,0,1,1,1,1,1);
+        agregarComp(txModelo, 0, 1, 1, 1, 1, 1);
         add(txModelo, gbc);
         txtModelo = new JTextField(10);
-        agregarComp(txtModelo,1,1,1,1,1,1);
+        agregarComp(txtModelo, 1, 1, 1, 1, 1, 1);
         add(txtModelo, gbc);
 
+        // Label e input de Precio
         JLabel txPrecio = new JLabel("Precio: ");
-        agregarComp(txPrecio,0,2,1,1,1,1);
+        agregarComp(txPrecio, 0, 2, 1, 1, 1, 1);
         add(txPrecio, gbc);
         txtPrecio = new JTextField(10);
-        agregarComp(txtPrecio,1,2,1,1,1,1);
+        txtPrecio.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()) || (e.getKeyChar() == '.'))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        agregarComp(txtPrecio, 1, 2, 1, 1, 1, 1);
         add(txtPrecio, gbc);
 
-        JLabel txFechaf = new JLabel("Fecha fabricacion: ");
-        agregarComp(txFechaf,0,3,1,1,1,1);
+        // Label e input de Fecha de fabricación
+        JLabel txFechaf = new JLabel("Fecha fabriacion: ");
+        JDateChooser fechaFab = new JDateChooser();
+        fechaFab.setDateFormatString("yyyy/MM/dd");
+        agregarComp(txFechaf, 0, 3, 1, 1, 1, 1);
         add(txFechaf, gbc);
-        txtFechaf = new JTextField(10);
-        agregarComp(txtFechaf,1,3,1,1,1,1);
-        add(txtFechaf, gbc);
+        agregarComp(fechaFab, 1, 3, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fechaFab, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
+
+        // Label e input de País de fabricación
+        JLabel txPaisF = new JLabel("Pais fabricacion: ");
+        agregarComp(txPaisF, 0, 4, 1, 1, 1, 1);
+        add(txPaisF, gbc);
+        txtPaisFab = new JTextField(10);
+        agregarComp(txtPaisFab, 1, 4, 1, 1, 1, 1);
+        add(txtPaisFab, gbc);
+
+        // Label e input de Estado de fabricación
+        JLabel txEstadoF = new JLabel("Estado fabricacion: ");
+        agregarComp(txEstadoF, 0, 5, 1, 1, 1, 1);
+        add(txEstadoF, gbc);
+        txtEstadoFab = new JTextField(10);
+        agregarComp(txtEstadoFab, 1, 5, 1, 1, 1, 1);
+        add(txtEstadoFab, gbc);
+
+        // Label e input de Peso
         JLabel txPeso = new JLabel("Peso: ");
-        agregarComp(txPeso,0,4,1,1,1,1);
+        agregarComp(txPeso, 0, 6, 1, 1, 1, 1);
         add(txPeso, gbc);
         txtPeso = new JTextField(10);
-        agregarComp(txtPeso,1,4,1,1,1,1);
+        txtPeso.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        agregarComp(txtPeso, 1, 6, 1, 1, 1, 1);
         add(txtPeso, gbc);
 
+        // Label e input de Cilindros
         JLabel txCilindros = new JLabel("Cilindros: ");
-        agregarComp(txCilindros,0,5,1,1,1,1);
+        agregarComp(txCilindros, 0, 7, 1, 1, 1, 1);
         add(txCilindros, gbc);
-        txtCilindros = new JTextField(10);
-        agregarComp(txtCilindros,1,5,1,1,1,1);
-        add(txtCilindros, gbc);
+        JComboBox cmbCilindros = new JComboBox();
+        cmbCilindros.addItem("4");
+        cmbCilindros.addItem("6");
+        cmbCilindros.addItem("12");
+        cmbCilindros.addItem("16");
+        agregarComp(cmbCilindros, 1, 7, 1, 1, 1, 1);
+        add(cmbCilindros, gbc);
 
+        // Label e input de Color
         JLabel txColor = new JLabel("Color: ");
-        agregarComp(txColor,0,6,1,1,1,1);
+        agregarComp(txColor, 0, 8, 1, 1, 1, 1);
         add(txColor, gbc);
         txtColor = new JTextField(10);
-        agregarComp(txtColor,1,6,1,1,1,1);
+        agregarComp(txtColor, 1, 8, 1, 1, 1, 1);
         add(txtColor, gbc);
 
-        JLabel txCapL = new JLabel("Capacidad litros: ");
-        agregarComp(txCapL,0,7,1,1,1,1);
+        // Label e input de Capacidad
+        JLabel txCapL = new JLabel("Capacidad: ");
+        agregarComp(txCapL, 0, 9, 1, 1, 1, 1);
         add(txCapL, gbc);
         txtCapL = new JTextField(10);
-        agregarComp(txtCapL,1,7,1,1,1,1);
+        txtCapL.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        agregarComp(txtCapL, 1, 9, 1, 1, 1, 1);
         add(txtCapL, gbc);
 
+        // Label e input de Estado
         JLabel txEstado = new JLabel("Estado: ");
-        agregarComp(txEstado,0,8,1,1,1,1);
+        agregarComp(txEstado, 0, 10, 1, 1, 1, 1);
         add(txEstado, gbc);
-        txtEstado = new JTextField(10);
-        agregarComp(txtEstado,1,8,1,1,1,1);
-        add(txtEstado, gbc);
+        JComboBox cmbEstado = new JComboBox();
+        cmbEstado.addItem("Nuevo");
+        cmbEstado.addItem("Usado");
+        agregarComp(cmbEstado, 1, 10, 1, 1, 1,1);
+        add(cmbEstado, gbc);
 
 
         btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //VERIFICACION CAMPOS
+                if(txtModelo.getText().isEmpty() || txtPrecio.getText().isEmpty() || fechaFab.getDate().toString().isEmpty() ||
+                txtPaisFab.getText().isEmpty() || txtEstadoFab.getText().isEmpty() || txtPeso.getText().isEmpty() || txtColor.getText().isEmpty()
+                || txtCapL.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Componente(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
 
+                /*
                 automovil = new Automovil(
                         Integer.parseInt(txtID.getText()),
                         txtModelo.getText(),
@@ -106,13 +192,28 @@ public class altasAutos extends JInternalFrame {
                         null,
                         null,
                         null);
+
+                 */
             }
         });
-        agregarComp(btnAgregar,0,9,1,1,1,1);
+        agregarComp(btnAgregar,0,11,1,1,1,1);
         add(btnAgregar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
-        agregarComp(btnLimpiar,1,9,1,1,1,1);
+        agregarComp(btnLimpiar,1,11,1,1,1,1);
+        btnLimpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Component component: getContentPane().getComponents()){
+                    if (component instanceof JTextField) {
+                        JTextField textField = (JTextField) component;
+                        textField.setText("");
+                    }
+                }
+
+
+            }
+        });
         add(btnLimpiar, gbc);
 
         setVisible(true);
@@ -126,6 +227,6 @@ public class altasAutos extends JInternalFrame {
         gbc.weightx = pesox;
         gbc.weighty = pesoy;
 
-        gbl.setConstraints(c,gbc);
+        add(c,gbc);
     }
 }

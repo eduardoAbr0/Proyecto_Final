@@ -28,7 +28,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
             preparedStatement.setString(7, cliente.getColonia());
             preparedStatement.setInt(8, cliente.getCp());
             preparedStatement.setString(9, cliente.getRFC());
-            preparedStatement.setString(10, cliente.getTelefono());
+            preparedStatement.setInt(10, cliente.getTelefono());
             if (preparedStatement.executeUpdate() >= 1){
                 System.out.printf("Se ha agregado el Cliente.");
 
@@ -71,7 +71,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
             preparedStatement.setString(6, cliente.getColonia());
             preparedStatement.setInt(7, cliente.getCp());
             preparedStatement.setString(8, cliente.getRFC());
-            preparedStatement.setString(9, cliente.getTelefono());
+            preparedStatement.setInt(9, cliente.getTelefono());
             preparedStatement.setInt(10, cliente.getIdCliente());
 
 
@@ -147,7 +147,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
         String rfc = rs.getString("RFC_Cliente");
         String telefono = rs.getString("Telefono_Cliente");
 
-        cliente = new Cliente(id, nombre,apellido,sapellido,numeroCasa,calle,colonia,cp,telefono,rfc);
+        //cliente = new Cliente(id, nombre,apellido,sapellido,numeroCasa,calle,colonia,cp,telefono,rfc);
 
         return cliente;
     }
