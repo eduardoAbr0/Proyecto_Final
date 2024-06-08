@@ -1,5 +1,7 @@
 package com.autosamistosos.interfaces.subpaneles.reportesABCC;
 
+import com.toedter.calendar.JDateChooser;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -38,7 +40,7 @@ public class consultasReportes extends JInternalFrame {
         // ID
         radioID = new JRadioButton();
         radioGroup.add(radioID);
-        JLabel txID = new JLabel("ID");
+        JLabel txID = new JLabel("ID: ");
         JComboBox cmbID = new JComboBox();
         agregarComp(radioID, 0, 1, 1, 1, 0, 0);
         add(radioID, gbc);
@@ -52,22 +54,23 @@ public class consultasReportes extends JInternalFrame {
         // TXT1
         radio1 = new JRadioButton();
         radioGroup.add(radio1);
-        JLabel txTXT1 = new JLabel("TXT1");
-        JTextField txtTXT1 = new JTextField(15);
+        JLabel txTXT1 = new JLabel("Mes: ");
+        JDateChooser fechaFab = new JDateChooser();
+        fechaFab.setDateFormatString("MM");
         agregarComp(radio1, 0, 2, 1, 1, 0, 0);
         add(radio1, gbc);
         agregarComp(txTXT1, 1, 2, 1, 1, 0, 0);
         add(txTXT1, gbc);
-        agregarComp(txtTXT1, 2, 2, 1, 1, 1, 1);
+        agregarComp(fechaFab, 2, 2, 1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT1, gbc);
+        add(fechaFab, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
         // TXT2
         radio2 = new JRadioButton();
         radioGroup.add(radio2);
-        JLabel txTXT2 = new JLabel("TXT2");
-        JTextField txtTXT2 = new JTextField(15);
+        JLabel txTXT2 = new JLabel("Empleado: ");
+        JComboBox txtTXT2 = new JComboBox();
         agregarComp(radio2, 0, 3, 1, 1, 0, 0);
         add(radio2, gbc);
         agregarComp(txTXT2, 1, 3, 1, 1, 0, 0);
@@ -77,110 +80,8 @@ public class consultasReportes extends JInternalFrame {
         add(txtTXT2, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
-        /*
-        // TXT3
-        radio3 = new JRadioButton();
-        radioGroup.add(radio3);
-        JLabel txTXT3 = new JLabel("TXT3");
-        JTextField txtTXT3 = new JTextField(15);
-        agregarComp(radio3, 0, 4, 1, 1, 0, 0);
-        add(radio3, gbc);
-        agregarComp(txTXT3, 1, 4, 1, 1, 0, 0);
-        add(txTXT3, gbc);
-        agregarComp(txtTXT3, 2, 4, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT3, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT4
-        radio4 = new JRadioButton();
-        radioGroup.add(radio4);
-        JLabel txTXT4 = new JLabel("TXT4");
-        JTextField txtTXT4 = new JTextField(15);
-        agregarComp(radio4, 0, 5, 1, 1, 0, 0);
-        add(radio4, gbc);
-        agregarComp(txTXT4, 1, 5, 1, 1, 0, 0);
-        add(txTXT4, gbc);
-        agregarComp(txtTXT4, 2, 5, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT4, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT5
-        radio5 = new JRadioButton();
-        radioGroup.add(radio5);
-        JLabel txTXT5 = new JLabel("TXT5");
-        JTextField txtTXT5 = new JTextField(15);
-        agregarComp(radio5, 0, 6, 1, 1, 0, 0);
-        add(radio5, gbc);
-        agregarComp(txTXT5, 1, 6, 1, 1, 0, 0);
-        add(txTXT5, gbc);
-        agregarComp(txtTXT5, 2, 6, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT5, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT6
-        radio6 = new JRadioButton();
-        radioGroup.add(radio6);
-        JLabel txTXT6 = new JLabel("TXT6");
-        JTextField txtTXT6 = new JTextField(15);
-        agregarComp(radio6, 0, 7, 1, 1, 0, 0);
-        add(radio6, gbc);
-        agregarComp(txTXT6, 1, 7, 1, 1, 0, 0);
-        add(txTXT6, gbc);
-        agregarComp(txtTXT6, 2, 7, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT6, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT7
-        radio6 = new JRadioButton();
-        radioGroup.add(radio6);
-        JLabel txTXT7 = new JLabel("TXT7");
-        JTextField txtTXT7 = new JTextField(15);
-        agregarComp(radio6, 0, 8, 1, 1, 0, 0);
-        add(radio6, gbc);
-        agregarComp(txTXT7, 1, 8, 1, 1, 0, 0);
-        add(txTXT7, gbc);
-        agregarComp(txtTXT7, 2, 8, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT7, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT8
-        radio6 = new JRadioButton();
-        radioGroup.add(radio6);
-        JLabel txTXT8 = new JLabel("TXT8");
-        JTextField txtTXT8 = new JTextField(15);
-        agregarComp(radio6, 0, 9, 1, 1, 0, 0);
-        add(radio6, gbc);
-        agregarComp(txTXT8, 1, 9, 1, 1, 0, 0);
-        add(txTXT8, gbc);
-        agregarComp(txtTXT8, 2, 9, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT8, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT9
-        radio6 = new JRadioButton();
-        radioGroup.add(radio6);
-        JLabel txTXT9 = new JLabel("TXT9");
-        JTextField txtTXT9 = new JTextField(15);
-        agregarComp(radio6, 0, 10, 1, 1, 0, 0);
-        add(radio6, gbc);
-        agregarComp(txTXT9, 1, 10, 1, 1, 0, 0);
-        add(txTXT9, gbc);
-        agregarComp(txtTXT9, 2, 10, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT9, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-         */
-
-
         btnConsultar = new JButton("Consultar venta");
-        agregarComp(btnConsultar,0,11,1,1,0,0);
+        agregarComp(btnConsultar,0,4,1,1,0,0);
         gbc.fill = GridBagConstraints.NONE;
         getContentPane().add(btnConsultar, gbc);
 
@@ -198,7 +99,7 @@ public class consultasReportes extends JInternalFrame {
 
             }
         });
-        agregarComp(btnLimpiar,1,11,1,1,0,0);
+        agregarComp(btnLimpiar,1,4,1,1,0,0);
         getContentPane().add(btnLimpiar, gbc);
 
         tableModel.addColumn("ID");

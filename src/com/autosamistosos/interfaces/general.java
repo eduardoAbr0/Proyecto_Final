@@ -35,6 +35,7 @@ public class general extends JFrame {
         panelFacturas pnlFacturas = new panelFacturas();
         panelVentas pnlVentas = new panelVentas();
         panelReportes pnlReportes = new panelReportes();
+        panelEncuestas pnlEncuestas = new panelEncuestas();
 
         general.add(pnlInicio, "INICIO");
         general.add(pnlAuto,"AUTOS");
@@ -43,6 +44,7 @@ public class general extends JFrame {
         general.add(pnlVentas,"VENTAS");
         general.add(pnlFacturas,"FACTURAS");
         general.add(pnlReportes,"REPORTES");
+        general.add(pnlEncuestas,"ENCUESTAS");
 
 
         //PERSONALIZACION BASICA DE COLORES PARA IDENTIFICAR
@@ -117,7 +119,7 @@ public class general extends JFrame {
         btnEncuestas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cl.show(general, "REPORTES");
+                cl.show(general, "ENCUESTAS");
             }
         });
         opciones.add(btnEncuestas);
