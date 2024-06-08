@@ -27,13 +27,10 @@ public class cambiosReportes extends JInternalFrame {
         JLabel txID = new JLabel("ID reporte: ");
         agregarComp(txID,0,0,1,1,0,0);
         add(txID, gbc);
-        SpinnerNumberModel spM = new SpinnerNumberModel(1, 1, null, 1);
-        JSpinner spId = new JSpinner(spM);
-        JFormattedTextField tf = ((JSpinner.DefaultEditor) spId.getEditor()).getTextField();
-        tf.setEditable(false);
-        agregarComp(spId,1,0,1,1,0,1);
+        combo1 = new JComboBox();
+        agregarComp(combo1,1,0,1,1,0,1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(spId, gbc);
+        add(combo1, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
         JLabel txFechaf = new JLabel("Mes: ");

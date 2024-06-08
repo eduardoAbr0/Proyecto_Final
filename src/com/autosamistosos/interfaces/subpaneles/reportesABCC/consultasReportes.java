@@ -80,7 +80,7 @@ public class consultasReportes extends JInternalFrame {
         add(txtTXT2, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
-        btnConsultar = new JButton("Consultar venta");
+        btnConsultar = new JButton("Consultar reporte");
         agregarComp(btnConsultar,0,4,1,1,0,0);
         gbc.fill = GridBagConstraints.NONE;
         getContentPane().add(btnConsultar, gbc);

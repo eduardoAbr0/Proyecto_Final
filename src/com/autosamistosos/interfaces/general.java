@@ -36,6 +36,7 @@ public class general extends JFrame {
         panelVentas pnlVentas = new panelVentas();
         panelReportes pnlReportes = new panelReportes();
         panelEncuestas pnlEncuestas = new panelEncuestas();
+        panelLicencias pnlLicencias = new panelLicencias();
 
         general.add(pnlInicio, "INICIO");
         general.add(pnlAuto,"AUTOS");
@@ -45,7 +46,7 @@ public class general extends JFrame {
         general.add(pnlFacturas,"FACTURAS");
         general.add(pnlReportes,"REPORTES");
         general.add(pnlEncuestas,"ENCUESTAS");
-
+        general.add(pnlLicencias,"LICENCIAS");
 
         //PERSONALIZACION BASICA DE COLORES PARA IDENTIFICAR
         barraArriba.setBackground(Color.CYAN);
@@ -127,7 +128,7 @@ public class general extends JFrame {
         btnLicencias.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cl.show(general, "REPORTES");
+                cl.show(general, "LICENCIAS");
             }
         });
         opciones.add(btnLicencias);

@@ -1,4 +1,6 @@
-package com.autosamistosos.interfaces.subpaneles.encuestasABCC;
+package com.autosamistosos.interfaces.subpaneles.licenciasABCC;
+
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -6,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class consultasEncuestas extends JInternalFrame {
+public class consultasLicencias extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
@@ -15,8 +17,8 @@ public class consultasEncuestas extends JInternalFrame {
     ButtonGroup radioGroup;
     JTable tbAuto;
     DefaultTableModel tableModel = new DefaultTableModel();
-    public consultasEncuestas(){
-        super("Consultas encuestas", true, true, true, true);
+    public consultasLicencias(){
+        super("Consultas licencias", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -52,36 +54,38 @@ public class consultasEncuestas extends JInternalFrame {
         // TXT1
         radio1 = new JRadioButton();
         radioGroup.add(radio1);
-        JLabel txTXT1 = new JLabel("Empleado: ");
-        JComboBox txtTXT1 = new JComboBox();
+        JLabel txTXT1 = new JLabel("Fecha emision: ");
+        JDateChooser date1 = new JDateChooser();
+        date1.setDateFormatString("yyyy/MM/dd");
         agregarComp(radio1, 0, 2, 1, 1, 0, 0);
         add(radio1, gbc);
-        agregarComp(txTXT1, 1, 2, 1, 1, 0, 0);
+        agregarComp(date1, 1, 2, 1, 1, 0, 0);
         add(txTXT1, gbc);
-        agregarComp(txtTXT1, 2, 2, 1, 1, 1, 1);
+        agregarComp(date1, 2, 2, 1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT1, gbc);
+        add(date1, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
         // TXT2
         radio2 = new JRadioButton();
         radioGroup.add(radio2);
-        JLabel txTXT2 = new JLabel("Vehiculo: ");
-        JComboBox txtTXT2 = new JComboBox();
+        JLabel txTXT2 = new JLabel("Fecha expiracion: ");
+        JDateChooser date2 = new JDateChooser();
+        date2.setDateFormatString("yyyy/MM/dd");
         agregarComp(radio2, 0, 3, 1, 1, 0, 0);
         add(radio2, gbc);
         agregarComp(txTXT2, 1, 3, 1, 1, 0, 0);
         add(txTXT2, gbc);
-        agregarComp(txtTXT2, 2, 3, 1, 1, 1, 1);
+        agregarComp(date2, 2, 3, 1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT2, gbc);
+        add(date2, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
 
         // TXT3
         radio3 = new JRadioButton();
         radioGroup.add(radio3);
-        JLabel txTXT3 = new JLabel("Venta");
+        JLabel txTXT3 = new JLabel("Cliente: ");
         JComboBox txtTXT3 = new JComboBox();
         agregarComp(radio3, 0, 4, 1, 1, 0, 0);
         add(radio3, gbc);
@@ -92,8 +96,22 @@ public class consultasEncuestas extends JInternalFrame {
         add(txtTXT3, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
+        // TXT4
+        radio4 = new JRadioButton();
+        radioGroup.add(radio4);
+        JLabel txTXT4 = new JLabel("Vehiculo: ");
+        JComboBox txtTXT4 = new JComboBox();
+        agregarComp(radio4, 0, 5, 1, 1, 0, 0);
+        add(radio4, gbc);
+        agregarComp(txTXT4, 1, 5, 1, 1, 0, 0);
+        add(txTXT4, gbc);
+        agregarComp(txtTXT4, 2, 5, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(txtTXT4, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
-        btnConsultar = new JButton("Consultar encuesta");
+
+        btnConsultar = new JButton("Consultar licencia");
         agregarComp(btnConsultar,0,11,1,1,0,0);
         gbc.fill = GridBagConstraints.NONE;
         getContentPane().add(btnConsultar, gbc);
@@ -114,11 +132,9 @@ public class consultasEncuestas extends JInternalFrame {
         getContentPane().add(btnLimpiar, gbc);
 
         tableModel.addColumn("ID");
-        tableModel.addColumn("Opinion_auto");
-        tableModel.addColumn("Opinion_vendedor");
-        tableModel.addColumn("Opinion_distribuidor");
-        tableModel.addColumn("Venta");
-        tableModel.addColumn("Empleado");
+        tableModel.addColumn("Fecha_emision");
+        tableModel.addColumn("Fecha_expiracion");
+        tableModel.addColumn("Cliente");
         tableModel.addColumn("Coche");
 
         tbAuto = new JTable(tableModel);
