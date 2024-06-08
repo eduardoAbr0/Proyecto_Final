@@ -3,12 +3,12 @@ package com.autosamistosos.basedatos.modelo;
 public class ReporteVendedor {
     private int idReporte;
     private String mes;
-    private double comision;
+    private int ventaId;
 
-    public ReporteVendedor(int idReporte, String mes, double comision) {
+    public ReporteVendedor(int idReporte, String mes, int ventaId) {
         this.idReporte = idReporte;
         this.mes = mes;
-        this.comision = comision;
+        this.ventaId = ventaId;
     }
 
     public int getIdReporte() {
@@ -27,12 +27,12 @@ public class ReporteVendedor {
         this.mes = mes;
     }
 
-    public double getComision() {
-        return comision;
+    public int getVentaId() {
+        return ventaId;
     }
 
-    public void setComision(double comision) {
-        this.comision = comision;
+    public void setVentaId(int ventaId) {
+        this.ventaId = ventaId;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ReporteVendedor {
         return "ReporteVendedor{" +
                 "idReporte=" + idReporte +
                 ", mes='" + mes + '\'' +
-                ", comision=" + comision +
+                ", ventaid=" + ventaId +
                 '}';
     }
 }

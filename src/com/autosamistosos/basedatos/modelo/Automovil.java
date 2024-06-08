@@ -10,10 +10,12 @@ public class Automovil {
     private byte cilindroAutomovil;
     private String estado;
     private String seguro;
-    private String kmAutomovil;
+    private int kmAutomovil;
     private String garantiaAutomovil;
+    private String paisFab;
+    private String estadoFab;
 
-    public Automovil(int idAutomovil, String modeloA, String color, double precioAutomovil, String fechaFab, int pesoAutomovil, byte cilindroAutomovil, String estado, String seguro, String kmAutomovil, String garantiaAutomovil) {
+    public Automovil(int idAutomovil, String modeloA, String color, double precioAutomovil, String fechaFab, int pesoAutomovil, byte cilindroAutomovil, String estado, String seguro, int kmAutomovil, String garantiaAutomovil, String paisFab, String estadoFab) {
         this.idAutomovil = idAutomovil;
         this.modeloA = modeloA;
         this.color = color;
@@ -25,6 +27,20 @@ public class Automovil {
         this.seguro = seguro;
         this.kmAutomovil = kmAutomovil;
         this.garantiaAutomovil = garantiaAutomovil;
+        this.paisFab = paisFab;
+        this.estadoFab = estadoFab;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public String getPaisFab() {
+        return paisFab;
+    }
+
+    public String getEstadoFab() {
+        return estadoFab;
     }
 
     public int getIdAutomovil() {
@@ -99,11 +115,11 @@ public class Automovil {
         this.seguro = seguro;
     }
 
-    public String getKmAutomovil() {
+    public int getKmAutomovil() {
         return kmAutomovil;
     }
 
-    public void setKmAutomovil(String kmAutomovil) {
+    public void setKmAutomovil(int kmAutomovil) {
         this.kmAutomovil = kmAutomovil;
     }
 
@@ -120,7 +136,7 @@ public class Automovil {
         return "Automovil{" +
                 "idAutomovil=" + idAutomovil +
                 ", modeloA='" + modeloA + '\'' +
-                ", precio='" + color + '\'' +
+                ", color='" + color + '\'' +
                 ", precioAutomovil=" + precioAutomovil +
                 ", fechaFab='" + fechaFab + '\'' +
                 ", pesoAutomovil=" + pesoAutomovil +
@@ -129,6 +145,8 @@ public class Automovil {
                 ", seguro='" + seguro + '\'' +
                 ", kmAutomovil=" + kmAutomovil +
                 ", garantiaAutomovil='" + garantiaAutomovil + '\'' +
+                ", paisFab='" + paisFab + '\'' +
+                ", estadoFab='" + estadoFab + '\'' +
                 '}';
     }
 }

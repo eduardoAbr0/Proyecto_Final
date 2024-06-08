@@ -2,6 +2,7 @@ package com.autosamistosos.basedatos.modelo;
 
 public class Cliente {
     private int idCliente;
+    private String correo;
     private String nombre;
     private String pApellido;
     private String sApellido;
@@ -9,13 +10,14 @@ public class Cliente {
     private String calle;
     private String colonia;
     private int cp;
-    private String telefono;
     private String RFC;
+    private int telefono;
     protected int idEmpleado;
 
 
-    public Cliente(int idCliente, String nombre, String pApellido, String sApellido, int numeroCasa, String calle, String colonia, int cp, String telefono, String RFC) {
+    public Cliente(int idCliente, String correo, String nombre, String pApellido, String sApellido, int numeroCasa, String calle, String colonia, int cp, String RFC, int telefono, int idEmpleado) {
         this.idCliente = idCliente;
+        this.correo = correo;
         this.nombre = nombre;
         this.pApellido = pApellido;
         this.sApellido = sApellido;
@@ -23,23 +25,25 @@ public class Cliente {
         this.calle = calle;
         this.colonia = colonia;
         this.cp = cp;
-        this.telefono = telefono;
         this.RFC = RFC;
-    }
-
-    public int getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    public void setIdEmpleado(int idEmpleado) {
+        this.telefono = telefono;
         this.idEmpleado = idEmpleado;
     }
+
     public int getIdCliente() {
         return idCliente;
     }
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getNombre() {
@@ -98,14 +102,6 @@ public class Cliente {
         this.cp = cp;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getRFC() {
         return RFC;
     }
@@ -114,10 +110,27 @@ public class Cliente {
         this.RFC = RFC;
     }
 
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
+    }
+
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
                 "idCliente=" + idCliente +
+                ", correo='" + correo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", pApellido='" + pApellido + '\'' +
                 ", sApellido='" + sApellido + '\'' +
@@ -125,9 +138,9 @@ public class Cliente {
                 ", calle='" + calle + '\'' +
                 ", colonia='" + colonia + '\'' +
                 ", cp=" + cp +
+                ", RFC='" + RFC + '\'' +
                 ", telefono=" + telefono +
+                ", idEmpleado=" + idEmpleado +
                 '}';
     }
-
-
 }
