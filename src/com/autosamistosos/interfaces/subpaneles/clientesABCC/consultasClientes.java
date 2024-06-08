@@ -8,15 +8,18 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class consultasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID;
+    JTextField txtTXT1, txtTXT2, txtTXT3, txtTXT4, txtTXT5, txtTXT6, txtTXT7, txtTXT8, txtTXT9, txtTXT10;
     JRadioButton radioTodos, radioID, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, radio10, radio11, radio12, radio13, radio14;
     ButtonGroup radioGroup;
     JButton btnConsultar, btnLimpiar;
     JTable tbEmpleado;
+    JComboBox cmbID;
     DefaultTableModel tableModel = new DefaultTableModel();
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
@@ -43,21 +46,21 @@ public class consultasClientes extends JInternalFrame {
         // ID
         radioID = new JRadioButton();
         radioGroup.add(radioID);
-        JLabel txID = new JLabel("ID");
-        JTextField txtID = new JTextField();
+        JLabel txID = new JLabel("ID: ");
+        cmbID = new JComboBox();
         agregarComp(radioID, 0, 1, 1, 1, 0, 0);
         add(radioID, gbc);
         agregarComp(txID, 1, 1, 1, 1, 0, 0);
         add(txID, gbc);
-        agregarComp(txtID, 2, 1, 1, 1, 1, 1);
+        agregarComp(cmbID, 2, 1, 1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtID, gbc);
+        add(cmbID, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
         // TXT1
         radio1 = new JRadioButton();
         radioGroup.add(radio1);
-        JLabel txTXT1 = new JLabel("TXT1");
+        JLabel txTXT1 = new JLabel("Correo: ");
         JTextField txtTXT1 = new JTextField(15);
         agregarComp(radio1, 0, 2, 1, 1, 0, 0);
         add(radio1, gbc);
@@ -71,7 +74,7 @@ public class consultasClientes extends JInternalFrame {
         // TXT2
         radio2 = new JRadioButton();
         radioGroup.add(radio2);
-        JLabel txTXT2 = new JLabel("TXT2");
+        JLabel txTXT2 = new JLabel("Nombre: ");
         JTextField txtTXT2 = new JTextField(15);
         agregarComp(radio2, 0, 3, 1, 1, 0, 0);
         add(radio2, gbc);
@@ -85,7 +88,7 @@ public class consultasClientes extends JInternalFrame {
         // TXT3
         radio3 = new JRadioButton();
         radioGroup.add(radio3);
-        JLabel txTXT3 = new JLabel("TXT3");
+        JLabel txTXT3 = new JLabel("Primer apellido: ");
         JTextField txtTXT3 = new JTextField(15);
         agregarComp(radio3, 0, 4, 1, 1, 0, 0);
         add(radio3, gbc);
@@ -99,7 +102,7 @@ public class consultasClientes extends JInternalFrame {
         // TXT4
         radio4 = new JRadioButton();
         radioGroup.add(radio4);
-        JLabel txTXT4 = new JLabel("TXT4");
+        JLabel txTXT4 = new JLabel("Segundo apellido: ");
         JTextField txtTXT4 = new JTextField(15);
         agregarComp(radio4, 0, 5, 1, 1, 0, 0);
         add(radio4, gbc);
@@ -113,8 +116,20 @@ public class consultasClientes extends JInternalFrame {
         // TXT5
         radio5 = new JRadioButton();
         radioGroup.add(radio5);
-        JLabel txTXT5 = new JLabel("TXT5");
+        JLabel txTXT5 = new JLabel("Numero casa: ");
         JTextField txtTXT5 = new JTextField(15);
+        txtTXT5.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
         agregarComp(radio5, 0, 6, 1, 1, 0, 0);
         add(radio5, gbc);
         agregarComp(txTXT5, 1, 6, 1, 1, 0, 0);
@@ -127,7 +142,7 @@ public class consultasClientes extends JInternalFrame {
         // TXT6
         radio6 = new JRadioButton();
         radioGroup.add(radio6);
-        JLabel txTXT6 = new JLabel("TXT6");
+        JLabel txTXT6 = new JLabel("Calle: ");
         JTextField txtTXT6 = new JTextField(15);
         agregarComp(radio6, 0, 7, 1, 1, 0, 0);
         add(radio6, gbc);
@@ -141,7 +156,7 @@ public class consultasClientes extends JInternalFrame {
         // TXT7
         radio7 = new JRadioButton();
         radioGroup.add(radio7);
-        JLabel txTXT7 = new JLabel("TXT7");
+        JLabel txTXT7 = new JLabel("Colonia: ");
         JTextField txtTXT7 = new JTextField(15);
         agregarComp(radio7, 0, 8, 1, 1, 0, 0);
         add(radio7, gbc);
@@ -155,8 +170,20 @@ public class consultasClientes extends JInternalFrame {
         // TXT8
         radio8 = new JRadioButton();
         radioGroup.add(radio8);
-        JLabel txTXT8 = new JLabel("TXT8");
+        JLabel txTXT8 = new JLabel("CP: ");
         JTextField txtTXT8 = new JTextField(15);
+        txtTXT8.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
         agregarComp(radio8, 0, 9, 1, 1, 0, 0);
         add(radio8, gbc);
         agregarComp(txTXT8, 1, 9, 1, 1, 0, 0);
@@ -169,7 +196,7 @@ public class consultasClientes extends JInternalFrame {
         // TXT9
         radio9 = new JRadioButton();
         radioGroup.add(radio9);
-        JLabel txTXT9 = new JLabel("TXT9");
+        JLabel txTXT9 = new JLabel("RFC: ");
         JTextField txtTXT9 = new JTextField(15);
         agregarComp(radio9, 0, 10, 1, 1, 0, 0);
         add(radio9, gbc);
@@ -183,8 +210,20 @@ public class consultasClientes extends JInternalFrame {
         // TXT10
         radio10 = new JRadioButton();
         radioGroup.add(radio10);
-        JLabel txTXT10 = new JLabel("TXT10");
+        JLabel txTXT10 = new JLabel("Telefono: ");
         JTextField txtTXT10 = new JTextField(15);
+        txtTXT10.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
         agregarComp(radio10, 0, 11, 1, 1, 0, 0);
         add(radio10, gbc);
         agregarComp(txTXT10, 1, 11, 1, 1, 0, 0);

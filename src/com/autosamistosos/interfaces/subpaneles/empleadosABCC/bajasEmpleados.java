@@ -1,6 +1,7 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.basedatos.modelo.Automovil;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.basedatos.controlador.empleadoDAO;
 
@@ -8,12 +9,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class bajasEmpleados extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
     JButton btnEliminar;
+    JComboBox cmbID;
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
 
     public bajasEmpleados(){
@@ -21,27 +24,28 @@ public class bajasEmpleados extends JInternalFrame {
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 250, 150);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Empleado: ");
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
-        txtID = new JTextField(10);
-        agregarComp(txtID,1,0,1,1,1,1);
-        add(txtID, gbc);
+        cmbID = new JComboBox();
+
+        agregarComp(cmbID,1,0,1,1,1,1);
+        add(cmbID, gbc);
 
         btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
+                //daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
             }
         });
-        agregarComp(btnEliminar,0,1,1,2,1,1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        agregarComp(btnEliminar,0,1,1,2,1,0);
         add(btnEliminar, gbc);
 
+        rellenarCmb();
         setVisible(true);
     }
 
@@ -56,7 +60,13 @@ public class bajasEmpleados extends JInternalFrame {
         gbl.setConstraints(c,gbc);
     }
 
-    public static void main(String[] args) {
-        new bajasEmpleados();
+    public void rellenarCmb(){
+
+        ArrayList<Empleado> autos = daoEmpleado.buscarTodos();
+
+        for(Empleado e : autos){
+            cmbID.addItem(e.getId());
+        }
+
     }
 }
