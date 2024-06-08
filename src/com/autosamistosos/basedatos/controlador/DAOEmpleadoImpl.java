@@ -9,14 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOEmpleadoImpl extends conexionBD implements empleadoDAO{
+public class DAOEmpleadoImpl implements empleadoDAO{
     @Override
     public void insertar(Empleado empleado) {
         String sql = "INSERT INTO empleados VALUES(?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, empleado.getId());
             preparedStatement.setString(2, empleado.getNombre());
             preparedStatement.setString(3, empleado.getPapellido());
@@ -51,7 +51,7 @@ public class DAOEmpleadoImpl extends conexionBD implements empleadoDAO{
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setString(1, empleado.getNombre());
             preparedStatement.setString(2, empleado.getPapellido());
             preparedStatement.setString(3, empleado.getSapellido());
@@ -86,7 +86,7 @@ public class DAOEmpleadoImpl extends conexionBD implements empleadoDAO{
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
             if( preparedStatement.executeUpdate() >= 1 )
@@ -130,7 +130,7 @@ public class DAOEmpleadoImpl extends conexionBD implements empleadoDAO{
         ResultSet resultSet = null;
         Empleado empleado = null;
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -165,7 +165,7 @@ public class DAOEmpleadoImpl extends conexionBD implements empleadoDAO{
         ResultSet resultSet = null;
         ArrayList<Empleado> empleados = new ArrayList<>();
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);

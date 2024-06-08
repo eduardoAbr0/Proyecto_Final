@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.modelo.Automovil;
 import com.toedter.calendar.JDateChooser;
@@ -10,15 +11,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class altasAutos extends JInternalFrame {
 
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado, txtPaisFab, txtEstadoFab;
+    JTextField txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado, txtPaisFab, txtEstadoFab;
     JButton btnAgregar, btnLimpiar;
     Automovil automovil;
-    DAOClienteImpl daoCliente = new DAOClienteImpl();
+    DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
 
     public altasAutos(){
         super("Altas autos", true, true, true, true);
@@ -177,23 +180,32 @@ public class altasAutos extends JInternalFrame {
                 txtPaisFab.getText().isEmpty() || txtEstadoFab.getText().isEmpty() || txtPeso.getText().isEmpty() || txtColor.getText().isEmpty()
                 || txtCapL.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Componente(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else{
+                    Date fechaSeleccionada = fechaFab.getDate();
+
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+                    String fechaSeleccionadaS = formatoFecha.format(fechaSeleccionada);
+
+
+                    automovil = new Automovil(
+                            Integer.parseInt(spId.getValue().toString()),
+                            txtModelo.getText(),
+                            Double.parseDouble(txtPrecio.getText()),
+                            fechaSeleccionadaS,
+                            txtPaisFab.getText(),
+                            txtEstadoFab.getText(),
+                            Integer.parseInt(txtPeso.getText()),
+                            Integer.parseInt(cmbCilindros.getSelectedItem().toString()),
+                            txtColor.getText(),
+                            Integer.parseInt(txtCapL.getText()),
+                            cmbEstado.getSelectedItem().toString()
+                            );
+
+                    daoAutomovil.insertar(automovil);
                 }
 
-                /*
-                automovil = new Automovil(
-                        Integer.parseInt(txtID.getText()),
-                        txtModelo.getText(),
-                        txtColor.getText(),
-                        Double.parseDouble(txtPrecio.getText()),
-                        txtFechaf.getText(),
-                        Integer.parseInt(txtPeso.getText()),
-                        Byte.parseByte(txtCilindros.getText()),
-                        txtEstado.getText(),
-                        null,
-                        null,
-                        null);
 
-                 */
+
             }
         });
         agregarComp(btnAgregar,0,11,1,1,1,1);

@@ -7,15 +7,16 @@ public class Automovil {
     private double precioAutomovil;
     private String fechaFab;
     private int pesoAutomovil;
-    private byte cilindroAutomovil;
+    private int cilindroAutomovil;
     private String estado;
     private String seguro;
     private int kmAutomovil;
     private String garantiaAutomovil;
     private String paisFab;
     private String estadoFab;
+    private int capacidad;
 
-    public Automovil(int idAutomovil, String modeloA, String color, double precioAutomovil, String fechaFab, int pesoAutomovil, byte cilindroAutomovil, String estado, String seguro, int kmAutomovil, String garantiaAutomovil, String paisFab, String estadoFab) {
+    public Automovil(int idAutomovil, String modeloA, double precioAutomovil, String fechaFab,String paisFab,String estadoFab, int pesoAutomovil, int cilindroAutomovil,  String color, int capacidad,String estado) {
         this.idAutomovil = idAutomovil;
         this.modeloA = modeloA;
         this.color = color;
@@ -24,23 +25,17 @@ public class Automovil {
         this.pesoAutomovil = pesoAutomovil;
         this.cilindroAutomovil = cilindroAutomovil;
         this.estado = estado;
-        this.seguro = seguro;
-        this.kmAutomovil = kmAutomovil;
-        this.garantiaAutomovil = garantiaAutomovil;
         this.paisFab = paisFab;
         this.estadoFab = estadoFab;
+        this.capacidad = capacidad;
     }
 
-    public String getColor() {
-        return color;
+    public int getCapacidad(){
+        return capacidad;
     }
 
-    public String getPaisFab() {
-        return paisFab;
-    }
-
-    public String getEstadoFab() {
-        return estadoFab;
+    public void setCapacidad(int capacidad){
+        this.capacidad = capacidad;
     }
 
     public int getIdAutomovil() {
@@ -59,12 +54,12 @@ public class Automovil {
         this.modeloA = modeloA;
     }
 
-    public String getPrecio() {
+    public String getColor() {
         return color;
     }
 
-    public void setPrecio(String precio) {
-        this.color = precio;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public double getPrecioAutomovil() {
@@ -91,11 +86,11 @@ public class Automovil {
         this.pesoAutomovil = pesoAutomovil;
     }
 
-    public byte getCilindroAutomovil() {
+    public int getCilindroAutomovil() {
         return cilindroAutomovil;
     }
 
-    public void setCilindroAutomovil(byte cilindroAutomovil) {
+    public void setCilindroAutomovil(int cilindroAutomovil) {
         this.cilindroAutomovil = cilindroAutomovil;
     }
 
@@ -129,6 +124,22 @@ public class Automovil {
 
     public void setGarantiaAutomovil(String garantiaAutomovil) {
         this.garantiaAutomovil = garantiaAutomovil;
+    }
+
+    public String getPaisFab() {
+        return paisFab;
+    }
+
+    public void setPaisFab(String paisFab) {
+        this.paisFab = paisFab;
+    }
+
+    public String getEstadoFab() {
+        return estadoFab;
+    }
+
+    public void setEstadoFab(String estadoFab) {
+        this.estadoFab = estadoFab;
     }
 
     @Override

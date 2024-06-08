@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOClienteImpl extends conexionBD implements clienteDAO{
+public class DAOClienteImpl implements clienteDAO{
     @Override
     public void insertar(Cliente cliente) {
         String sql = "INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -18,7 +18,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
         PreparedStatement preparedStatementR = null;
 
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement =conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, cliente.getIdCliente());
             preparedStatement.setString(2, cliente.getNombre());
             preparedStatement.setString(3, cliente.getpApellido());
@@ -32,7 +32,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
             if (preparedStatement.executeUpdate() >= 1){
                 System.out.printf("Se ha agregado el Cliente.");
 
-                preparedStatementR = conexion.prepareStatement(sqlR);
+                preparedStatementR = conexionBD.getInstancia().getConexion().prepareStatement(sqlR);
                 preparedStatementR.setInt(1, cliente.getIdCliente());
                 preparedStatementR.setInt(2, cliente.getIdEmpleado());
                 if(preparedStatementR.executeUpdate()>=1)
@@ -62,7 +62,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setString(1, cliente.getNombre());
             preparedStatement.setString(2, cliente.getpApellido());
             preparedStatement.setString(3, cliente.getsApellido());
@@ -78,7 +78,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
             if( preparedStatement.executeUpdate() >= 1 )
                 System.out.printf("Se ha actualizado el Cliente.");
 
-            preparedStatement = conexion.prepareStatement(sqlR);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sqlR);
             preparedStatement.setInt(1, cliente.getIdEmpleado());
             preparedStatement.setInt(2, cliente.getIdCliente());
 
@@ -107,13 +107,13 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
         PreparedStatement preparedStatement = null;
 
         try {
-            preparedStatement = conexion.prepareStatement(sqlR);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sqlR);
             preparedStatement.setInt(1, id);
 
             if( preparedStatement.executeUpdate() >= 1 )
                 System.out.printf("Se ha eliminado relacion del Cliente.");
 
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
             if( preparedStatement.executeUpdate() >= 1 )
@@ -160,7 +160,7 @@ public class DAOClienteImpl extends conexionBD implements clienteDAO{
         ResultSet resultSet = null;
         Cliente cliente = null;
         try {
-            preparedStatement = conexion.prepareStatement(sql);
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
