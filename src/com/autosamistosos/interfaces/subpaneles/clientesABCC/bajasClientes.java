@@ -1,33 +1,38 @@
 package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.basedatos.modelo.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class bajasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
+    JComboBox cmbID;
     JButton btnEliminar;
-    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
+    DAOClienteImpl daoCliente = new DAOClienteImpl();
 
     public bajasClientes(){
         super("Bajas clientes", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 250, 150);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Cliente: ");
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
-        txtID = new JTextField(10);
-        agregarComp(txtID,1,0,1,1,1,1);
-        add(txtID, gbc);
+        cmbID = new JComboBox();
+
+        agregarComp(cmbID,1,0,1,1,1,1);
+        add(cmbID, gbc);
 
         btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(new ActionListener() {
@@ -36,10 +41,10 @@ public class bajasClientes extends JInternalFrame {
                 //daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
             }
         });
-        agregarComp(btnEliminar,0,1,1,2,1,1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        agregarComp(btnEliminar,0,1,1,2,1,0);
         add(btnEliminar, gbc);
 
+        rellenarCmb();
         setVisible(true);
     }
 
@@ -52,6 +57,18 @@ public class bajasClientes extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public void rellenarCmb(){
+        /*
+        ArrayList<Cliente> clientes = daoCliente.buscarTodos();
+
+        for(Cliente c : clientes){
+            cmbID.addItem(c.getIdCliente());
+        }
+
+         */
+
     }
 
 }

@@ -184,8 +184,7 @@ public class cambiosAutos extends JInternalFrame {
         JComboBox cmbSeguro = new JComboBox();
         cmbSeguro.addItem("Seguro total");
         cmbSeguro.addItem("Seguro Robo");
-        cmbSeguro.addItem("Seguro Colision");
-        cmbSeguro.addItem("Seguro terceros");
+        cmbSeguro.addItem("Seguro Accidentes");
         agregarComp(cmbSeguro,1,11,1,1,1,1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(cmbSeguro, gbc);

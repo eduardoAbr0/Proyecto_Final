@@ -25,12 +25,18 @@ public class altasClientes extends JInternalFrame {
         setBounds(100, 100, 450, 300);
         setResizable(false);
 
+        // Label e input de ID Auto
         JLabel txID = new JLabel("ID Cliente: ");
-        agregarComp(txID,0,0,1,1,1,1);
+        agregarComp(txID, 0, 0, 1, 1, 1, 1);
         add(txID, gbc);
-        txtID = new JTextField(10);
-        agregarComp(txtID,1,0,1,1,1,1);
-        add(txtID, gbc);
+        SpinnerNumberModel spM = new SpinnerNumberModel(1, 1, null, 1);
+        JSpinner spId = new JSpinner(spM);
+        JFormattedTextField tf = ((JSpinner.DefaultEditor) spId.getEditor()).getTextField();
+        tf.setEditable(false);
+        agregarComp(spId, 1, 0, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(spId, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         JLabel txCorreo = new JLabel("Correo: ");
         agregarComp(txCorreo,0,1,1,1,1,1);
@@ -40,12 +46,13 @@ public class altasClientes extends JInternalFrame {
         add(txtCorreo, gbc);
 
         JLabel txNombre = new JLabel("Nombre: ");
-        agregarComp(txNombre,0,1,1,1,1,1);
+        agregarComp(txNombre,0,2,1,1,1,1);
         add(txNombre, gbc);
         txtNombre = new JTextField(10);
-        agregarComp(txtNombre,1,1,1,1,1,1);
+        agregarComp(txtNombre,1,2,1,1,1,1);
         add(txtNombre, gbc);
 
+        /*
         JLabel txPA = new JLabel("Primer apellido: ");
         agregarComp(txPA,0,2,1,1,1,1);
         add(txPA, gbc);
@@ -95,11 +102,16 @@ public class altasClientes extends JInternalFrame {
         agregarComp(txtEmpleado,1,8,1,1,1,1);
         add(txtEmpleado, gbc);
 
+         */
+
 
         btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(txtNombre.getText().isEmpty()||txtCorreo.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Componente(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
                 /*
                 cliente = new Cliente(Integer.parseInt(txtID.getText()),
                         txtNombre.getText(),
@@ -115,11 +127,11 @@ public class altasClientes extends JInternalFrame {
 */
             }
         });
-        agregarComp(btnAgregar,0,9,1,1,1,1);
+        agregarComp(btnAgregar,0,3,1,1,1,1);
         add(btnAgregar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
-        agregarComp(btnLimpiar,1,9,1,1,1,1);
+        agregarComp(btnLimpiar,1,3,1,1,1,1);
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
