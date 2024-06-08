@@ -110,19 +110,6 @@ public class cambiosAutos extends JInternalFrame {
         btnCambiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                 cl = new Cliente(Integer.parseInt(txtID.getText()),
-                        txtNombre.getText(),
-                        txtPrimerA.getText(),
-                        txtSegundoA.getText(),
-                        Integer.parseInt(txtNumeroCasa.getText()),
-                        txtCalle.getText(),
-                        txtColonia.getText(),
-                        Integer.parseInt(txtCP.getText()),
-                        Integer.parseInt(txtTelefono.getText(), );
-
-                daoCliente.actualizar(cl);
-*/
             }
         });
         agregarComp(btnCambiar,0,12,1,1,1,1);

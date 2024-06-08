@@ -17,12 +17,13 @@ public class general extends JFrame {
         //CONFIGURACIONES INICIALES DEL JFRAME
         getContentPane().setLayout(bl);
         setTitle("AutosAmistosos");
-        setMinimumSize(new Dimension(1000, 700));
+        setMinimumSize(new Dimension(1300, 700));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //CREACION PANELES GENERALES PARA LA PARTE SUPERIOR, CENTRO E IZQUIERDA
         barraArriba = new JPanel();
+
         //USO DE CARD LAYOUT PARA ACCEDER LOS DIFERENTES SUBPANELES EN EL MISMO AREA(CENTER)
         general = new JPanel(cl);
         opciones = new JPanel();
