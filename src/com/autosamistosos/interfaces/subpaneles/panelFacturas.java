@@ -5,6 +5,10 @@ import com.autosamistosos.interfaces.subpaneles.autosABCC.altasAutos;
 import com.autosamistosos.interfaces.subpaneles.autosABCC.bajasAutos;
 import com.autosamistosos.interfaces.subpaneles.autosABCC.cambiosAutos;
 import com.autosamistosos.interfaces.subpaneles.autosABCC.consultasAutos;
+import com.autosamistosos.interfaces.subpaneles.empleadosABCC.altasEmpleados;
+import com.autosamistosos.interfaces.subpaneles.empleadosABCC.bajasEmpleados;
+import com.autosamistosos.interfaces.subpaneles.empleadosABCC.cambiosEmpleados;
+import com.autosamistosos.interfaces.subpaneles.empleadosABCC.consultasEmpleados;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.altasFacturas;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.bajasFacturas;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.cambiosFacturas;
@@ -66,48 +70,20 @@ public class panelFacturas extends JPanel {
             }
         });
         panelTool.add(btnRestablecer = new JButton("Restablecer"));
+        btnRestablecer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ABCC.removeAll();
+                ABCC.repaint();
+            }
+        });
 
-        agregar(0,0,1,1,1,1);
+        agregar(0,0,1,1,0,0);
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(panelTool, gbc);
 
-        //CONSULTA DE TODOS LOS CLIENTES
-        btnMostrarClientes = new JButton("Mostrar facturas");
-        btnMostrarClientes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                /*
-                listEmp = daoEmpleado.buscarTodos();
-
-                for(Empleado emp: listEmp){
-                    modelClientes.addRow(new Object[]{emp.getId(),emp.getNombre(),emp.getPapellido(),emp.getSapellido(),emp.getNumeroCasa(),emp.getCalle(),emp.getColonia(),emp.getCp(),emp.getTelefono()});
-                }
-                tbClientes.setModel(modelClientes);
-
-                 */
-            }
-        });
-        //TABLA PARA MOSTRAR DATOS FACTURAS
-        String autos[] = {"Factura","Cliente","Precio f","Financiamiento","Fecha emision","Auto","Kilometros","Garantia","Seguro","Venta"};
-        for (String col: autos){
-            modelAutos.addColumn(col);
-        }
-        tbFacturas = new JTable(modelAutos);
-        JScrollPane jsCl = new JScrollPane(tbFacturas);
-        agregar(0,3,1,1,1,1);
-        gbc.anchor = GridBagConstraints.CENTER;
-        add(btnMostrarClientes, gbc);
-        JLabel txtTablaAutos = new JLabel("Tabla facturas");
-        agregar(0,4,1,1,1,1);
-        gbc.anchor = GridBagConstraints.SOUTH;
-        add(txtTablaAutos, gbc);
-
-
-        gbc.fill = GridBagConstraints.BOTH;
-        agregar(jsCl,0,5,1,2,3,1);
-
-        agregar(0,1,2,2,4,4);
+        agregar(0,1,GridBagConstraints.REMAINDER,GridBagConstraints.REMAINDER,1,1);
         gbc.fill = GridBagConstraints.BOTH;
         add(ABCC,gbc);
 

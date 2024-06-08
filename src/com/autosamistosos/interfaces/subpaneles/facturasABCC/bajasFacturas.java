@@ -10,22 +10,23 @@ public class bajasFacturas extends JInternalFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
     JButton btnEliminar;
-    //DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
+    JComboBox cmbID;
 
     public bajasFacturas(){
         super("Bajas facturas", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 250, 150);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Factura: ");
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
-        txtID = new JTextField(10);
-        agregarComp(txtID,1,0,1,1,1,1);
-        add(txtID, gbc);
+        cmbID = new JComboBox();
+
+        agregarComp(cmbID,1,0,1,1,1,1);
+        add(cmbID, gbc);
 
         btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(new ActionListener() {
@@ -34,8 +35,7 @@ public class bajasFacturas extends JInternalFrame {
                 //daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
             }
         });
-        agregarComp(btnEliminar,0,1,1,2,1,1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        agregarComp(btnEliminar,0,1,1,2,1,0);
         add(btnEliminar, gbc);
 
         setVisible(true);

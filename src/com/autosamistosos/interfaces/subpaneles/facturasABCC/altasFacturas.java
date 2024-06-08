@@ -1,12 +1,14 @@
 package com.autosamistosos.interfaces.subpaneles.facturasABCC;
 
-import com.autosamistosos.basedatos.modelo.Automovil;
 import com.autosamistosos.basedatos.modelo.Factura;
+import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class altasFacturas extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
@@ -14,8 +16,6 @@ public class altasFacturas extends JInternalFrame {
     JTextField txtID, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9;
     JComboBox combo1;
     JButton btnAgregar, btnLimpiar;
-    Factura factura;
-    //DAOClienteImpl daoCliente = new DAOClienteImpl();
 
     public altasFacturas(){
         super("Altas facturas", true, true, true, true);
@@ -26,48 +26,105 @@ public class altasFacturas extends JInternalFrame {
         setResizable(false);
 
         JLabel txID = new JLabel("ID Factura: ");
-        agregarComp(txID,0,0,1,1,1,1);
+        agregarComp(txID, 0, 0, 1, 1, 1, 1);
         add(txID, gbc);
-        txtID = new JTextField(10);
-        agregarComp(txtID,1,0,1,1,1,1);
-        add(txtID, gbc);
+        SpinnerNumberModel spM = new SpinnerNumberModel(1, 1, null, 1);
+        JSpinner spId = new JSpinner(spM);
+        JFormattedTextField tf = ((JSpinner.DefaultEditor) spId.getEditor()).getTextField();
+        tf.setEditable(false);
+        agregarComp(spId, 1, 0, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(spId, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         JLabel tx1 = new JLabel("Precio final: ");
         agregarComp(tx1,0,1,1,1,1,1);
         add(tx1, gbc);
         txt1 = new JTextField(10);
+        txt1.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!(Character.isDigit(e.getKeyChar()))) {
+                    e.consume();
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
         agregarComp(txt1,1,1,1,1,1,1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txt1, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         JLabel tx2 = new JLabel("Financiamiento: ");
         agregarComp(tx2,0,2,1,1,1,1);
         add(tx2, gbc);
         combo1 = new JComboBox();
-        combo1.addItem("Fabricante");
+        combo1.addItem("Distribuidor");
         combo1.addItem("Banco");
         agregarComp(combo1,1,2,1,1,1,1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(combo1, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
-        JLabel tx3 = new JLabel("Fecha emision: ");
-        agregarComp(tx3,0,3,1,1,1,1);
-        add(tx3, gbc);
-        txt3 = new JTextField(10);
-        agregarComp(txt3,1,3,1,1,1,1);
-        add(txt3, gbc);
+        JLabel txFechaf = new JLabel("Fecha emmision: ");
+        JDateChooser fechaFab = new JDateChooser();
+        fechaFab.setDateFormatString("yyyy/MM/dd");
+        agregarComp(txFechaf, 0, 3, 1, 1, 1, 1);
+        add(txFechaf, gbc);
+        agregarComp(fechaFab, 1, 3, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(fechaFab, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
+        JLabel txGarantia = new JLabel("Garantia(meses): ");
+        agregarComp(txGarantia,0,4,1,1,1, 1);
+        add(txGarantia, gbc);
+        SpinnerNumberModel spMG = new SpinnerNumberModel(1, 1, null, 1);
+        JSpinner spGar = new JSpinner(spMG);
+        JFormattedTextField tfG = ((JSpinner.DefaultEditor) spGar.getEditor()).getTextField();
+        tfG.setEditable(false);
+        agregarComp(spGar, 1, 4, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(spGar, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+
+        JLabel tx7 = new JLabel("Venta: ");
+        agregarComp(tx7,0,5,1,1,1,1);
+        add(tx7, gbc);
+        JComboBox cmbVentaID = new JComboBox();
+        agregarComp(cmbVentaID,1,5,1,1,1,1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(cmbVentaID, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+
+        JLabel tx8 = new JLabel("Cliente: ");
+        agregarComp(tx8,0,6,1,1,1,1);
+        add(tx8, gbc);
+        JComboBox cmbClienteID = new JComboBox();
+        agregarComp(cmbClienteID,1,6,1,1,1,1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(cmbClienteID, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+
+        JLabel tx9 = new JLabel("Automovil: ");
+        agregarComp(tx9,0,7,1,1,1,1);
+        add(tx9, gbc);
+        JComboBox cmbAutoID = new JComboBox();
+        agregarComp(cmbAutoID,1,7,1,1,1,1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(cmbAutoID, gbc);
+        gbc.fill = GridBagConstraints.NONE;
+
+        /*
         JLabel tx4 = new JLabel("Kilometraje: ");
         agregarComp(tx4,0,4,1,1,1,1);
         add(tx4, gbc);
         txt4 = new JTextField(10);
         agregarComp(txt4,1,4,1,1,1,1);
         add(txt4, gbc);
-
-        JLabel tx5 = new JLabel("Garantia: ");
-        agregarComp(tx5,0,5,1,1,1,1);
-        add(tx5, gbc);
-        txt5 = new JTextField(10);
-        agregarComp(txt5,1,5,1,1,1,1);
-        add(txt5, gbc);
 
         JLabel tx6 = new JLabel("Seguro: ");
         agregarComp(tx6,0,6,1,1,1,1);
@@ -76,57 +133,33 @@ public class altasFacturas extends JInternalFrame {
         agregarComp(txt6,1,6,1,1,1,1);
         add(txt6, gbc);
 
-        JLabel tx7 = new JLabel("Venta: ");
-        agregarComp(tx7,0,7,1,1,1,1);
-        add(tx7, gbc);
-        txt7 = new JTextField(10);
-        agregarComp(txt7,1,7,1,1,1,1);
-        add(txt7, gbc);
 
-        JLabel tx8 = new JLabel("Cliente: ");
-        agregarComp(tx8,0,8,1,1,1,1);
-        add(tx8, gbc);
-        txt8 = new JTextField(10);
-        agregarComp(txt8,1,8,1,1,1,1);
-        add(txt8, gbc);
 
-        JLabel tx9 = new JLabel("Automovil: ");
-        agregarComp(tx9,0,9,1,1,1,1);
-        add(tx9, gbc);
-        txt9 = new JTextField(10);
-        agregarComp(txt9,1,9,1,1,1,1);
-        add(txt9, gbc);
+         */
 
 
         btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            /*
-                factura = new Factura(
-                        Integer.parseInt(txtID.getText()),
-                        Double.parseDouble(txt1.getText()),
-                        combo1.getSelectedItem(),
-                        txt3.getText(),
-                        txt4.getText(),
-                        Integer.parseInt(txt8.getText()),
-                        Integer.parseInt(txt7.getText()),
-                        Integer.parseInt(txt9.getText()));
-                */
             }
-
         });
-        agregarComp(btnAgregar,0,10,1,1,1,1);
+        agregarComp(btnAgregar,0,8,1,1,1,1);
         add(btnAgregar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                for(Component component: getContentPane().getComponents()){
+                    if (component instanceof JTextField) {
+                        JTextField textField = (JTextField) component;
+                        textField.setText("");
+                    }
+                }
             }
         });
-        agregarComp(btnLimpiar,1,10,1,1,1,1);
+        agregarComp(btnLimpiar,1,8,1,1,1,1);
         add(btnLimpiar, gbc);
 
         setVisible(true);
@@ -140,6 +173,6 @@ public class altasFacturas extends JInternalFrame {
         gbc.weightx = pesox;
         gbc.weighty = pesoy;
 
-        gbl.setConstraints(c,gbc);
+        add(c,gbc);
     }
 }
