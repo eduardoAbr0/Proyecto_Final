@@ -1,6 +1,5 @@
 package com.autosamistosos.interfaces.subpaneles.ventasABCC;
 
-import com.autosamistosos.basedatos.modelo.Factura;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -10,15 +9,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class altasVentas extends JInternalFrame {
+public class cambiosVentas extends JInternalFrame{
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9,txt10, txt11;
+    JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado, txtSeguro, txtKilometros, txtGarantia, txtEstadoFab, txtPaisFab;
+    JButton btnCambiar, btnLimpiar;
+    JTextField  txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9,txt10, txt11;
     JComboBox combo1;
-    JButton btnAgregar, btnLimpiar;
+    //Cliente cl;
+    //DAOClienteImpl daoCliente = new DAOClienteImpl();
 
-    public altasVentas(){
-        super("Altas ventas", true, true, true, true);
+    public cambiosVentas(){
+        super("Cambios autos", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -28,13 +30,10 @@ public class altasVentas extends JInternalFrame {
         JLabel txID = new JLabel("ID Venta: ");
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
-        SpinnerNumberModel spM = new SpinnerNumberModel(1, 1, null, 1);
-        JSpinner spId = new JSpinner(spM);
-        JFormattedTextField tf = ((JSpinner.DefaultEditor) spId.getEditor()).getTextField();
-        tf.setEditable(false);
-        agregarComp(spId,1,0,1,1,1,1);
+        JComboBox cmbID = new JComboBox();
+        agregarComp(cmbID,1,0,1,1,1,1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(spId, gbc);
+        add(cmbID, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
         JLabel txFechaf = new JLabel("Fecha fabriacion: ");
@@ -260,9 +259,9 @@ public class altasVentas extends JInternalFrame {
         add(cmbEmpleados, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
-        btnAgregar = new JButton("Agregar");
-        agregarComp(btnAgregar,0,18,1,1,1,1);
-        add(btnAgregar, gbc);
+        btnCambiar = new JButton("Cambiar");
+        agregarComp(btnCambiar,0,18,1,1,1,1);
+        add(btnCambiar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
         btnLimpiar.addActionListener(new ActionListener() {
@@ -292,4 +291,5 @@ public class altasVentas extends JInternalFrame {
 
         gbl.setConstraints(c,gbc);
     }
+
 }

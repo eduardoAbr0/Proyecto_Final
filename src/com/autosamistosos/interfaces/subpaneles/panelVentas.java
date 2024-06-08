@@ -1,56 +1,81 @@
 package com.autosamistosos.interfaces.subpaneles;
 
+import com.autosamistosos.interfaces.subpaneles.autosABCC.altasAutos;
+import com.autosamistosos.interfaces.subpaneles.autosABCC.bajasAutos;
+import com.autosamistosos.interfaces.subpaneles.autosABCC.cambiosAutos;
+import com.autosamistosos.interfaces.subpaneles.autosABCC.consultasAutos;
+import com.autosamistosos.interfaces.subpaneles.clientesABCC.bajasClientes;
+import com.autosamistosos.interfaces.subpaneles.ventasABCC.altasVentas;
+import com.autosamistosos.interfaces.subpaneles.ventasABCC.bajasVentas;
+import com.autosamistosos.interfaces.subpaneles.ventasABCC.cambiosVentas;
+import com.autosamistosos.interfaces.subpaneles.ventasABCC.consultasVentas;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class panelVentas extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JButton btnAgregar, btnEliminar, btnBorrar, btnRestablecer, btnBuscar, btnReporte, btnModificar;
-    JTextField txFBuscar, txFEncuesta, txFModificar;
-    JTable tbVentas, tbReportes;
+    JButton btnAgregar, btnEliminar, btnRestablecer, btnBuscar, btnModificar;
+    JPanel panelTool;
+    JDesktopPane ABCC = new JDesktopPane();
     public panelVentas() {
         setLayout(gbl);
 
-        JLabel txtBuscar = new JLabel("Buscar una venta: ");
-        agregar(txtBuscar, 0 ,0,1,1,1,1);
-        txFBuscar = new JTextField(5);
-        agregar(txFBuscar, 1 ,0,1,1,1,1);
-        btnBuscar = new JButton("Buscar");
-        agregar(btnBuscar, 2 ,0,1,1,1,1);
+        //OPCIONES DE ABCC EN PARTE SUPERIOR
+        panelTool = new JPanel();
+        panelTool.setLayout(new FlowLayout());
+        panelTool.add(btnAgregar = new JButton("Agregar"));
+        btnAgregar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ABCC.add(new altasVentas());
+                ABCC.setVisible(true);
+            }
+        });
+        panelTool.add(btnEliminar = new JButton("Eliminar"));
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ABCC.add(new bajasVentas());
+                ABCC.setVisible(true);
+            }
+        });
+        panelTool.add(btnModificar = new JButton("Modificar"));
+        btnModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ABCC.add(new cambiosVentas());
+                ABCC.setVisible(true);
+            }
+        });
+        panelTool.add(btnBuscar = new JButton("Buscar"));
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ABCC.add(new consultasVentas());
+                ABCC.setVisible(true);
+            }
+        });
+        panelTool.add(btnRestablecer = new JButton("Restablecer"));
+        btnRestablecer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ABCC.removeAll();
+                ABCC.repaint();
+            }
+        });
 
-        btnAgregar = new JButton("Agregar");
-        agregar(btnAgregar, 0,1,1,1,1,1);
+        agregar(0,0,1,1,0,0);
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        add(panelTool, gbc);
 
-        btnEliminar = new JButton("Eliminar");
-        agregar(btnEliminar, 1,1,1,1,1,1);
-
-        btnBorrar = new JButton("Borrar");
-        agregar(btnBorrar, 2,1,1,1,1,1);
-
-        btnRestablecer = new JButton("Restablecer");
-        agregar(btnRestablecer, 3,1,1,1,1,1);
-
-        btnReporte = new JButton("Generar reporte de venta:");
-        agregar(btnReporte, 4,1,1,1,1,1);
-        txFEncuesta = new JTextField(5);
-        agregar(txFEncuesta, 4 ,2,1,1,1,1);
-
-        btnModificar = new JButton("Modificar venta:");
-        agregar(btnModificar, 4,3,1,1,1,1);
-        txFModificar = new JTextField(5);
-        agregar(txFModificar, 4 ,4,1,1,1,1);
-
-        String test [] = {"HOLA","AUTO"};
-        String testt [][]= {{"HOLA", "MUNDO"},{"HOLA", "MUNDO"}};
-
-        tbVentas = new JTable(testt, test);
-        JScrollPane jsCl = new JScrollPane(tbVentas);
-
-
+        agregar(0,1,GridBagConstraints.REMAINDER,GridBagConstraints.REMAINDER,1,1);
         gbc.fill = GridBagConstraints.BOTH;
-        agregar(jsCl,0,2,3,4,1,1);
-
+        add(ABCC,gbc);
 
     }
     public void agregar(JComponent c, int x, int y, int altura, int anchura, int wx, int wy) {
@@ -58,9 +83,18 @@ public class panelVentas extends JPanel {
         gbc.gridy = y;
         gbc.gridwidth = anchura;
         gbc.gridheight = altura;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
+        gbc.weightx = wx;
+        gbc.weighty = wy;
 
         add(c, gbc);
+    }
+
+    public void agregar( int x, int y, int altura, int anchura, int wx, int wy) {
+        gbc.gridx = x;
+        gbc.gridy = y;
+        gbc.gridwidth = anchura;
+        gbc.gridheight = altura;
+        gbc.weightx = wx;
+        gbc.weighty = wy;
     }
 }
