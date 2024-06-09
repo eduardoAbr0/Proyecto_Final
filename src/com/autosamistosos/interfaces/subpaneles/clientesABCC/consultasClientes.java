@@ -1,15 +1,14 @@
 package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
-import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
-import com.autosamistosos.basedatos.modelo.Empleado;
+import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
+import com.autosamistosos.basedatos.modelo.Cliente;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class consultasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
@@ -20,8 +19,10 @@ public class consultasClientes extends JInternalFrame {
     JButton btnConsultar, btnLimpiar;
     JTable tbEmpleado;
     JComboBox cmbID;
+    ArrayList<Cliente> clientes;
+    Cliente cliente;
     DefaultTableModel tableModel = new DefaultTableModel();
-    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
+    DAOClienteImpl daoCliente = new DAOClienteImpl();
 
     public consultasClientes(){
         super("Consultas autos", true, true, true, true);
@@ -57,187 +58,33 @@ public class consultasClientes extends JInternalFrame {
         add(cmbID, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
-        // TXT1
-        radio1 = new JRadioButton();
-        radioGroup.add(radio1);
-        JLabel txTXT1 = new JLabel("Correo: ");
-        JTextField txtTXT1 = new JTextField(15);
-        agregarComp(radio1, 0, 2, 1, 1, 0, 0);
-        add(radio1, gbc);
-        agregarComp(txTXT1, 1, 2, 1, 1, 0, 0);
-        add(txTXT1, gbc);
-        agregarComp(txtTXT1, 2, 2, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT1, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT2
-        radio2 = new JRadioButton();
-        radioGroup.add(radio2);
-        JLabel txTXT2 = new JLabel("Nombre: ");
-        JTextField txtTXT2 = new JTextField(15);
-        agregarComp(radio2, 0, 3, 1, 1, 0, 0);
-        add(radio2, gbc);
-        agregarComp(txTXT2, 1, 3, 1, 1, 0, 0);
-        add(txTXT2, gbc);
-        agregarComp(txtTXT2, 2, 3, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT2, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT3
-        radio3 = new JRadioButton();
-        radioGroup.add(radio3);
-        JLabel txTXT3 = new JLabel("Primer apellido: ");
-        JTextField txtTXT3 = new JTextField(15);
-        agregarComp(radio3, 0, 4, 1, 1, 0, 0);
-        add(radio3, gbc);
-        agregarComp(txTXT3, 1, 4, 1, 1, 0, 0);
-        add(txTXT3, gbc);
-        agregarComp(txtTXT3, 2, 4, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT3, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT4
-        radio4 = new JRadioButton();
-        radioGroup.add(radio4);
-        JLabel txTXT4 = new JLabel("Segundo apellido: ");
-        JTextField txtTXT4 = new JTextField(15);
-        agregarComp(radio4, 0, 5, 1, 1, 0, 0);
-        add(radio4, gbc);
-        agregarComp(txTXT4, 1, 5, 1, 1, 0, 0);
-        add(txTXT4, gbc);
-        agregarComp(txtTXT4, 2, 5, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT4, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT5
-        radio5 = new JRadioButton();
-        radioGroup.add(radio5);
-        JLabel txTXT5 = new JLabel("Numero casa: ");
-        JTextField txtTXT5 = new JTextField(15);
-        txtTXT5.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (!(Character.isDigit(e.getKeyChar()))) {
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-        agregarComp(radio5, 0, 6, 1, 1, 0, 0);
-        add(radio5, gbc);
-        agregarComp(txTXT5, 1, 6, 1, 1, 0, 0);
-        add(txTXT5, gbc);
-        agregarComp(txtTXT5, 2, 6, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT5, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT6
-        radio6 = new JRadioButton();
-        radioGroup.add(radio6);
-        JLabel txTXT6 = new JLabel("Calle: ");
-        JTextField txtTXT6 = new JTextField(15);
-        agregarComp(radio6, 0, 7, 1, 1, 0, 0);
-        add(radio6, gbc);
-        agregarComp(txTXT6, 1, 7, 1, 1, 0, 0);
-        add(txTXT6, gbc);
-        agregarComp(txtTXT6, 2, 7, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT6, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT7
-        radio7 = new JRadioButton();
-        radioGroup.add(radio7);
-        JLabel txTXT7 = new JLabel("Colonia: ");
-        JTextField txtTXT7 = new JTextField(15);
-        agregarComp(radio7, 0, 8, 1, 1, 0, 0);
-        add(radio7, gbc);
-        agregarComp(txTXT7, 1, 8, 1, 1, 0, 0);
-        add(txTXT7, gbc);
-        agregarComp(txtTXT7, 2, 8, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT7, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT8
-        radio8 = new JRadioButton();
-        radioGroup.add(radio8);
-        JLabel txTXT8 = new JLabel("CP: ");
-        JTextField txtTXT8 = new JTextField(15);
-        txtTXT8.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (!(Character.isDigit(e.getKeyChar()))) {
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-        agregarComp(radio8, 0, 9, 1, 1, 0, 0);
-        add(radio8, gbc);
-        agregarComp(txTXT8, 1, 9, 1, 1, 0, 0);
-        add(txTXT8, gbc);
-        agregarComp(txtTXT8, 2, 9, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT8, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT9
-        radio9 = new JRadioButton();
-        radioGroup.add(radio9);
-        JLabel txTXT9 = new JLabel("RFC: ");
-        JTextField txtTXT9 = new JTextField(15);
-        agregarComp(radio9, 0, 10, 1, 1, 0, 0);
-        add(radio9, gbc);
-        agregarComp(txTXT9, 1, 10, 1, 1, 0, 0);
-        add(txTXT9, gbc);
-        agregarComp(txtTXT9, 2, 10, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT9, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-        // TXT10
-        radio10 = new JRadioButton();
-        radioGroup.add(radio10);
-        JLabel txTXT10 = new JLabel("Telefono: ");
-        JTextField txtTXT10 = new JTextField(15);
-        txtTXT10.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                if (!(Character.isDigit(e.getKeyChar()))) {
-                    e.consume();
-                }
-            }
-            @Override
-            public void keyPressed(KeyEvent e) {}
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-        agregarComp(radio10, 0, 11, 1, 1, 0, 0);
-        add(radio10, gbc);
-        agregarComp(txTXT10, 1, 11, 1, 1, 0, 0);
-        add(txTXT10, gbc);
-        agregarComp(txtTXT10, 2, 11, 1, 1, 1, 1);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        add(txtTXT10, gbc);
-        gbc.fill = GridBagConstraints.NONE;
-
-
 
         //CONSULTAR
         btnConsultar = new JButton("Consultar cliente");
-        agregarComp(btnConsultar, 0, 12, 1, 1, 0, 0);
+        btnConsultar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tableModel.setRowCount(0);
+                if (radioTodos.isSelected()) {
+                    clientes = daoCliente.buscarTodos();
+
+                    for (Cliente c : clientes) {
+                        tableModel.addRow(new Object[]{c.getIdCliente(), c.getCorreo(), c.getNombre(), c.getpApellido(), c.getsApellido(), c.getNumeroCasa(), c.getCalle(), c.getColonia(), c.getCp(), c.getRFC(), c.getTelefono(), c.getIdEmpleado()});
+                    }
+                } else if (radioID.isSelected()) {
+                    if (cmbID.getItemCount()>0){
+                        cliente = daoCliente.buscar((Integer) cmbID.getSelectedItem());
+
+                        tableModel.addRow(new Object[]{cliente.getIdCliente(), cliente.getCorreo(), cliente.getNombre(), cliente.getpApellido(), cliente.getsApellido(), cliente.getNumeroCasa(), cliente.getCalle(), cliente.getColonia(), cliente.getCp(), cliente.getRFC(), cliente.getTelefono(), cliente.getIdEmpleado()});
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No hay clientes para consultar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione opcion de busqueda.", "Mensaje", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+        agregarComp(btnConsultar, 0, 2, 1, 1, 0, 0);
         add(btnConsultar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
@@ -252,7 +99,7 @@ public class consultasClientes extends JInternalFrame {
                 }
             }
         });
-        agregarComp(btnLimpiar, 1, 12, 1, 1, 0, 0);
+        agregarComp(btnLimpiar, 1, 2, 1, 1, 0, 0);
         add(btnLimpiar, gbc);
 
         tableModel.addColumn("ID");
@@ -274,6 +121,7 @@ public class consultasClientes extends JInternalFrame {
         gbc.fill = GridBagConstraints.BOTH;
         add(jsCl, gbc);
 
+        rellenarCmb();
         setVisible(true);
     }
 
@@ -286,5 +134,13 @@ public class consultasClientes extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c, gbc);
+    }
+
+    public void rellenarCmb() {
+        clientes = daoCliente.buscarTodos();
+
+        for(Cliente c : clientes){
+            cmbID.addItem(c.getIdCliente());
+        }
     }
 }

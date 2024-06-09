@@ -176,7 +176,8 @@ public class altasEmpleados extends JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Campo(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }else {
 
-                    emp = new Empleado(Integer.parseInt(txtID.getText()),
+                    emp = new Empleado(
+                            Integer.parseInt(spId.getValue().toString()),
                             txtNombre.getText(),
                             txtPrimerA.getText(),
                             txtSegundoA.getText(),
@@ -187,10 +188,7 @@ public class altasEmpleados extends JInternalFrame {
                             Integer.parseInt(txtTelefono.getText()),
                             cbTipoE.getSelectedItem().toString());
 
-                    emp.setId(Integer.parseInt(txtID.getText()));
-
                     daoEmpleado.insertar(emp);
-                    JOptionPane.showMessageDialog(null, "Empleado agregado correctamente.");
                 }
             }
         });
@@ -226,7 +224,4 @@ public class altasEmpleados extends JInternalFrame {
         gbl.setConstraints(c, gbc);
     }
 
-    public static void main(String[] args) {
-        new altasEmpleados();
-    }
 }

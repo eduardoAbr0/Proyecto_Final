@@ -3,6 +3,7 @@ package com.autosamistosos.basedatos.controlador;
 import com.autosamistosos.basedatos.conexionBD;
 import com.autosamistosos.basedatos.modelo.Empleado;
 
+import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,17 +30,17 @@ public class DAOEmpleadoImpl implements empleadoDAO{
             preparedStatement.setString(10, empleado.getTipoEmpleado());
 
             if( preparedStatement.executeUpdate() >= 1 )
-                System.out.printf("Se ha agregado el Empleado.");
+                JOptionPane.showMessageDialog(null, "Se ha agregado el Empleado.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println("Error en instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -47,7 +48,7 @@ public class DAOEmpleadoImpl implements empleadoDAO{
 
     @Override
     public void actualizar(Empleado empleado){
-        String sql = "UPDATE empleados SET Nombre = ?, Primer_apellido = ?, Segundo_apellido = ?, Numero_Casa = ?, Calle = ?, Colonia = ?, CP = ?, Telefono = ?, Tipo_empleado = ? WHERE ID_Empleado = ?";
+        String sql = "UPDATE empleados SET Nombre = ?, Primer_ap = ?, Segundo_ap = ?, Numero_Casa = ?, Calle = ?, Colonia = ?, CP = ?, Telefono = ?, Tipo_empleado = ? WHERE ID_Empleado = ?";
         PreparedStatement preparedStatement = null;
 
         try {
@@ -64,17 +65,17 @@ public class DAOEmpleadoImpl implements empleadoDAO{
             preparedStatement.setInt(10, empleado.getId());
 
             if( preparedStatement.executeUpdate() >= 1 )
-                System.out.printf("Se ha actualizado el Empleado.");
+                JOptionPane.showMessageDialog(null, "Se ha actualizado el Empleado.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println("Error en instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -91,16 +92,17 @@ public class DAOEmpleadoImpl implements empleadoDAO{
 
             if( preparedStatement.executeUpdate() >= 1 )
                 System.out.printf("Se ha eliminado el Empleado.");
+            JOptionPane.showMessageDialog(null, "Se ha eliminado el Empleado.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println("Error en instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -109,8 +111,8 @@ public class DAOEmpleadoImpl implements empleadoDAO{
     public Empleado convertir(ResultSet rs, int id) throws SQLException {
         Empleado empleado = null;
         String nombre = rs.getString("Nombre");
-        String apellido = rs.getString("Primer_apellido");
-        String sapellido = rs.getString("Segundo_apellido");
+        String apellido = rs.getString("Primer_ap");
+        String sapellido = rs.getString("Segundo_ap");
         int numeroCasa = rs.getInt("Numero_Casa");
         String calle = rs.getString("Calle");
         String colonia = rs.getString("Colonia");
@@ -136,12 +138,13 @@ public class DAOEmpleadoImpl implements empleadoDAO{
             if (resultSet.next()) {
                 empleado = convertir(resultSet, id);
             }else {
-                System.out.printf("No se ha encontrado registro");
+                JOptionPane.showMessageDialog(null, "No se encontro registro","Mensaje",JOptionPane.WARNING_MESSAGE);
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instrucion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
         }finally {
             try {
                 if (resultSet != null) {
@@ -152,7 +155,7 @@ public class DAOEmpleadoImpl implements empleadoDAO{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println("Error instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         return empleado;
@@ -173,7 +176,7 @@ public class DAOEmpleadoImpl implements empleadoDAO{
             }
         }catch (SQLException e){
             e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
         }finally {
             try {
                 if (resultSet != null){
@@ -184,7 +187,7 @@ public class DAOEmpleadoImpl implements empleadoDAO{
                 }
             }catch (SQLException e){
                 e.printStackTrace();
-                System.out.println("Error instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
 

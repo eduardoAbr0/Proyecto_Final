@@ -178,7 +178,6 @@ public class cambiosEmpleados extends JInternalFrame {
                         txtTelefono.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Campo(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }else {
-
                     emp = new Empleado((Integer) cmbID.getSelectedItem(),
                             txtNombre.getText(),
                             txtPrimerA.getText(),

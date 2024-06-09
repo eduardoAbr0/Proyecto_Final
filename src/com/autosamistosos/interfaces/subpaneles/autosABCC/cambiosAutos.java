@@ -1,5 +1,7 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
+import com.autosamistosos.basedatos.modelo.Automovil;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -8,28 +10,40 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class cambiosAutos extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID, txtModelo, txtPrecio, txtFechaf, txtPeso, txtCilindros, txtColor, txtCapL, txtEstado, txtSeguro, txtKilometros, txtGarantia, txtEstadoFab, txtPaisFab;
     JButton btnCambiar, btnLimpiar;
-    //Cliente cl;
-    //DAOClienteImpl daoCliente = new DAOClienteImpl();
+    JDateChooser fechaFab;
+    JComboBox cmbID;
+    ArrayList<Automovil> autos;
+    Automovil auto;
+    DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
 
     public cambiosAutos(){
         super("Cambios autos", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 450, 500);
         setResizable(false);
 
         //Label e input para ID
         JLabel txID = new JLabel("ID Auto: ");
         agregarComp(txID, 0, 0, 1, 1, 1, 1);
         add(txID, gbc);
-        JComboBox cmbID = new JComboBox();
+        cmbID = new JComboBox();
+        cmbID.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rellenarTxt();
+            }
+        });
         agregarComp(cmbID, 1, 0, 1, 1, 1, 1);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(cmbID, gbc);
@@ -69,7 +83,7 @@ public class cambiosAutos extends JInternalFrame {
 
         // Label e input de Fecha de fabricación
         JLabel txFechaf = new JLabel("Fecha fabriacion: ");
-        JDateChooser fechaFab = new JDateChooser();
+        fechaFab = new JDateChooser();
         fechaFab.setDateFormatString("yyyy/MM/dd");
         agregarComp(txFechaf, 0, 3, 1, 1, 1, 1);
         add(txFechaf, gbc);
@@ -227,12 +241,40 @@ public class cambiosAutos extends JInternalFrame {
         btnCambiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(txtModelo.getText().isEmpty() || txtPrecio.getText().isEmpty() || fechaFab.getDate().toString().isEmpty() ||
+                if(txtModelo.getText().isEmpty() || txtPrecio.getText().isEmpty() || fechaFab.getDate()==null||
                         txtPaisFab.getText().isEmpty() || txtEstadoFab.getText().isEmpty() || txtPeso.getText().isEmpty() || txtColor.getText().isEmpty()
                         || txtCapL.getText().isEmpty() || txtKilometros.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Componente(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }else if(cmbID.getItemCount()>0){
+                    Date fechaSeleccionada = fechaFab.getDate();
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+                    String fechaSeleccionadaS = formatoFecha.format(fechaSeleccionada);
+
+                    auto = new Automovil(
+                            (Integer) cmbID.getSelectedItem(),
+                            txtModelo.getText(),
+                            Double.parseDouble(txtPrecio.getText()),
+                            fechaSeleccionadaS,
+                            txtPaisFab.getText(),
+                            txtEstadoFab.getText(),
+                            Integer.parseInt(txtPeso.getText()),
+                            Integer.parseInt(cmbCilindros.getSelectedItem().toString()),
+                            txtColor.getText(),
+                            Integer.parseInt(txtCapL.getText()),
+                            cmbEstado.getSelectedItem().toString()
+                    );
+
+                    auto.setSeguro(cmbSeguro.getSelectedItem().toString());
+                    auto.setKmAutomovil(Double.parseDouble(txtKilometros.getText()));
+                    auto.setGarantiaAutomovil(spGar.getValue().toString());
+
+                    daoAutomovil.actualizar(auto);
+                }else{
+                    JOptionPane.showMessageDialog(null, "No hay registros para cambiar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
 
+                //ACTUALIZACION DE LOS IDS DISPONIBLES
+                rellenarCmb();
             }
         });
         agregarComp(btnCambiar,0,14,1,1,1,1);
@@ -254,6 +296,7 @@ public class cambiosAutos extends JInternalFrame {
         agregarComp(btnLimpiar,1,14,1,1,1,1);
         add(btnLimpiar, gbc);
 
+        rellenarCmb();
         setVisible(true);
     }
 
@@ -269,13 +312,26 @@ public class cambiosAutos extends JInternalFrame {
     }
 
     public void rellenarCmb(){
-        /*
-        ArrayList<Automovil> autos = DAOAutomovil.buscarTodos();
+        autos = daoAutomovil.buscarTodos();
+        cmbID.removeAllItems();
+        cmbID.repaint();
 
         for(Automovil a : autos){
             cmbID.addItem(a.getIdAutomovil());
         }
+    }
 
-         */
+    public void rellenarTxt(){
+        if (cmbID.getItemCount()>0){
+            auto = daoAutomovil.buscar((Integer) cmbID.getSelectedItem());
+            txtModelo.setText(auto.getModeloA());
+            txtPrecio.setText(String.valueOf(auto.getPrecioAutomovil()));
+            txtPaisFab.setText(auto.getPaisFab());
+            txtEstadoFab.setText(auto.getEstadoFab());
+            txtPeso.setText(String.valueOf(auto.getPesoAutomovil()));
+            txtColor.setText(auto.getColor());
+            txtCapL.setText(String.valueOf(auto.getCapacidad()));
+            txtKilometros.setText(String.valueOf(auto.getKmAutomovil()));
+        }
     }
 }

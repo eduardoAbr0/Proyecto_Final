@@ -1,26 +1,55 @@
 package com.autosamistosos.basedatos.controlador;
 
 import com.autosamistosos.basedatos.conexionBD;
+import com.autosamistosos.basedatos.modelo.Automovil;
 import com.autosamistosos.basedatos.modelo.Cliente;
 
+import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DAOClienteImpl implements clienteDAO{
     @Override
     public void insertar(Cliente cliente) {
-        String sql = "INSERT INTO clientes VALUES(?,?,?,?,?,?,?,?,?,?)";
-        String sqlR = "INSERT INTO relaciones_clientes VALUES(?,?)";
+        String sql = "INSERT INTO clientes(ID_Cliente,Correo,Nombre,EMPLEADOS_ID_Empleado) VALUES(?,?,?,?)";
         PreparedStatement preparedStatement = null;
-        PreparedStatement preparedStatementR = null;
 
         try {
             preparedStatement =conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, cliente.getIdCliente());
-            preparedStatement.setString(2, cliente.getNombre());
+            preparedStatement.setString(2, cliente.getCorreo());
+            preparedStatement.setString(3, cliente.getNombre());
+            preparedStatement.setInt(4, cliente.getIdEmpleado());
+
+            if (preparedStatement.executeUpdate() >= 1){
+                JOptionPane.showMessageDialog(null,"Se ha agregado el Cliente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }
+
+    @Override
+    public void actualizar(Cliente cliente)  {
+        String sql = "UPDATE clientes SET Nombre = ?, Correo = ?, Primer_apellido = ?, Segundo_apellido = ?, Numero_Casa = ?, Calle = ?, Colonia = ?, CP = ?, RFC = ?, Telefono = ?, EMPLEADOS_ID_Empleado WHERE ID_Cliente = ?";
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
+            preparedStatement.setString(1, cliente.getNombre());
+            preparedStatement.setString(2, cliente.getCorreo());
             preparedStatement.setString(3, cliente.getpApellido());
             preparedStatement.setString(4, cliente.getsApellido());
             preparedStatement.setInt(5, cliente.getNumeroCasa());
@@ -29,71 +58,21 @@ public class DAOClienteImpl implements clienteDAO{
             preparedStatement.setInt(8, cliente.getCp());
             preparedStatement.setString(9, cliente.getRFC());
             preparedStatement.setInt(10, cliente.getTelefono());
-            if (preparedStatement.executeUpdate() >= 1){
-                System.out.printf("Se ha agregado el Cliente.");
+            preparedStatement.setInt(11, cliente.getIdCliente());
 
-                preparedStatementR = conexionBD.getInstancia().getConexion().prepareStatement(sqlR);
-                preparedStatementR.setInt(1, cliente.getIdCliente());
-                preparedStatementR.setInt(2, cliente.getIdEmpleado());
-                if(preparedStatementR.executeUpdate()>=1)
-                System.out.printf("Se agrego la relacion cliente-empleado.");
+            if( preparedStatement.executeUpdate() >= 1 ){
+                JOptionPane.showMessageDialog(null,"Se ha actualizado el Cliente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
-        } finally {
-            try {
-                if (preparedStatement != null || preparedStatementR != null) {
-                    preparedStatement.close();
-                    preparedStatementR.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error en instruccion SQL");
-            }
-
-        }
-    }
-
-    @Override
-    public void actualizar(Cliente cliente)  {
-        String sql = "UPDATE clientes SET Nombre = ?, Primer_apellido = ?, Segundo_apellido = ?, Numero_Casa = ?, Calle = ?, Colonia = ?, CP = ?, RFC_Cliente = ?, Telefono_Cliente = ? WHERE ID_Cliente = ?";
-        String sqlR = "UPDATE relaciones_clientes SET Empleado_ID_FK = ? WHERE ID_Cliente_FK = ?";
-
-        PreparedStatement preparedStatement = null;
-
-        try {
-            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
-            preparedStatement.setString(1, cliente.getNombre());
-            preparedStatement.setString(2, cliente.getpApellido());
-            preparedStatement.setString(3, cliente.getsApellido());
-            preparedStatement.setInt(4, cliente.getNumeroCasa());
-            preparedStatement.setString(5, cliente.getCalle());
-            preparedStatement.setString(6, cliente.getColonia());
-            preparedStatement.setInt(7, cliente.getCp());
-            preparedStatement.setString(8, cliente.getRFC());
-            preparedStatement.setInt(9, cliente.getTelefono());
-            preparedStatement.setInt(10, cliente.getIdCliente());
-
-
-            if( preparedStatement.executeUpdate() >= 1 )
-                System.out.printf("Se ha actualizado el Cliente.");
-
-            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sqlR);
-            preparedStatement.setInt(1, cliente.getIdEmpleado());
-            preparedStatement.setInt(2, cliente.getIdCliente());
-
-            if( preparedStatement.executeUpdate() >= 1 )
-                System.out.printf("Se ha actualizado relacion del Cliente.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println("Error en instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -102,33 +81,25 @@ public class DAOClienteImpl implements clienteDAO{
     @Override
     public void eliminar(Integer id)  {
         String sql = "DELETE FROM clientes WHERE ID_Cliente = ?";
-        String sqlR = "DELETE FROM relaciones_clientes WHERE ID_Cliente_FK = ?";
 
         PreparedStatement preparedStatement = null;
-
         try {
-            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sqlR);
-            preparedStatement.setInt(1, id);
-
-            if( preparedStatement.executeUpdate() >= 1 )
-                System.out.printf("Se ha eliminado relacion del Cliente.");
-
             preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
             if( preparedStatement.executeUpdate() >= 1 )
-                System.out.printf("Se ha eliminado el Cliente.");
+                JOptionPane.showMessageDialog(null, "Se ha eliminado el Cliente.", "Cliente Eliminado", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instruccion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                System.out.println("Error en instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -138,16 +109,26 @@ public class DAOClienteImpl implements clienteDAO{
     public Cliente convertir(ResultSet rs, int id) throws SQLException {
         Cliente cliente = null;
         String nombre = rs.getString("Nombre");
-        String apellido = rs.getString("Primer_apellido");
-        String sapellido = rs.getString("Segundo_apellido");
-        int numeroCasa = rs.getInt("Numero_Casa");
+        String correo = rs.getString("Correo");
+        String apellido = rs.getString("Primer_ap");
+        String sapellido = rs.getString("Segundo_ap");
+        int numeroCasa = rs.getInt("Numero_casa");
         String calle = rs.getString("Calle");
         String colonia = rs.getString("Colonia");
         int cp = rs.getInt("CP");
-        String rfc = rs.getString("RFC_Cliente");
-        String telefono = rs.getString("Telefono_Cliente");
+        String rfc = rs.getString("RFC");
+        int telefono = rs.getInt("Telefono");
+        int idEmpleado = rs.getInt("EMPLEADOS_ID_Empleado");
 
-        //cliente = new Cliente(id, nombre,apellido,sapellido,numeroCasa,calle,colonia,cp,telefono,rfc);
+        cliente = new Cliente(id, correo,nombre, idEmpleado);
+        cliente.setpApellido(apellido);
+        cliente.setsApellido(sapellido);
+        cliente.setNumeroCasa(numeroCasa);
+        cliente.setCalle(calle);
+        cliente.setColonia(colonia);
+        cliente.setCp(cp);
+        cliente.setRFC(rfc);
+        cliente.setTelefono(telefono);
 
         return cliente;
     }
@@ -155,7 +136,6 @@ public class DAOClienteImpl implements clienteDAO{
     @Override
     public Cliente buscar(Integer id)  {
         String sql = "SELECT * FROM clientes WHERE ID_Cliente = ?";
-        String sqlR = "SELECT * FROM relaciones_clientes WHERE ID_Cliente_FK = ?";
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Cliente cliente = null;
@@ -166,12 +146,12 @@ public class DAOClienteImpl implements clienteDAO{
             if (resultSet.next()) {
                 cliente = convertir(resultSet, id);
             }else {
-                System.out.printf("No se ha encontrado registro");
+                JOptionPane.showMessageDialog(null, "No se encontro el Cliente", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error en instrucion SQL");
+            JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
         }finally {
             try {
                 if (resultSet != null) {
@@ -182,7 +162,7 @@ public class DAOClienteImpl implements clienteDAO{
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-                System.out.println("Error instruccion SQL");
+                JOptionPane.showMessageDialog(null, "Error SQL", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         return cliente;
@@ -190,6 +170,34 @@ public class DAOClienteImpl implements clienteDAO{
 
     @Override
     public ArrayList<Cliente> buscarTodos()  {
-        return new ArrayList<>();
+        String sql = "SELECT * FROM clientes";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        try {
+            preparedStatement = conexionBD.getInstancia().getConexion().prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                clientes.add(convertir(resultSet, id));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error SQL","Error",JOptionPane.ERROR_MESSAGE);
+        }finally {
+            try {
+                if (resultSet != null){
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null,"Error SQL","Error",JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return clientes;
     }
 }

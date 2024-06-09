@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
+import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
 import com.autosamistosos.basedatos.modelo.Automovil;
 
 import javax.swing.*;
@@ -13,8 +14,8 @@ public class bajasAutos extends JInternalFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     JComboBox cmbID;
     JButton btnEliminar;
-    //DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();;
-
+    DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
+    ArrayList<Automovil> autos;
     public bajasAutos(){
         super("Bajas autos", true, true, true, true);
 
@@ -35,7 +36,13 @@ public class bajasAutos extends JInternalFrame {
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
+
+                if (cmbID.getItemCount()==0){
+                    JOptionPane.showMessageDialog(null, "No hay automoviles por eliminar","",JOptionPane.WARNING_MESSAGE);
+                }else {
+                    daoAutomovil.eliminar((Integer) cmbID.getSelectedItem());
+                }
+                rellenarCmb();
             }
         });
         agregarComp(btnEliminar,0,1,1,2,1,0);
@@ -57,13 +64,13 @@ public class bajasAutos extends JInternalFrame {
     }
 
     public void rellenarCmb(){
-        /*
-        ArrayList<Automovil> autos = DAOAutomovil.buscarTodos();
+        autos = daoAutomovil.buscarTodos();
+        cmbID.removeAllItems();
+        cmbID.repaint();
 
         for(Automovil a : autos){
             cmbID.addItem(a.getIdAutomovil());
         }
 
-         */
     }
 }

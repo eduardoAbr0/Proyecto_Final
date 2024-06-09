@@ -3,6 +3,7 @@ package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 import com.autosamistosos.basedatos.modelo.Cliente;
+import com.autosamistosos.basedatos.modelo.Empleado;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,6 @@ public class bajasClientes extends JInternalFrame {
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
         cmbID = new JComboBox();
-
         agregarComp(cmbID,1,0,1,1,1,1);
         add(cmbID, gbc);
 
@@ -38,7 +38,12 @@ public class bajasClientes extends JInternalFrame {
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
+                if (cmbID.getItemCount()==0){
+                    JOptionPane.showMessageDialog(null, "No hay clientes por eliminar","",JOptionPane.WARNING_MESSAGE);
+                }else {
+                    daoCliente.eliminar((Integer) cmbID.getSelectedItem());
+                }
+                rellenarCmb();
             }
         });
         agregarComp(btnEliminar,0,1,1,2,1,0);
@@ -60,15 +65,12 @@ public class bajasClientes extends JInternalFrame {
     }
 
     public void rellenarCmb(){
-        /*
         ArrayList<Cliente> clientes = daoCliente.buscarTodos();
+        cmbID.removeAllItems();
+        cmbID.repaint();
 
         for(Cliente c : clientes){
             cmbID.addItem(c.getIdCliente());
         }
-
-         */
-
     }
-
 }

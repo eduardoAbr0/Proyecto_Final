@@ -10,7 +10,7 @@ public class Automovil {
     private int cilindroAutomovil;
     private String estado;
     private String seguro;
-    private int kmAutomovil;
+    private double kmAutomovil;
     private String garantiaAutomovil;
     private String paisFab;
     private String estadoFab;
@@ -110,11 +110,11 @@ public class Automovil {
         this.seguro = seguro;
     }
 
-    public int getKmAutomovil() {
+    public double getKmAutomovil() {
         return kmAutomovil;
     }
 
-    public void setKmAutomovil(int kmAutomovil) {
+    public void setKmAutomovil(double kmAutomovil) {
         this.kmAutomovil = kmAutomovil;
     }
 

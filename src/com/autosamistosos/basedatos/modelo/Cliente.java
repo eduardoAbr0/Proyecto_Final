@@ -15,18 +15,10 @@ public class Cliente {
     protected int idEmpleado;
 
 
-    public Cliente(int idCliente, String correo, String nombre, String pApellido, String sApellido, int numeroCasa, String calle, String colonia, int cp, String RFC, int telefono, int idEmpleado) {
+    public Cliente(int idCliente, String correo, String nombre, int idEmpleado) {
         this.idCliente = idCliente;
         this.correo = correo;
         this.nombre = nombre;
-        this.pApellido = pApellido;
-        this.sApellido = sApellido;
-        this.numeroCasa = numeroCasa;
-        this.calle = calle;
-        this.colonia = colonia;
-        this.cp = cp;
-        this.RFC = RFC;
-        this.telefono = telefono;
         this.idEmpleado = idEmpleado;
     }
 

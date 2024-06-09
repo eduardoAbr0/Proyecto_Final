@@ -1,21 +1,25 @@
 package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
-import com.autosamistosos.basedatos.controlador.clienteDAO;
+import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
 import com.autosamistosos.basedatos.modelo.Cliente;
+import com.autosamistosos.basedatos.modelo.Empleado;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class altasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID, txtNombre, txtPrimerA, txtSegundoA, txtNumeroCasa, txtCalle, txtColonia, txtCP, txtEmpleado, txtCorreo;
     JButton btnAgregar, btnLimpiar;
+    JComboBox cmbIDEmpl;
     Cliente cliente;
     DAOClienteImpl daoCliente = new DAOClienteImpl();
+    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
 
     public altasClientes(){
         super("Altas clientes", true, true, true, true);
@@ -52,58 +56,12 @@ public class altasClientes extends JInternalFrame {
         agregarComp(txtNombre,1,2,1,1,1,1);
         add(txtNombre, gbc);
 
-        /*
-        JLabel txPA = new JLabel("Primer apellido: ");
-        agregarComp(txPA,0,2,1,1,1,1);
-        add(txPA, gbc);
-        txtPrimerA = new JTextField(10);
-        agregarComp(txtPrimerA,1,2,1,1,1,1);
-        add(txtPrimerA, gbc);
-
-        JLabel txSA = new JLabel("Segundo apellido: ");
-        agregarComp(txSA,0,3,1,1,1,1);
-        add(txSA, gbc);
-        txtSegundoA = new JTextField(10);
-        agregarComp(txtSegundoA,1,3,1,1,1,1);
-        add(txtSegundoA, gbc);
-
-        JLabel txNmCasa = new JLabel("Numero Casa: ");
-        agregarComp(txNmCasa,0,4,1,1,1,1);
-        add(txNmCasa, gbc);
-        txtNumeroCasa = new JTextField(10);
-        agregarComp(txtNumeroCasa,1,4,1,1,1,1);
-        add(txtNumeroCasa, gbc);
-
-        JLabel txCalle = new JLabel("Calle: ");
-        agregarComp(txCalle,0,5,1,1,1,1);
-        add(txCalle, gbc);
-        txtCalle = new JTextField(10);
-        agregarComp(txtCalle,1,5,1,1,1,1);
-        add(txtCalle, gbc);
-
-        JLabel txColonia = new JLabel("Colonia: ");
-        agregarComp(txColonia,0,6,1,1,1,1);
-        add(txColonia, gbc);
-        txtColonia = new JTextField(10);
-        agregarComp(txtColonia,1,6,1,1,1,1);
-        add(txtColonia, gbc);
-
-        JLabel txCP = new JLabel("CP: ");
-        agregarComp(txCP,0,7,1,1,1,1);
-        add(txCP, gbc);
-        txtCP = new JTextField(10);
-        agregarComp(txtCP,1,7,1,1,1,1);
-        add(txtCP, gbc);
-
-        JLabel txEmpleado = new JLabel("Atendido por vendedor: ");
-        agregarComp(txEmpleado,0,8,1,1,1,1);
-        add(txEmpleado, gbc);
-        txtEmpleado = new JTextField(10);
-        agregarComp(txtEmpleado,1,8,1,1,1,1);
-        add(txtEmpleado, gbc);
-
-         */
-
+        JLabel txIDEm = new JLabel("ID Empleado: ");
+        agregarComp(txIDEm,0,3,1,1,1,1);
+        add(txIDEm, gbc);
+        cmbIDEmpl = new JComboBox();
+        agregarComp(cmbIDEmpl,1,3,1,1,1,1);
+        add(cmbIDEmpl, gbc);
 
         btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
@@ -111,27 +69,24 @@ public class altasClientes extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 if(txtNombre.getText().isEmpty()||txtCorreo.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Componente(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                }
-                /*
-                cliente = new Cliente(Integer.parseInt(txtID.getText()),
-                        txtNombre.getText(),
-                        txtPrimerA.getText(),
-                        txtSegundoA.getText(),
-                        Integer.parseInt(txtNumeroCasa.getText()),
-                        txtCalle.getText(),
-                        txtColonia.getText(),
-                        Integer.parseInt(txtCP.getText()),null,null);
-                        cliente.setIdEmpleado(Integer.parseInt(txtEmpleado.getText()));
+                } else if (cmbIDEmpl.getItemCount()==0) {
+                    JOptionPane.showMessageDialog(null, "Ingresa un empleado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else{
+                    cliente = new Cliente(
+                            Integer.parseInt(spId.getValue().toString()),
+                            txtCorreo.getText(),
+                            txtNombre.getText(),
+                            (Integer) cmbIDEmpl.getSelectedItem());
 
-                        daoCliente.insertar(cliente);
-*/
+                    daoCliente.insertar(cliente);
+                }
             }
         });
-        agregarComp(btnAgregar,0,3,1,1,1,1);
+        agregarComp(btnAgregar,0,4,1,1,1,1);
         add(btnAgregar, gbc);
 
         btnLimpiar = new JButton("Limpiar");
-        agregarComp(btnLimpiar,1,3,1,1,1,1);
+        agregarComp(btnLimpiar,1,4,1,1,1,1);
         btnLimpiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,6 +100,7 @@ public class altasClientes extends JInternalFrame {
         });
         add(btnLimpiar, gbc);
 
+        rellenarCmbEmpleados();
         setVisible(true);
     }
 
@@ -159,8 +115,13 @@ public class altasClientes extends JInternalFrame {
         gbl.setConstraints(c,gbc);
     }
 
-    public static void main(String[] args) {
-        new altasClientes();
+    public void rellenarCmbEmpleados(){
+        ArrayList<Empleado> autos = daoEmpleado.buscarTodos();
+
+        for(Empleado e : autos){
+            cmbIDEmpl.addItem(e.getId());
+        }
+
     }
 }
 

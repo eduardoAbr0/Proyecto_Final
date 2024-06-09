@@ -50,7 +50,9 @@ public class altasAutos extends JInternalFrame {
         add(txModelo, gbc);
         txtModelo = new JTextField(10);
         agregarComp(txtModelo, 1, 1, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtModelo, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Precio
         JLabel txPrecio = new JLabel("Precio: ");
@@ -70,7 +72,9 @@ public class altasAutos extends JInternalFrame {
             public void keyReleased(KeyEvent e) {}
         });
         agregarComp(txtPrecio, 1, 2, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtPrecio, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Fecha de fabricación
         JLabel txFechaf = new JLabel("Fecha fabriacion: ");
@@ -90,7 +94,9 @@ public class altasAutos extends JInternalFrame {
         add(txPaisF, gbc);
         txtPaisFab = new JTextField(10);
         agregarComp(txtPaisFab, 1, 4, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtPaisFab, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Estado de fabricación
         JLabel txEstadoF = new JLabel("Estado fabricacion: ");
@@ -98,7 +104,9 @@ public class altasAutos extends JInternalFrame {
         add(txEstadoF, gbc);
         txtEstadoFab = new JTextField(10);
         agregarComp(txtEstadoFab, 1, 5, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtEstadoFab, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Peso
         JLabel txPeso = new JLabel("Peso: ");
@@ -118,7 +126,9 @@ public class altasAutos extends JInternalFrame {
             public void keyReleased(KeyEvent e) {}
         });
         agregarComp(txtPeso, 1, 6, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtPeso, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Cilindros
         JLabel txCilindros = new JLabel("Cilindros: ");
@@ -130,7 +140,9 @@ public class altasAutos extends JInternalFrame {
         cmbCilindros.addItem("12");
         cmbCilindros.addItem("16");
         agregarComp(cmbCilindros, 1, 7, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(cmbCilindros, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Color
         JLabel txColor = new JLabel("Color: ");
@@ -138,7 +150,9 @@ public class altasAutos extends JInternalFrame {
         add(txColor, gbc);
         txtColor = new JTextField(10);
         agregarComp(txtColor, 1, 8, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtColor, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Capacidad
         JLabel txCapL = new JLabel("Capacidad: ");
@@ -158,7 +172,9 @@ public class altasAutos extends JInternalFrame {
             public void keyReleased(KeyEvent e) {}
         });
         agregarComp(txtCapL, 1, 9, 1, 1, 1, 1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(txtCapL, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Estado
         JLabel txEstado = new JLabel("Estado: ");
@@ -168,7 +184,9 @@ public class altasAutos extends JInternalFrame {
         cmbEstado.addItem("Nuevo");
         cmbEstado.addItem("Usado");
         agregarComp(cmbEstado, 1, 10, 1, 1, 1,1);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         add(cmbEstado, gbc);
+        gbc.fill = GridBagConstraints.NONE;
 
 
         btnAgregar = new JButton("Agregar");

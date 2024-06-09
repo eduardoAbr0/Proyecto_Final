@@ -31,7 +31,6 @@ public class bajasEmpleados extends JInternalFrame {
         agregarComp(txID,0,0,1,1,1,1);
         add(txID, gbc);
         cmbID = new JComboBox();
-
         agregarComp(cmbID,1,0,1,1,1,1);
         add(cmbID, gbc);
 
@@ -39,7 +38,13 @@ public class bajasEmpleados extends JInternalFrame {
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //daoEmpleado.eliminar(Integer.parseInt(txtID.getText()));
+                if (cmbID.getItemCount() == 0){
+                    JOptionPane.showMessageDialog(null, "Agrega empleados.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    daoEmpleado.eliminar((Integer) cmbID.getSelectedItem());
+                }
+
+                rellenarCmb();
             }
         });
         agregarComp(btnEliminar,0,1,1,2,1,0);
@@ -61,10 +66,11 @@ public class bajasEmpleados extends JInternalFrame {
     }
 
     public void rellenarCmb(){
+        ArrayList<Empleado> empleados = daoEmpleado.buscarTodos();
+        cmbID.removeAllItems();
+        cmbID.repaint();
 
-        ArrayList<Empleado> autos = daoEmpleado.buscarTodos();
-
-        for(Empleado e : autos){
+        for(Empleado e : empleados){
             cmbID.addItem(e.getId());
         }
 
