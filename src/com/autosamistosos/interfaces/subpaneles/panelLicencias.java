@@ -24,9 +24,6 @@ public class panelLicencias extends JPanel {
     JTable tbFacturas, tbEncuestas;
     JPanel panelTool;
     JDesktopPane ABCC = new JDesktopPane();
-    ArrayList<Empleado> listEmp;
-    DefaultTableModel modelAutos = new DefaultTableModel();
-    //DAOClienteImpl daoCliente = new DAOClienteImpl()            ;
     public panelLicencias() {
         setLayout(gbl);
 

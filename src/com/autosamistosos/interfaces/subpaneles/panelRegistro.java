@@ -1,19 +1,13 @@
-package com.autosamistosos.interfaces;
+package com.autosamistosos.interfaces.subpaneles;
 
 import com.autosamistosos.basedatos.controlador.DBLogin;
-import com.autosamistosos.interfaces.subpaneles.panelRegistro;
 
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 
-public class login extends JFrame {
+public class panelRegistro extends JFrame {
     BorderLayout bl = new BorderLayout();
     JPanel log,img = new JPanel();
     GridBagLayout gbl = new GridBagLayout();
@@ -21,26 +15,24 @@ public class login extends JFrame {
 
     JTextField txFUsuario;
     JPasswordField txFPassword;
-    JButton btnLogin, btnRestablecer, btnRegistrarU;
-    DBLogin login = new DBLogin();
+    JButton btnRegistrar, btnRestablecer;
+    DBLogin db = new DBLogin();
 
-    BufferedImage fondo;
-    public login() {
+    public panelRegistro() {
 
         //PANEL INTERFAZ
         getContentPane().setLayout(bl);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Registro");
 
-        setVisible(true);
 
-        //PANEL DER
+        //PANEL IZQ
         log = new JPanel();
         log.setLayout(gbl);
         log.setBackground(Color.CYAN);
         log.setPreferredSize(new Dimension(350, 600));
 
-        //PANEL IZQ
+        //PANEL DER
         img = new JPanel();
         img.setBackground(Color.RED);
         img.setPreferredSize(new Dimension(550, 600));
@@ -48,7 +40,7 @@ public class login extends JFrame {
         gbc.insets = new Insets(5,5,5,5);
 
         //COMPONENTES DERECHA
-        JLabel txtLogin = new JLabel("LOGIN");
+        JLabel txtLogin = new JLabel("REGISTRO");
         txtLogin.setHorizontalAlignment(SwingConstants.CENTER);
         agregarComp(txtLogin,0,0,1,2,1,1,GridBagConstraints.HORIZONTAL,GridBagConstraints.CENTER);
 
@@ -64,21 +56,18 @@ public class login extends JFrame {
         txFPassword = new JPasswordField();
         agregarComp(txFPassword,1,2,1,1,1,1);
 
-        btnLogin = new JButton("Login");
-        btnLogin.addActionListener(new ActionListener() {
+        btnRegistrar = new JButton("Registrar");
+        btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txFUsuario.getText().isEmpty() || txFPassword.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Llena los campos");
+                    JOptionPane.showMessageDialog(null,"Llena los campos.");
                 }else{
-                    if(login.encontrarUsuario(String.valueOf(txFUsuario.getText()),String.valueOf(txFPassword.getText()))){
-                        new general();
-                        dispose();
-                    }
+                    db.registroUsuario(txFUsuario.getText(),txFPassword.getText());
                 }
             }
         });
-        agregarComp(btnLogin,0,3,1,1,1,1);
+        agregarComp(btnRegistrar,0,3,1,1,1,1);
 
         btnRestablecer = new JButton("Restablecer");
         btnRestablecer.addActionListener(new ActionListener() {
@@ -90,21 +79,13 @@ public class login extends JFrame {
         });
         agregarComp(btnRestablecer,1,3,1,1,1,1);
 
-        btnRegistrarU = new JButton("Registrar Usuario");
-        btnRegistrarU.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new panelRegistro();
-            }
-        });
-        agregarComp(btnRegistrarU,0,4,1,2,1,0,2,20);
 
-
-        add(log, BorderLayout.EAST);
-        add(img, BorderLayout.WEST);
+        add(img, BorderLayout.EAST);
+        add(log, BorderLayout.WEST);
 
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }
     public void agregarComp(JComponent c, int x, int y, int alt, int anch, int pesox, int pesoy){
         gbc.gridx = x;
@@ -131,21 +112,7 @@ public class login extends JFrame {
         log.add(c);
     }
 
-    public panelImagen() {
-        try {
-            // Cargar la imagen desde un archivo
-            imagen = ImageIO.read(new File("ruta/a/la/imagen.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new login();
-            }
-        });
+        SwingUtilities.invokeLater(() -> new panelRegistro());
     }
 }

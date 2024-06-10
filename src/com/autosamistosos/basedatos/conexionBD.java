@@ -10,7 +10,7 @@ public class conexionBD {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String URL = "jdbc:mysql://localhost:3306/proyectobd";
             conexion = DriverManager.getConnection(URL, "root", "pizza");
-            System.out.println("Conexion exitosa con BD");
+            //System.out.println("Conexion exitosa con BD");
         } catch (ClassNotFoundException e) {
             //throw new RuntimeException(e);
             System.out.println("Error en el DRIVER");

@@ -49,9 +49,9 @@ public class general extends JFrame {
         general.add(pnlLicencias,"LICENCIAS");
 
         //PERSONALIZACION BASICA DE COLORES PARA IDENTIFICAR
-        barraArriba.setBackground(Color.CYAN);
-        general.setBackground(Color.BLACK);
-        opciones.setBackground(Color.GREEN);
+        barraArriba.setBackground(Color.BLACK);
+        general.setBackground(Color.DARK_GRAY);
+        opciones.setBackground(Color.RED);
 
         //CONFIGURACION TAMANOS Y ESPECIFICACIONES PARA LAYOUT EN EL PANEL
         barraArriba.setPreferredSize(new Dimension(0, 200));
@@ -145,13 +145,6 @@ public class general extends JFrame {
 
 
     public static void main(String[] args) {
-        //UIManager.getInstalledLookAndFeels();
-/*
-        for (UIManager.LookAndFeelInfo lk : UIManager.getInstalledLookAndFeels()){
-            System.out.println(lk.getClassName());
-        }
-
- */
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
             JFrame.setDefaultLookAndFeelDecorated(true);
