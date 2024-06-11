@@ -3,6 +3,7 @@ package com.autosamistosos.interfaces.subpaneles.autosABCC;
 import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.modelo.Automovil;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class altasAutos extends JInternalFrame {
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 450, 500);
         setResizable(false);
 
         // Label e input de ID Auto
@@ -77,7 +78,7 @@ public class altasAutos extends JInternalFrame {
         gbc.fill = GridBagConstraints.NONE;
 
         // Label e input de Fecha de fabricación
-        JLabel txFechaf = new JLabel("Fecha fabriacion: ");
+        JLabel txFechaf = new JLabel("Fecha fabricacion: ");
         JDateChooser fechaFab = new JDateChooser();
         fechaFab.setDateFormatString("yyyy/MM/dd");
         agregarComp(txFechaf, 0, 3, 1, 1, 1, 1);
@@ -194,7 +195,7 @@ public class altasAutos extends JInternalFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //VERIFICACION CAMPOS
-                if(txtModelo.getText().isEmpty() || txtPrecio.getText().isEmpty() || fechaFab.getDate().toString().isEmpty() ||
+                if(txtModelo.getText().isEmpty() || txtPrecio.getText().isEmpty() || fechaFab.getDate()==null ||
                 txtPaisFab.getText().isEmpty() || txtEstadoFab.getText().isEmpty() || txtPeso.getText().isEmpty() || txtColor.getText().isEmpty()
                 || txtCapL.getText().isEmpty()){
                     JOptionPane.showMessageDialog(null, "Componente(s) vacio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -238,13 +239,15 @@ public class altasAutos extends JInternalFrame {
                     if (component instanceof JTextField) {
                         JTextField textField = (JTextField) component;
                         textField.setText("");
-                    }
+                    } 
                 }
-
-
             }
         });
         add(btnLimpiar, gbc);
+
+
+        //Personalizacion de todos los botones
+        aplicarEstilos(getContentPane());
 
         setVisible(true);
     }
@@ -258,5 +261,20 @@ public class altasAutos extends JInternalFrame {
         gbc.weighty = pesoy;
 
         add(c,gbc);
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 }

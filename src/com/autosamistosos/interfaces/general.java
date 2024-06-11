@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.autosamistosos.interfaces.subpaneles.*;
 
 import javax.swing.*;
@@ -51,7 +52,7 @@ public class general extends JFrame {
         //PERSONALIZACION BASICA DE COLORES PARA IDENTIFICAR
         barraArriba.setBackground(Color.BLACK);
         general.setBackground(Color.DARK_GRAY);
-        opciones.setBackground(Color.RED);
+        opciones.setBackground(Color.WHITE);
 
         //CONFIGURACION TAMANOS Y ESPECIFICACIONES PARA LAYOUT EN EL PANEL
         barraArriba.setPreferredSize(new Dimension(0, 200));
@@ -137,6 +138,13 @@ public class general extends JFrame {
         add(barraArriba, BorderLayout.NORTH);
         add(general, BorderLayout.CENTER);
         add(opciones, BorderLayout.WEST);
+
+        //Personalizacion de los botones
+        for (Component c : opciones.getComponents()){
+            if(c instanceof JButton){
+                interfaz.estiloBoton((JButton) c);
+            }
+        }
 
         //DEMAS CONFIGURACIONES DEL JFRAME
         setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.autosamistosos.interfaces.subpaneles.autosABCC.altasAutos;
 import com.autosamistosos.interfaces.subpaneles.autosABCC.bajasAutos;
 import com.autosamistosos.interfaces.subpaneles.autosABCC.cambiosAutos;
@@ -21,6 +22,11 @@ public class panelVentas extends JPanel {
     JButton btnAgregar, btnEliminar, btnRestablecer, btnBuscar, btnModificar;
     JPanel panelTool;
     JDesktopPane ABCC = new JDesktopPane();
+
+    String iconAgg = "/ComponentesG/iconAgg.png";
+    String iconBuscar = "/ComponentesG/iconSearch.png";
+    String iconElim = "/ComponentesG/iconEliminar.png";
+    String iconCambiar = "/ComponentesG/iconModify.png";
     public panelVentas() {
         setLayout(gbl);
 
@@ -76,6 +82,13 @@ public class panelVentas extends JPanel {
         agregar(0,1,GridBagConstraints.REMAINDER,GridBagConstraints.REMAINDER,1,1);
         gbc.fill = GridBagConstraints.BOTH;
         add(ABCC,gbc);
+
+        //Personalizacion de todos los botones
+        interfaz.estiloBoton(btnAgregar, new Color(0x90EE90), new Color(0x006400), interfaz.iconoC(iconAgg,25,25));
+        interfaz.estiloBoton(btnEliminar, new Color(0xFF4500), new Color(0x8B0000),interfaz.iconoC(iconElim,25,25));
+        interfaz.estiloBoton(btnBuscar, new Color(0xFFD700), new Color(0xFF8C00),interfaz.iconoC(iconBuscar,25,25));
+        interfaz.estiloBoton(btnModificar, new Color(0x1E90FF), new Color(0x00008B),interfaz.iconoC(iconCambiar,25,25));
+        interfaz.estiloBoton(btnRestablecer);
 
     }
     public void agregar(JComponent c, int x, int y, int altura, int anchura, int wx, int wy) {
