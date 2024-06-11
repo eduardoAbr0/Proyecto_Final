@@ -1,7 +1,9 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Automovil;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -24,6 +26,7 @@ public class cambiosAutos extends JInternalFrame {
     ArrayList<Automovil> autos;
     Automovil auto;
     DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
+    hilos h;
 
     public cambiosAutos(){
         super("Cambios autos", true, true, true, true);
@@ -268,7 +271,9 @@ public class cambiosAutos extends JInternalFrame {
                     auto.setKmAutomovil(Double.parseDouble(txtKilometros.getText()));
                     auto.setGarantiaAutomovil(spGar.getValue().toString());
 
-                    daoAutomovil.actualizar(auto);
+                    h = new hilos("cambiarAutomovil");
+                    h.setObjeto(auto);
+                    h.start();
                 }else{
                     JOptionPane.showMessageDialog(null, "No hay registros para cambiar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
@@ -296,6 +301,7 @@ public class cambiosAutos extends JInternalFrame {
         agregarComp(btnLimpiar,1,14,1,1,1,1);
         add(btnLimpiar, gbc);
 
+        aplicarEstilos(getContentPane());
         rellenarCmb();
         setVisible(true);
     }
@@ -332,6 +338,21 @@ public class cambiosAutos extends JInternalFrame {
             txtColor.setText(auto.getColor());
             txtCapL.setText(String.valueOf(auto.getCapacidad()));
             txtKilometros.setText(String.valueOf(auto.getKmAutomovil()));
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.autosamistosos.interfaces.subpaneles.ventasABCC;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -31,6 +33,7 @@ public class bajasVentas extends JInternalFrame{
         agregarComp(btnEliminar,0,1,1,2,1,0);
         add(btnEliminar, gbc);
 
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -43,5 +46,20 @@ public class bajasVentas extends JInternalFrame{
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 }

@@ -1,23 +1,15 @@
 package com.autosamistosos.interfaces.subpaneles;
 
-import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
-import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.interfaces.personalizacion.interfaz;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.altasEmpleados;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.bajasEmpleados;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.cambiosEmpleados;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.consultasEmpleados;
 import com.autosamistosos.interfaces.subpaneles.encuestasABCC.altasEncuestas;
 import com.autosamistosos.interfaces.subpaneles.encuestasABCC.bajasEncuestas;
 import com.autosamistosos.interfaces.subpaneles.encuestasABCC.cambiosEncuestas;
 import com.autosamistosos.interfaces.subpaneles.encuestasABCC.consultasEncuestas;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class panelEncuestas extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
@@ -30,9 +22,11 @@ public class panelEncuestas extends JPanel {
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFond = "/ComponentesG/encuestaImg.jpg";
     public panelEncuestas() {
         setLayout(gbl);
 
+        ABCC = new interfaz.deskImg(imgFond);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());

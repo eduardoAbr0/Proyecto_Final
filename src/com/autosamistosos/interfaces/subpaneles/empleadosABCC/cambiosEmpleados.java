@@ -1,8 +1,10 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.basedatos.controlador.empleadoDAO;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +22,14 @@ public class cambiosEmpleados extends JInternalFrame {
     JComboBox cbTipoE, cmbID;
     Empleado emp;
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
+    hilos h;
 
     public cambiosEmpleados(){
         super("Cambios empleados", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 450, 500);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Empleado: ");
@@ -189,7 +192,9 @@ public class cambiosEmpleados extends JInternalFrame {
                             Integer.parseInt(txtTelefono.getText()),
                             cbTipoE.getSelectedItem().toString());
 
-                    daoEmpleado.actualizar(emp);
+                    h = new hilos("cambiarEmpleado");
+                    h.setObjeto(emp);
+                    h.start();
                 }
 
             }
@@ -212,6 +217,7 @@ public class cambiosEmpleados extends JInternalFrame {
         });
         add(btnLimpiar, gbc);
 
+        aplicarEstilos(getContentPane());
         rellenarCmb();
         setVisible(true);
     }
@@ -252,6 +258,21 @@ public class cambiosEmpleados extends JInternalFrame {
                 cbTipoE.setSelectedIndex(1);
             } else if (emp.getTipoEmpleado().equals("Administrador")) {
                 cbTipoE.setSelectedIndex(2);
+            }
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
             }
         }
     }

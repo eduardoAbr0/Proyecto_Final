@@ -23,15 +23,17 @@ public class panelLicencias extends JPanel {
     GridBagConstraints gbc = new GridBagConstraints();
     JButton btnAgregar, btnEliminar, btnRestablecer, btnBuscar, btnModificar;
     JPanel panelTool;
-    JDesktopPane ABCC = new JDesktopPane();
+    JDesktopPane ABCC;
 
     String iconAgg = "/ComponentesG/iconAgg.png";
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFond = "/ComponentesG/licenciaImg.jpg";
     public panelLicencias() {
         setLayout(gbl);
 
+        ABCC = new interfaz.deskImg(imgFond);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());

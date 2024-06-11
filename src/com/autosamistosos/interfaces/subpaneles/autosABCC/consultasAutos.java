@@ -1,16 +1,15 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Automovil;
-import com.toedter.calendar.JDateChooser;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class consultasAutos extends JInternalFrame {
@@ -18,7 +17,7 @@ public class consultasAutos extends JInternalFrame {
     GridBagConstraints gbc = new GridBagConstraints();
     JTextField txtID;
     JButton btnConsultar, btnLimpiar;
-    JRadioButton radioTodos, radioID; //radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, radio10, radio11, radio12, radio13, radio14;
+    JRadioButton radioTodos, radioID;
     ButtonGroup radioGroup;
     JTable tbAuto;
     JComboBox cmbID;
@@ -26,6 +25,7 @@ public class consultasAutos extends JInternalFrame {
     DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
     ArrayList<Automovil> automoviles;
     Automovil automovil;
+    hilos h;
 
     public consultasAutos() {
         super("Consultas autos", true, true, true, true);
@@ -67,16 +67,32 @@ public class consultasAutos extends JInternalFrame {
         btnConsultar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tableModel.setRowCount(0);
                 if (radioTodos.isSelected()) {
                     tableModel.setRowCount(0);
-                    automoviles = daoAutomovil.buscarTodos();
 
+                    h = new hilos("consultarTAutomovil");
+                    h.start();
+                    try {
+                        h.join();
+                        automoviles = (ArrayList<Automovil>) h.getObjeto();
+                    }catch (InterruptedException b) {
+                        b.printStackTrace();
+                    }
                     for (Automovil a : automoviles) {
                         tableModel.addRow(new Object[]{a.getIdAutomovil(),a.getModeloA(),a.getPrecioAutomovil(),a.getFechaFab(),a.getPaisFab(),a.getEstadoFab(),a.getPesoAutomovil(),a.getCilindroAutomovil(),a.getColor(),a.getCapacidad(),a.getEstado(),a.getSeguro(),a.getKmAutomovil(),a.getGarantiaAutomovil()});
                     }
                 } else if (radioID.isSelected()) {
                     if (cmbID.getItemCount()>0){
-                        automovil = daoAutomovil.buscar((Integer) cmbID.getSelectedItem());
+                        h = new hilos("consultarAutomovil");
+                        h.setId((Integer) cmbID.getSelectedItem());
+                        h.start();
+                        try {
+                            h.join();
+                            automovil = (Automovil) h.getObjeto();
+                        } catch (InterruptedException b) {
+                            b.printStackTrace();
+                        }
 
                         tableModel.addRow(new Object[]{automovil.getIdAutomovil(),automovil.getModeloA(),automovil.getPrecioAutomovil(),automovil.getFechaFab(),automovil.getPaisFab(),automovil.getEstadoFab(),automovil.getPesoAutomovil(),automovil.getCilindroAutomovil(),automovil.getColor(),automovil.getCapacidad(),automovil.getEstado(),automovil.getSeguro(),automovil.getKmAutomovil(),automovil.getGarantiaAutomovil()});
                     }else{
@@ -123,11 +139,13 @@ public class consultasAutos extends JInternalFrame {
         tableModel.addColumn("Garantia");
 
         tbAuto = new JTable(tableModel);
+        interfaz.personalizarTabla(tbAuto);
         JScrollPane jsCl = new JScrollPane(tbAuto);
         agregarComp(jsCl, 3, 0, GridBagConstraints.REMAINDER, GridBagConstraints.REMAINDER, 4, 1);
         gbc.fill = GridBagConstraints.BOTH;
         add(jsCl, gbc);
 
+        aplicarEstilos(getContentPane());
         rellenarCmb();
         setVisible(true);
     }
@@ -150,6 +168,21 @@ public class consultasAutos extends JInternalFrame {
 
         for(Automovil a : automoviles){
             cmbID.addItem(a.getIdAutomovil());
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
         }
     }
 }

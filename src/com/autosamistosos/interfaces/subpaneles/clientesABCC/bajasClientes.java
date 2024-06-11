@@ -2,8 +2,10 @@ package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Cliente;
 import com.autosamistosos.basedatos.modelo.Empleado;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +20,7 @@ public class bajasClientes extends JInternalFrame {
     JComboBox cmbID;
     JButton btnEliminar;
     DAOClienteImpl daoCliente = new DAOClienteImpl();
-
+    hilos h;
     public bajasClientes(){
         super("Bajas clientes", true, true, true, true);
 
@@ -41,7 +43,9 @@ public class bajasClientes extends JInternalFrame {
                 if (cmbID.getItemCount()==0){
                     JOptionPane.showMessageDialog(null, "No hay clientes por eliminar","",JOptionPane.WARNING_MESSAGE);
                 }else {
-                    daoCliente.eliminar((Integer) cmbID.getSelectedItem());
+                    h = new hilos("eliminarCliente");
+                    h.setId((Integer) cmbID.getSelectedItem());
+                    h.start();
                 }
                 rellenarCmb();
             }
@@ -49,7 +53,9 @@ public class bajasClientes extends JInternalFrame {
         agregarComp(btnEliminar,0,1,1,2,1,0);
         add(btnEliminar, gbc);
 
+
         rellenarCmb();
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -71,6 +77,21 @@ public class bajasClientes extends JInternalFrame {
 
         for(Cliente c : clientes){
             cmbID.addItem(c.getIdCliente());
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
         }
     }
 }

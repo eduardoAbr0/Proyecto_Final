@@ -1,7 +1,9 @@
 package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Automovil;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,8 @@ public class bajasAutos extends JInternalFrame {
     JButton btnEliminar;
     DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
     ArrayList<Automovil> autos;
+
+    hilos h;
     public bajasAutos(){
         super("Bajas autos", true, true, true, true);
 
@@ -40,14 +44,18 @@ public class bajasAutos extends JInternalFrame {
                 if (cmbID.getItemCount()==0){
                     JOptionPane.showMessageDialog(null, "No hay automoviles por eliminar","",JOptionPane.WARNING_MESSAGE);
                 }else {
-                    daoAutomovil.eliminar((Integer) cmbID.getSelectedItem());
+                    h = new hilos("eliminarAutomovil");
+                    h.setId((Integer) cmbID.getSelectedItem());
+                    h.start();
+
+                    rellenarCmb();
                 }
-                rellenarCmb();
             }
         });
         agregarComp(btnEliminar,0,1,1,2,1,0);
         add(btnEliminar, gbc);
 
+        aplicarEstilos(getContentPane());
         rellenarCmb();
         setVisible(true);
     }
@@ -61,6 +69,21 @@ public class bajasAutos extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 
     public void rellenarCmb(){

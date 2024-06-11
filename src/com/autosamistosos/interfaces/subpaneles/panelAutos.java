@@ -16,15 +16,18 @@ public class panelAutos extends JPanel {
     GridBagConstraints gbc = new GridBagConstraints();
     JButton btnAgregar, btnEliminar, btnRestablecer, btnBuscar, btnModificar;
     JPanel panelTool;
-    JDesktopPane ABCC = new JDesktopPane();
+    JDesktopPane ABCC ;
 
     String iconAgg = "/ComponentesG/iconAgg.png";
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFon = "/ComponentesG/autosImg.jpg";
     public panelAutos() {
         setLayout(gbl);
 
+
+        ABCC = new interfaz.deskImg(imgFon);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());
@@ -77,6 +80,7 @@ public class panelAutos extends JPanel {
         agregar(0,1,GridBagConstraints.REMAINDER,GridBagConstraints.REMAINDER,1,1);
         gbc.fill = GridBagConstraints.BOTH;
         add(ABCC,gbc);
+
 
         //Personalizacion de todos los botones
         interfaz.estiloBoton(btnAgregar, new Color(0x90EE90), new Color(0x006400), interfaz.iconoC(iconAgg,25,25));

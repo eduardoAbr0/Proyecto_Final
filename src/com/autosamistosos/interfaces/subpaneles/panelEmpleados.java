@@ -30,9 +30,11 @@ public class panelEmpleados extends JPanel {
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFon = "/ComponentesG/empleadosImg.png";
     public panelEmpleados() {
         setLayout(gbl);
 
+        ABCC = new interfaz.deskImg(imgFon);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());

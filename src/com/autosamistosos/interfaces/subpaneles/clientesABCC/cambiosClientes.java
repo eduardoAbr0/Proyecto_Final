@@ -2,8 +2,10 @@ package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Cliente;
 import com.autosamistosos.basedatos.modelo.Empleado;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,13 +26,14 @@ public class cambiosClientes extends JInternalFrame {
     ArrayList<Empleado> empleados;
     DAOClienteImpl daoCliente = new DAOClienteImpl();
     DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
+    hilos h;
 
     public cambiosClientes() {
         super("Cambios clientes", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 450, 500);
         setResizable(false);
 
         JLabel txID = new JLabel("ID Cliente: ");
@@ -223,7 +226,9 @@ public class cambiosClientes extends JInternalFrame {
                     cl.setCp(Integer.parseInt(txtCP.getText()));
                     cl.setTelefono(Integer.parseInt(txtTelefono.getText()));
 
-                    daoCliente.actualizar(cl);
+                    h = new hilos("cambiarCliente");
+                    h.setObjeto(cl);
+                    h.start();
                 }
             }
         });
@@ -245,8 +250,10 @@ public class cambiosClientes extends JInternalFrame {
         agregarComp(btnLimpiar, 1, 12, 1, 1, 1, 1);
         add(btnLimpiar, gbc);
 
+
         rellenarCmb();
         rellenarCmbEmp();
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -290,6 +297,21 @@ public class cambiosClientes extends JInternalFrame {
             txtCP.setText(String.valueOf(cl.getCp()));
             txtRFC.setText(String.valueOf(cl.getRFC()));
             txtTelefono.setText(String.valueOf(cl.getTelefono()));
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
         }
     }
 }

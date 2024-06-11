@@ -13,11 +13,13 @@ public class general extends JFrame {
     CardLayout cl = new CardLayout();
     JPanel barraArriba, general, opciones;
     JButton btnInicio, btnClientes, btnAutos, btnEmpleados, btnFacturas, btnVentas, btnReportes, btnEncuestas, btnLicencias;
+    JLabel txtArriba;
 
     public general() {
         //CONFIGURACIONES INICIALES DEL JFRAME
         getContentPane().setLayout(bl);
         setTitle("AutosAmistosos");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/ComponentesG/carL1.png")));
         setMinimumSize(new Dimension(1300, 700));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,6 +60,13 @@ public class general extends JFrame {
         barraArriba.setPreferredSize(new Dimension(0, 200));
         opciones.setPreferredSize(new Dimension(200, 0));
         opciones.setLayout(new GridLayout(9, 0));
+
+        //TEXTO PARA BARRA SUPERIOR
+        txtArriba = new JLabel("AutosAmistosos",interfaz.iconoC("/ComponentesG/carL1.png",125,125),SwingConstants.LEFT);
+        interfaz.personalizarLabelEsp(txtArriba,Color.white,125);
+        txtArriba.setHorizontalAlignment(SwingConstants.RIGHT);
+        barraArriba.add(txtArriba);
+
 
         //CREACION Y CONFIGURACION DE BOTONES DE LA PARTE IZQUIERDA, QUE SERAN
         //DE USO PARA ACCEDER A LOS DIFERENTES SUBPANELES

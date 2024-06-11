@@ -1,8 +1,11 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Automovil;
+import com.autosamistosos.basedatos.modelo.Cliente;
 import com.autosamistosos.basedatos.modelo.Empleado;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +31,7 @@ public class consultasEmpleados extends JInternalFrame {
     ArrayList<Empleado> empleados;
     Empleado empleado;
     JComboBox cmbID;
+    hilos h;
 
     public consultasEmpleados(){
         super("Consultas empleados", true, true, true, true);
@@ -71,14 +75,29 @@ public class consultasEmpleados extends JInternalFrame {
 
                 if (radioTodos.isSelected()) {
                     tableModel.setRowCount(0);
-                    empleados = daoEmpleado.buscarTodos();
+                    h = new hilos("consultarTEmpleado");
+                    h.start();
+                    try {
+                        h.join();
+                        empleados = (ArrayList<Empleado>) h.getObjeto();
+                    } catch (InterruptedException b) {
+                        b.printStackTrace();
+                    }
 
                     for (Empleado em : empleados) {
                         tableModel.addRow(new Object[]{em.getId(),em.getNombre(),em.getPapellido(),em.getSapellido(),em.getNumeroCasa(),em.getCalle(),em.getColonia(),em.getCp(),em.getTelefono(),em.getTipoEmpleado()});
                     }
                 } else if (radioID.isSelected()) {
                     if (cmbID.getItemCount()>0){
-                        empleado = daoEmpleado.buscar((Integer) cmbID.getSelectedItem());
+                        h = new hilos("consultarEmpleado");
+                        h.setId((Integer) cmbID.getSelectedItem());
+                        h.start();
+                        try {
+                            h.join();
+                            empleado = (Empleado) h.getObjeto();
+                        } catch (InterruptedException b) {
+                            b.printStackTrace();
+                        }
 
                         tableModel.addRow(new Object[]{empleado.getId(),empleado.getNombre(),empleado.getPapellido(),empleado.getSapellido(),empleado.getNumeroCasa(),empleado.getCalle(),empleado.getColonia(),empleado.getCp(),empleado.getTelefono(),empleado.getTipoEmpleado()});
                     }else{
@@ -121,11 +140,13 @@ public class consultasEmpleados extends JInternalFrame {
         tableModel.addColumn("Tipo empleado");
 
         tbEmpleado = new JTable(tableModel);
+        interfaz.personalizarTabla(tbEmpleado);
         JScrollPane jsCl = new JScrollPane(tbEmpleado);
         agregarComp(jsCl,3,0,GridBagConstraints.REMAINDER,GridBagConstraints.REMAINDER,5,1);
         gbc.fill = GridBagConstraints.BOTH;
         add(jsCl, gbc);
 
+        aplicarEstilos(getContentPane());
         rellenarCmb();
         setVisible(true);
     }
@@ -146,6 +167,21 @@ public class consultasEmpleados extends JInternalFrame {
 
         for(Empleado e : autos){
             cmbID.addItem(e.getId());
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.encuestasABCC;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -111,6 +112,8 @@ public class cambiosEncuestas extends JInternalFrame {
         });
         agregarComp(btnLimpiar,1,7,1,1,1,1);
         add(btnLimpiar, gbc);
+
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -123,5 +126,20 @@ public class cambiosEncuestas extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 }

@@ -1,26 +1,15 @@
 package com.autosamistosos.interfaces.subpaneles;
 
-import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.interfaces.personalizacion.interfaz;
-import com.autosamistosos.interfaces.subpaneles.autosABCC.altasAutos;
-import com.autosamistosos.interfaces.subpaneles.autosABCC.bajasAutos;
-import com.autosamistosos.interfaces.subpaneles.autosABCC.cambiosAutos;
-import com.autosamistosos.interfaces.subpaneles.autosABCC.consultasAutos;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.altasEmpleados;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.bajasEmpleados;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.cambiosEmpleados;
-import com.autosamistosos.interfaces.subpaneles.empleadosABCC.consultasEmpleados;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.altasFacturas;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.bajasFacturas;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.cambiosFacturas;
 import com.autosamistosos.interfaces.subpaneles.facturasABCC.consultasFacturas;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class panelFacturas extends JPanel {
     GridBagLayout gbl = new GridBagLayout();
@@ -33,9 +22,11 @@ public class panelFacturas extends JPanel {
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFond = "/ComponentesG/facturaImg.png";
     public panelFacturas() {
         setLayout(gbl);
 
+        ABCC = new interfaz.deskImg(imgFond);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());

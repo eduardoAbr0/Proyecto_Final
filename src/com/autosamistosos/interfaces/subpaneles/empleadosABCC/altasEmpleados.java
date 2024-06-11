@@ -1,7 +1,9 @@
 package com.autosamistosos.interfaces.subpaneles.empleadosABCC;
 
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Empleado;
 import com.autosamistosos.basedatos.controlador.DAOEmpleadoImpl;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +20,7 @@ public class altasEmpleados extends JInternalFrame {
     JButton btnAgregar, btnLimpiar;
     JComboBox cbTipoE;
     Empleado emp;
-    DAOEmpleadoImpl daoEmpleado = new DAOEmpleadoImpl();
+    hilos h;
 
     public altasEmpleados() {
         super("Altas empleados", true, true, true, true);
@@ -188,7 +190,9 @@ public class altasEmpleados extends JInternalFrame {
                             Integer.parseInt(txtTelefono.getText()),
                             cbTipoE.getSelectedItem().toString());
 
-                    daoEmpleado.insertar(emp);
+                    h = new hilos("insertarEmpleado");
+                    h.setObjeto(emp);
+                    h.start();
                 }
             }
         });
@@ -210,6 +214,7 @@ public class altasEmpleados extends JInternalFrame {
         agregarComp(btnLimpiar, 1, 10, 1, 1, 1, 1);
         add(btnLimpiar, gbc);
 
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -224,4 +229,18 @@ public class altasEmpleados extends JInternalFrame {
         gbl.setConstraints(c, gbc);
     }
 
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
+    }
 }

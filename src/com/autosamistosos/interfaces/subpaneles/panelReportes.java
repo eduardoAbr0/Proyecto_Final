@@ -29,9 +29,11 @@ public class panelReportes extends JPanel {
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFond = "/ComponentesG/reporteImg.png";
     public panelReportes() {
         setLayout(gbl);
 
+        ABCC = new interfaz.deskImg(imgFond);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());

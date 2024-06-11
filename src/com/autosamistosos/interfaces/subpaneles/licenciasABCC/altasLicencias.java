@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.licenciasABCC;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -10,8 +11,6 @@ import java.awt.event.ActionListener;
 public class altasLicencias extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9;
-    JComboBox combo1;
     JButton btnAgregar, btnLimpiar;
 
     public altasLicencias(){
@@ -72,26 +71,6 @@ public class altasLicencias extends JInternalFrame {
         add(cmbAutoID, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
-        /*
-        JLabel tx4 = new JLabel("Kilometraje: ");
-        agregarComp(tx4,0,4,1,1,1,1);
-        add(tx4, gbc);
-        txt4 = new JTextField(10);
-        agregarComp(txt4,1,4,1,1,1,1);
-        add(txt4, gbc);
-
-        JLabel tx6 = new JLabel("Seguro: ");
-        agregarComp(tx6,0,6,1,1,1,1);
-        add(tx6, gbc);
-        txt6 = new JTextField(10);
-        agregarComp(txt6,1,6,1,1,1,1);
-        add(txt6, gbc);
-
-
-
-         */
-
-
         btnAgregar = new JButton("Agregar");
         btnAgregar.addActionListener(new ActionListener() {
             @Override
@@ -116,6 +95,7 @@ public class altasLicencias extends JInternalFrame {
         agregarComp(btnLimpiar,1,5,1,1,1,1);
         add(btnLimpiar, gbc);
 
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -128,5 +108,19 @@ public class altasLicencias extends JInternalFrame {
         gbc.weighty = pesoy;
 
         add(c,gbc);
+    }
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 }

@@ -27,9 +27,11 @@ public class panelVentas extends JPanel {
     String iconBuscar = "/ComponentesG/iconSearch.png";
     String iconElim = "/ComponentesG/iconEliminar.png";
     String iconCambiar = "/ComponentesG/iconModify.png";
+    String imgFond = "/ComponentesG/ventasImg.png";
     public panelVentas() {
         setLayout(gbl);
 
+        ABCC = new interfaz.deskImg(imgFond);
         //OPCIONES DE ABCC EN PARTE SUPERIOR
         panelTool = new JPanel();
         panelTool.setLayout(new FlowLayout());

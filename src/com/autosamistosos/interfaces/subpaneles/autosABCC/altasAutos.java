@@ -2,6 +2,7 @@ package com.autosamistosos.interfaces.subpaneles.autosABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOAutomovilImpl;
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
+import com.autosamistosos.basedatos.hilos;
 import com.autosamistosos.basedatos.modelo.Automovil;
 import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
@@ -23,6 +24,7 @@ public class altasAutos extends JInternalFrame {
     JButton btnAgregar, btnLimpiar;
     Automovil automovil;
     DAOAutomovilImpl daoAutomovil = new DAOAutomovilImpl();
+    hilos h;
 
     public altasAutos(){
         super("Altas autos", true, true, true, true);
@@ -220,7 +222,9 @@ public class altasAutos extends JInternalFrame {
                             cmbEstado.getSelectedItem().toString()
                             );
 
-                    daoAutomovil.insertar(automovil);
+                    h = new hilos("insertarAutomovil");
+                    h.setObjeto(automovil);
+                    h.start();
                 }
 
 
@@ -239,7 +243,7 @@ public class altasAutos extends JInternalFrame {
                     if (component instanceof JTextField) {
                         JTextField textField = (JTextField) component;
                         textField.setText("");
-                    } 
+                    }
                 }
             }
         });

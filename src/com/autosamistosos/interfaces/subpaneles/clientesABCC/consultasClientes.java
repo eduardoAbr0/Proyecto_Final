@@ -1,7 +1,10 @@
 package com.autosamistosos.interfaces.subpaneles.clientesABCC;
 
 import com.autosamistosos.basedatos.controlador.DAOClienteImpl;
+import com.autosamistosos.basedatos.hilos;
+import com.autosamistosos.basedatos.modelo.Automovil;
 import com.autosamistosos.basedatos.modelo.Cliente;
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,19 +16,19 @@ import java.util.ArrayList;
 public class consultasClientes extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtTXT1, txtTXT2, txtTXT3, txtTXT4, txtTXT5, txtTXT6, txtTXT7, txtTXT8, txtTXT9, txtTXT10;
-    JRadioButton radioTodos, radioID, radio1, radio2, radio3, radio4, radio5, radio6, radio7, radio8, radio9, radio10, radio11, radio12, radio13, radio14;
+    JRadioButton radioTodos, radioID;
     ButtonGroup radioGroup;
     JButton btnConsultar, btnLimpiar;
-    JTable tbEmpleado;
+    JTable tbClientes;
     JComboBox cmbID;
     ArrayList<Cliente> clientes;
     Cliente cliente;
     DefaultTableModel tableModel = new DefaultTableModel();
     DAOClienteImpl daoCliente = new DAOClienteImpl();
+    hilos h;
 
     public consultasClientes(){
-        super("Consultas autos", true, true, true, true);
+        super("Consultas clientes", true, true, true, true);
 
         getContentPane().setLayout(gbl);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -66,14 +69,29 @@ public class consultasClientes extends JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 tableModel.setRowCount(0);
                 if (radioTodos.isSelected()) {
-                    clientes = daoCliente.buscarTodos();
+                    h = new hilos("consultarTCliente");
+                    h.start();
+                    try {
+                        h.join();
+                        clientes = (ArrayList<Cliente>) h.getObjeto();
+                    } catch (InterruptedException b) {
+                        b.printStackTrace();
+                    }
 
                     for (Cliente c : clientes) {
                         tableModel.addRow(new Object[]{c.getIdCliente(), c.getCorreo(), c.getNombre(), c.getpApellido(), c.getsApellido(), c.getNumeroCasa(), c.getCalle(), c.getColonia(), c.getCp(), c.getRFC(), c.getTelefono(), c.getIdEmpleado()});
                     }
                 } else if (radioID.isSelected()) {
                     if (cmbID.getItemCount()>0){
-                        cliente = daoCliente.buscar((Integer) cmbID.getSelectedItem());
+                        h = new hilos("consultarCliente");
+                        h.setId((Integer) cmbID.getSelectedItem());
+                        h.start();
+                        try {
+                            h.join();
+                            cliente = (Cliente) h.getObjeto();
+                        } catch (InterruptedException b) {
+                            b.printStackTrace();
+                        }
 
                         tableModel.addRow(new Object[]{cliente.getIdCliente(), cliente.getCorreo(), cliente.getNombre(), cliente.getpApellido(), cliente.getsApellido(), cliente.getNumeroCasa(), cliente.getCalle(), cliente.getColonia(), cliente.getCp(), cliente.getRFC(), cliente.getTelefono(), cliente.getIdEmpleado()});
                     }else{
@@ -115,13 +133,17 @@ public class consultasClientes extends JInternalFrame {
         tableModel.addColumn("Telefono");
         tableModel.addColumn("EmpleadoID");
 
-        tbEmpleado = new JTable(tableModel);
-        JScrollPane jsCl = new JScrollPane(tbEmpleado);
+        tbClientes = new JTable(tableModel);
+        interfaz.personalizarTabla(tbClientes);
+
+        JScrollPane jsCl = new JScrollPane(tbClientes);
         agregarComp(jsCl, 3, 0, GridBagConstraints.REMAINDER, GridBagConstraints.REMAINDER, 4, 1);
         gbc.fill = GridBagConstraints.BOTH;
         add(jsCl, gbc);
 
+
         rellenarCmb();
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -141,6 +163,21 @@ public class consultasClientes extends JInternalFrame {
 
         for(Cliente c : clientes){
             cmbID.addItem(c.getIdCliente());
+        }
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
         }
     }
 }

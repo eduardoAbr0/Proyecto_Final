@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.ventasABCC;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -255,11 +256,13 @@ public class consultasVentas extends JInternalFrame {
         tableModel.addColumn("Automovil");
 
         tbAuto = new JTable(tableModel);
+        interfaz.personalizarTabla(tbAuto);
         JScrollPane jsCl = new JScrollPane(tbAuto);
         agregarComp(jsCl,3,0,GridBagConstraints.REMAINDER,GridBagConstraints.REMAINDER,3,1);
         gbc.fill = GridBagConstraints.BOTH;
         add(jsCl, gbc);
 
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -272,5 +275,20 @@ public class consultasVentas extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 }

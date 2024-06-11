@@ -1,5 +1,6 @@
 package com.autosamistosos.interfaces.subpaneles.facturasABCC;
 
+import com.autosamistosos.interfaces.personalizacion.interfaz;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -12,11 +13,9 @@ import java.awt.event.KeyListener;
 public class cambiosFacturas extends JInternalFrame {
     GridBagLayout gbl = new GridBagLayout();
     GridBagConstraints gbc = new GridBagConstraints();
-    JTextField txtID, txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8, txt9;
+    JTextField txt1;
     JComboBox combo1;
     JButton btnCambiar, btnLimpiar;
-    //Cliente cl;
-    //DAOClienteImpl daoCliente = new DAOClienteImpl();
 
     public cambiosFacturas(){
         super("Cambios facturas", true, true, true, true);
@@ -104,31 +103,6 @@ public class cambiosFacturas extends JInternalFrame {
         add(cmbAutoID, gbc);
         gbc.fill = GridBagConstraints.NONE;
 
-        /*
-        JLabel tx4 = new JLabel("Kilometraje: ");
-        agregarComp(tx4,0,4,1,1,1,1);
-        add(tx4, gbc);
-        txt4 = new JTextField(10);
-        agregarComp(txt4,1,4,1,1,1,1);
-        add(txt4, gbc);
-
-        JLabel tx5 = new JLabel("Garantia: ");
-        agregarComp(tx5,0,5,1,1,1,1);
-        add(tx5, gbc);
-        txt5 = new JTextField(10);
-        agregarComp(txt5,1,5,1,1,1,1);
-        add(txt5, gbc);
-
-        JLabel tx6 = new JLabel("Seguro: ");
-        agregarComp(tx6,0,6,1,1,1,1);
-        add(tx6, gbc);
-        txt6 = new JTextField(10);
-        agregarComp(txt6,1,6,1,1,1,1);
-        add(txt6, gbc);
-
-         */
-
-
         btnCambiar = new JButton("Cambiar");
         btnCambiar.addActionListener(new ActionListener() {
             @Override
@@ -152,6 +126,8 @@ public class cambiosFacturas extends JInternalFrame {
         });
         agregarComp(btnLimpiar,1,7,1,1,1,1);
         add(btnLimpiar, gbc);
+
+        aplicarEstilos(getContentPane());
         setVisible(true);
     }
 
@@ -164,5 +140,20 @@ public class cambiosFacturas extends JInternalFrame {
         gbc.weighty = pesoy;
 
         gbl.setConstraints(c,gbc);
+    }
+
+    public void aplicarEstilos(Container container) {
+        for (Component c : container.getComponents()) {
+            if (c instanceof JButton) {
+                interfaz.estiloBoton((JButton) c,20);
+            } else if (c instanceof  JTextField) {
+                interfaz.personalizarTextField((JTextField) c,Color.BLACK,22,Color.BLACK);
+            } else if (c instanceof  JLabel) {
+                interfaz.personalizarLabelNormal((JLabel) c,Color.BLACK,22);
+            } else if (c instanceof Container) {
+                // Llamada recursiva para aplicar el estilo a los sub-componentes
+                aplicarEstilos((Container) c);
+            }
+        }
     }
 }
