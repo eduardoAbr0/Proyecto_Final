@@ -147,6 +147,15 @@ public class login extends JFrame {
 
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            JDialog.setDefaultLookAndFeelDecorated(true);
+
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e){
+            e.printStackTrace();
+        }
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
